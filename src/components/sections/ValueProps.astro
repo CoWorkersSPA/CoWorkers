@@ -1,0 +1,63 @@
+---
+// src/components/sections/ValueProps.astro
+import Eyebrow from "../ui/Eyebrow.astro";
+import NumberedItem from "../ui/NumberedItem.astro";
+
+const items = [
+    {
+        number: "01",
+        title: "Una sola fuente de verdad",
+        description:
+            "Con usuarios, permisos e historial de quién cambió qué y cuándo. Se acabó el archivo bueno que vive en un computador.",
+    },
+    {
+        number: "02",
+        title: "Tus clientes se atienden solos",
+        description:
+            "Cotizan, siguen su pedido y descargan documentos sin llamar a nadie. Tu equipo vuelve a lo que sí cobra.",
+    },
+    {
+        number: "03",
+        title: "El cierre de mes deja de ser un evento",
+        description:
+            "Los reportes salen del sistema, no de armar planillas a mano el último viernes.",
+    },
+];
+---
+
+<section class="value-props section" id="el-problema">
+    <div class="wrapper">
+        <div class="section-head">
+            <Eyebrow text="Lo que te queda" />
+        </div>
+
+        <div class="value-props__grid">
+            {items.map((item) => <NumberedItem {...item} />)}
+        </div>
+
+        <p class="value-props__footnote">
+            Primer entregable usable en unas tres semanas: algo que puedas abrir
+            y usar, no una maqueta.
+        </p>
+    </div>
+</section>
+
+<style>
+    .value-props__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-lg);
+    }
+
+    .value-props__footnote {
+        margin-top: var(--space-lg);
+        font-size: 0.9375rem;
+        color: var(--color-text-faint);
+    }
+
+    @media (max-width: 800px) {
+        .value-props__grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

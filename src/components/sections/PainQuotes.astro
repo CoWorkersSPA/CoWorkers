@@ -1,0 +1,50 @@
+---
+// src/components/sections/PainQuotes.astro
+import QuoteCard from "../ui/QuoteCard.astro";
+
+const quotes = [
+    "El archivo bueno es el que tiene Marcela.",
+    "Los pedidos entran por WhatsApp y a veces se pierden.",
+    "Cerrar el mes nos toma tres días de copiar y pegar.",
+    "El cliente llama para preguntar en qué va lo suyo.",
+];
+---
+
+<section class="pain-quotes">
+    <div class="wrapper">
+        <h2 class="pain-quotes__title">Nos llaman cuando...</h2>
+
+        <div class="pain-quotes__grid">
+            {quotes.map((quote) => <QuoteCard text={quote} />)}
+        </div>
+    </div>
+</section>
+
+<style>
+    .pain-quotes {
+        background: var(--color-accent);
+        padding-block: var(--space-xl);
+    }
+
+    .pain-quotes__title {
+        font-family: var(--font-mono);
+        font-size: 0.8125rem;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: var(--space-lg);
+    }
+
+    .pain-quotes__grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-md) var(--space-xl);
+    }
+
+    @media (max-width: 700px) {
+        .pain-quotes__grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

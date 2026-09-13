@@ -1,0 +1,44 @@
+---
+// src/components/ui/NumberedItem.astro
+interface Props {
+    number: string;
+    title: string;
+    description: string;
+    class?: string;
+}
+
+const { number, title, description, class: className = "" } = Astro.props;
+---
+
+<div class:list={["numbered-item", className]}>
+    <span class="numbered-item__number">{number}</span>
+    <h3 class="numbered-item__title">{title}</h3>
+    <p class="numbered-item__desc">{description}</p>
+</div>
+
+<style>
+    .numbered-item {
+        padding-top: var(--space-md);
+    }
+
+    .numbered-item__number {
+        display: block;
+        font-family: var(--font-mono);
+        font-size: 0.8125rem;
+        color: var(--color-accent);
+        margin-bottom: var(--space-sm);
+    }
+
+    .numbered-item__title {
+        font-size: var(--text-h3);
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+
+    .numbered-item__desc {
+        font-size: 0.9375rem;
+        line-height: 1.65;
+        color: var(--color-text-muted);
+        max-width: 45ch;
+    }
+</style>

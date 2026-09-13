@@ -1,0 +1,58 @@
+---
+// src/components/sections/Guarantees.astro
+import Eyebrow from "../ui/Eyebrow.astro";
+import FeatureCard from "../ui/FeatureCard.astro";
+
+const guarantees = [
+    {
+        title: "Revisión antes de integrar",
+        description:
+            "Ninguna tarea entra al proyecto sin que la revisemos nosotros.",
+    },
+    {
+        title: "Pagas por entrega",
+        description:
+            "Por avance aceptado, no por adelantado ni por horas difusas.",
+    },
+    {
+        title: "El código es tuyo",
+        description:
+            "Desde el día uno, en tu repositorio. No quedas amarrado a nosotros.",
+    },
+    {
+        title: "Empieza por un piloto",
+        description:
+            "Una funcionalidad chica primero. Si no te convence, hasta ahí llegamos.",
+    },
+];
+---
+
+<section class="guarantees section" id="garantias">
+    <div class="wrapper">
+        <div class="section-head">
+            <Eyebrow text="Con qué te respaldamos" />
+        </div>
+
+        <div class="guarantees__grid">
+            {
+                guarantees.map((g) => (
+                    <FeatureCard title={g.title} description={g.description} />
+                ))
+            }
+        </div>
+    </div>
+</section>
+
+<style>
+    .guarantees__grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-md);
+    }
+
+    @media (max-width: 700px) {
+        .guarantees__grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

@@ -1,0 +1,88 @@
+---
+// src/components/layout/Header.astro
+import Button from "../ui/Button.astro";
+
+const navLinks = [
+    { label: "El problema", href: "#el-problema" },
+    { label: "Qué construimos", href: "#que-construimos" },
+    { label: "Garantías", href: "#garantias" },
+    { label: "Equipo", href: "#equipo" },
+];
+---
+
+<header class="header">
+    <div class="wrapper header__inner">
+        <a href="/" class="header__logo">coworkers.cl</a>
+
+        <nav class="header__nav" aria-label="Navegación principal">
+            <ul>
+                {
+                    navLinks.map((link) => (
+                        <li>
+                            <a href={link.href}>{link.label}</a>
+                        </li>
+                    ))
+                }
+            </ul>
+        </nav>
+
+        <Button href="#agendar" class="header__cta">Agendar 30 min</Button>
+    </div>
+</header>
+
+<style>
+    .header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(11, 13, 23, 0.85);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .header__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-md);
+        padding-block: 1.125rem;
+    }
+
+    .header__logo {
+        font-family: var(--font-mono);
+        font-size: 0.9375rem;
+        font-weight: 600;
+        text-decoration: none;
+        color: var(--color-text);
+    }
+
+    .header__nav ul {
+        display: flex;
+        gap: var(--space-lg);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .header__nav a {
+        font-size: 0.9375rem;
+        color: var(--color-text-muted);
+        text-decoration: none;
+        transition: color 0.15s var(--ease-standard);
+    }
+
+    .header__nav a:hover {
+        color: var(--color-text);
+    }
+
+    .header__cta {
+        padding: 0.5rem 1.125rem;
+        font-size: 0.875rem;
+    }
+
+    @media (max-width: 800px) {
+        .header__nav {
+            display: none;
+        }
+    }
+</style>

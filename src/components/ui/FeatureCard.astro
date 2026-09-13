@@ -1,0 +1,37 @@
+---
+// src/components/ui/FeatureCard.astro
+interface Props {
+    title: string;
+    description: string;
+    class?: string;
+}
+
+const { title, description, class: className = "" } = Astro.props;
+---
+
+<div class:list={["feature-card", className]}>
+    <h3 class="feature-card__title">{title}</h3>
+    <p class="feature-card__desc">{description}</p>
+</div>
+
+<style>
+    .feature-card {
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        padding: var(--space-md);
+        background: transparent;
+    }
+
+    .feature-card__title {
+        font-size: var(--text-h3);
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+
+    .feature-card__desc {
+        font-size: 0.9375rem;
+        line-height: 1.65;
+        color: var(--color-text-muted);
+        max-width: 45ch;
+    }
+</style>

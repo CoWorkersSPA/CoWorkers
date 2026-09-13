@@ -1,0 +1,65 @@
+---
+// src/components/sections/Team.astro
+import Eyebrow from "../ui/Eyebrow.astro";
+---
+
+<section class="team section" id="equipo">
+    <div class="wrapper">
+        <div class="section-head">
+            <Eyebrow text="Quiénes lo escriben" />
+            <h2 class="team__title">
+                Nuestro equipo son estudiantes, y eso lo decimos de frente.
+            </h2>
+        </div>
+
+        <p class="team__body">
+            No subcontratamos: formamos. Buscamos uno a uno a estudiantes
+            universitarios de Concepción, les damos tareas acotadas compatibles
+            con el semestre, les pagamos apenas se acepta la entrega y todo pasa
+            por nuestra revisión. La falta de recursos es una de las principales
+            causas de deserción universitaria, y fuera de la capital estas
+            oportunidades escasean todavía más. Tú contratas software; de paso,
+            tu presupuesto financia semestres que alguien termina.
+        </p>
+
+        <div
+            class="team__photo"
+            role="img"
+            aria-label="Foto sobre fondo oscuro: el equipo trabajando"
+        >
+            <span>Foto sobre fondo oscuro: el equipo trabajando</span>
+        </div>
+    </div>
+</section>
+
+<style>
+    .team__title {
+        font-size: var(--text-h2);
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        margin-top: var(--space-sm);
+    }
+
+    .team__body {
+        font-size: 1.0625rem;
+        line-height: 1.75;
+        color: var(--color-text-muted);
+        max-width: 68ch;
+        margin-bottom: var(--space-lg);
+    }
+
+    .team__photo {
+        aspect-ratio: 21 / 9;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        background: var(--color-bg-raised);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .team__photo span {
+        font-size: 0.8125rem;
+        color: var(--color-text-faint);
+    }
+</style>

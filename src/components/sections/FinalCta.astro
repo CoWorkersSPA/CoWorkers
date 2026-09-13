@@ -1,0 +1,74 @@
+---
+// src/components/sections/FinalCta.astro
+import Button from "../ui/Button.astro";
+---
+
+<section class="final-cta section" id="agendar">
+    <div class="wrapper final-cta__inner">
+        <h2 class="final-cta__title">
+            Cuéntanos cómo funciona hoy tu operación.
+        </h2>
+        <p class="final-cta__desc">
+            Treinta minutos, sin costo. Sales con el problema traducido a
+            entregables y un plazo — contrates o no.
+        </p>
+
+        <form class="final-cta__form">
+            <label class="visually-hidden" for="email">Correo electrónico</label
+            >
+            <input
+                id="email"
+                type="email"
+                name="email"
+                placeholder="tu@empresa.cl"
+                required
+            />
+            <Button type="submit" variant="solid">Agendar 30 min</Button>
+        </form>
+    </div>
+</section>
+
+<style>
+    .final-cta__inner {
+        max-width: 640px;
+    }
+
+    .final-cta__title {
+        font-size: var(--text-h2);
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        margin-bottom: var(--space-sm);
+    }
+
+    .final-cta__desc {
+        color: var(--color-text-muted);
+        margin-bottom: var(--space-lg);
+    }
+
+    .final-cta__form {
+        display: flex;
+        gap: var(--space-sm);
+        flex-wrap: wrap;
+    }
+
+    .final-cta__form input {
+        flex: 1;
+        min-width: 220px;
+        padding: 0.75rem 1rem;
+        background: var(--color-bg-raised);
+        border: 1px solid var(--color-border-strong);
+        border-radius: var(--radius-sm);
+        color: var(--color-text);
+        font-family: var(--font-body);
+        font-size: 0.9375rem;
+    }
+
+    .final-cta__form input:focus-visible {
+        outline: 2px solid var(--color-accent);
+        outline-offset: 2px;
+    }
+
+    .final-cta__form input::placeholder {
+        color: var(--color-text-faint);
+    }
+</style>

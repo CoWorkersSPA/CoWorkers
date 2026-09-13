@@ -1,0 +1,32 @@
+---
+// src/components/layout/Footer.astro
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+    <div class="wrapper footer__inner">
+        <p>Coworkers SpA · Concepción, Chile · hola@coworkers.cl</p>
+        <p class="footer__year">© {year}</p>
+    </div>
+</footer>
+
+<style>
+    .footer {
+        background: var(--color-bg-sunken);
+        border-top: 1px solid var(--color-border);
+    }
+
+    .footer__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-md);
+        padding-block: var(--space-md);
+    }
+
+    .footer__inner p {
+        margin: 0;
+        font-size: 0.8125rem;
+        color: var(--color-text-faint);
+    }
+</style>

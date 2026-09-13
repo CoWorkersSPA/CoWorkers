@@ -1,0 +1,100 @@
+---
+// src/components/sections/WhatWeBuild.astro
+import Eyebrow from "../ui/Eyebrow.astro";
+import FeatureCard from "../ui/FeatureCard.astro";
+import TechTag from "../ui/TechTag.astro";
+
+const features = [
+    {
+        title: "Plataformas internas",
+        description:
+            "Gestión, inventario, agenda y reportería, con usuarios y permisos.",
+    },
+    {
+        title: "Portales de cliente",
+        description: "Cotización, seguimiento de pedidos, documentos y pagos.",
+    },
+    {
+        title: "Productos en tiempo real",
+        description: "Tableros vivos, chat y notificaciones con WebSockets.",
+    },
+    {
+        title: "Sitios con lógica propia",
+        description:
+            "Reservas, formularios serios e integraciones con lo que ya usas.",
+    },
+];
+
+const techStack = [
+    "FastAPI",
+    "Astro",
+    "PostgreSQL",
+    "Docker",
+    "Nginx",
+    "AWS",
+    "WebSockets",
+];
+---
+
+<section class="what-we-build section" id="que-construimos">
+    <div class="wrapper">
+        <div class="section-head">
+            <Eyebrow text="Qué construimos" />
+        </div>
+
+        <div class="what-we-build__grid">
+            {
+                features.map((f) => (
+                    <FeatureCard title={f.title} description={f.description} />
+                ))
+            }
+        </div>
+
+        <div class="what-we-build__stack">
+            <div class="what-we-build__tags">
+                {techStack.map((tech) => <TechTag label={tech} />)}
+            </div>
+            <p class="what-we-build__note">
+                Si corre en un navegador, lo hacemos. Solo web — nada de apps
+                móviles.
+            </p>
+        </div>
+    </div>
+</section>
+
+<style>
+    .what-we-build__grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-md);
+        margin-bottom: var(--space-lg);
+    }
+
+    .what-we-build__stack {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-md);
+        flex-wrap: wrap;
+        padding-top: var(--space-lg);
+        border-top: 1px solid var(--color-border);
+    }
+
+    .what-we-build__tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .what-we-build__note {
+        font-size: 0.875rem;
+        color: var(--color-text-faint);
+        margin: 0;
+    }
+
+    @media (max-width: 700px) {
+        .what-we-build__grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
