@@ -25,7 +25,26 @@ CoWorkers/
 │   │   ├── astro.svg
 │   │   └── background.svg
 │   ├── components/
-│   │   └── Welcome.astro
+│   │   ├── layout/
+│   │   │   ├── Header.astro
+│   │   │   └── Footer.astro
+│   │   ├── sections/
+│   │   │   ├── Hero.astro
+│   │   │   ├── PainQuotes.astro        # "Nos llaman cuando"
+│   │   │   ├── ValueProps.astro        # "Lo que te queda"
+│   │   │   ├── WhatWeBuild.astro       # "Qué construimos"
+│   │   │   ├── HowWeWork.astro         # "Cómo lo hacemos"
+│   │   │   ├── Guarantees.astro        # "Con qué te respaldamos"
+│   │   │   ├── Team.astro              # "Quiénes lo escriben"
+│   │   │   ├── WhatWeAreNot.astro      # "Lo que no somos"
+│   │   │   └── FinalCta.astro
+│   │   └── ui/
+│   │       ├── Button.astro            # variantes: solid, outline
+│   │       ├── Eyebrow.astro           # etiqueta pequeña tipo "LO QUE TE QUEDA"
+│   │       ├── NumberedItem.astro      # número + título + descripción
+│   │       ├── FeatureCard.astro       # card con borde
+│   │       ├── TechTag.astro           # pill de tecnología
+│   │       └── QuoteCard.astro         # citas de "Nos llaman cuando"
 │   ├── layouts/
 │   │   └── Layout.astro
 │   └── pages/
@@ -40,6 +59,14 @@ CoWorkers/
 ├── tsconfig.json
 └── README.md
 ```
+
+### Arquitectura de componentes
+
+Los componentes se dividen en tres carpetas según su responsabilidad:
+
+* **`layout/`** — piezas que envuelven toda la página (header y footer), se usan una sola vez.
+* **`sections/`** — un componente por cada bloque de contenido de la landing, ensamblados en orden dentro de `index.astro`. Cada uno arma sus propios datos y no recibe props.
+* **`ui/`** — piezas reutilizables y genéricas (botones, cards, tags) que distintas secciones instancian con datos propios vía props.
 
 ## Cómo levantar el proyecto
 
