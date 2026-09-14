@@ -8,94 +8,52 @@ const paragraphs = [
 ];
 ---
 
-<section class="team section" id="equipo">
+<section id="equipo" class="py-16 md:py-24 border-t border-border">
     <div class="wrapper">
-        <div class="team__grid">
-            <div class="team__copy">
-                <h2 class="team__heading">Quiénes lo escriben</h2>
-                {
-                    paragraphs.map((text) => (
-                        <p class="team__paragraph">{text}</p>
-                    ))
-                }
+        <div
+            class="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16 items-center"
+        >
+            <!-- Columna Izquierda: Textos -->
+            <div class="lg:col-span-6 space-y-6">
+                <h2
+                    class="font-display font-bold text-2xl md:text-3xl text-foreground"
+                >
+                    Quiénes lo escriben
+                </h2>
+
+                <div class="space-y-4">
+                    {
+                        paragraphs.map((text) => (
+                            <p class="text-muted-foreground text-sm md:text-base leading-relaxed">
+                                {text}
+                            </p>
+                        ))
+                    }
+                </div>
             </div>
 
-            <div
-                class="team__photo"
-                role="img"
-                aria-label="Foto del equipo trabajando"
-            >
-                <span>Foto del equipo trabajando</span>
+            <!-- Columna Derecha: Foto -->
+            <div class="lg:col-span-6">
+                <div
+                    class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-border bg-secondary/50 flex items-center justify-center shadow-sm"
+                    role="img"
+                    aria-label="Foto del equipo trabajando"
+                >
+                    <!-- 
+            Aquí puedes poner la ruta de tu imagen real. 
+            Si la imagen no carga, el onerror mostrará el texto alternativo centrado.
+          -->
+                    <img
+                        src="/team-photo.jpg"
+                        alt="Equipo trabajando"
+                        class="w-full h-full object-cover"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                    />
+                    <span class="absolute text-sm text-muted-foreground hidden">
+                        Foto del equipo trabajando
+                    </span>
+                </div>
             </div>
         </div>
     </div>
 </section>
-
-<style>
-    .team__grid {
-        display: grid;
-        grid-template-columns: minmax(160px, 240px) 1fr;
-        gap: var(--space-xl);
-        align-items: start;
-    }
-
-    .team__copy {
-        display: contents;
-    }
-
-    .team__heading {
-        grid-column: 1;
-        font-family: var(--font-display);
-        font-size: var(--text-h2);
-        font-weight: 600;
-        letter-spacing: -0.01em;
-        line-height: 1.2;
-        color: var(--color-foreground);
-    }
-
-    .team__paragraph {
-        grid-column: 1;
-        font-size: 0.9375rem;
-        line-height: 1.65;
-        color: var(--color-muted-foreground);
-        max-width: 42ch;
-    }
-
-    .team__paragraph + .team__paragraph {
-        margin-top: var(--space-sm);
-    }
-
-    .team__photo {
-        grid-column: 2;
-        grid-row: 1 / span 5;
-        aspect-ratio: 4 / 3;
-        border: 1px solid var(--color-border);
-        border-radius: var(--radius-lg);
-        background: var(--color-secondary);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .team__photo span {
-        font-size: 0.8125rem;
-        color: var(--color-muted-foreground);
-    }
-
-    @media (max-width: 800px) {
-        .team__grid {
-            grid-template-columns: 1fr;
-        }
-
-        .team__heading,
-        .team__paragraph,
-        .team__photo {
-            grid-column: 1;
-        }
-
-        .team__photo {
-            grid-row: auto;
-            margin-top: var(--space-lg);
-        }
-    }
-</style>
