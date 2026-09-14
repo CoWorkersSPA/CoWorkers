@@ -1,6 +1,6 @@
 ---
 // src/components/sections/ValueProps.astro
-import Eyebrow from "../ui/Eyebrow.astro";
+import SectionSplit from "../ui/SectionSplit.astro";
 import NumberedItem from "../ui/NumberedItem.astro";
 
 const items = [
@@ -25,39 +25,23 @@ const items = [
 ];
 ---
 
-<section class="value-props section" id="el-problema">
-    <div class="wrapper">
-        <div class="section-head">
-            <Eyebrow text="Lo que te queda" />
-        </div>
+<SectionSplit heading="Lo que te queda" id="lo-que-te-queda" class="bg-muted">
+    <div class="space-y-8">
+        {
+            items.map((item) => (
+                <NumberedItem
+                    number={item.number}
+                    title={item.title}
+                    description={item.description}
+                />
+            ))
+        }
+    </div>
 
-        <div class="value-props__grid">
-            {items.map((item) => <NumberedItem {...item} />)}
-        </div>
-
-        <p class="value-props__footnote">
+    <div class="pt-8 border-t border-border mt-8">
+        <p class="text-xs md:text-sm italic text-muted-foreground">
             Primer entregable usable en unas tres semanas: algo que puedas abrir
             y usar, no una maqueta.
         </p>
     </div>
-</section>
-
-<style>
-    .value-props__grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: var(--space-lg);
-    }
-
-    .value-props__footnote {
-        margin-top: var(--space-lg);
-        font-size: 0.9375rem;
-        color: var(--color-text-faint);
-    }
-
-    @media (max-width: 800px) {
-        .value-props__grid {
-            grid-template-columns: 1fr;
-        }
-    }
-</style>
+</SectionSplit>

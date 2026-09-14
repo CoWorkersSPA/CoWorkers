@@ -41,7 +41,7 @@ import Button from "../ui/Button.astro";
     }
 
     .final-cta__desc {
-        color: var(--color-text-muted);
+        color: var(--color-muted-foreground);
         margin-bottom: var(--space-lg);
     }
 
@@ -55,20 +55,20 @@ import Button from "../ui/Button.astro";
         flex: 1;
         min-width: 220px;
         padding: 0.75rem 1rem;
-        background: var(--color-bg-raised);
-        border: 1px solid var(--color-border-strong);
-        border-radius: var(--radius-sm);
-        color: var(--color-text);
-        font-family: var(--font-body);
+        background: var(--color-background);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        color: var(--color-foreground);
+        font-family: var(--font-sans);
         font-size: 0.9375rem;
     }
 
     .final-cta__form input:focus-visible {
-        outline: 2px solid var(--color-accent);
+        outline: 2px solid var(--color-ring);
         outline-offset: 2px;
     }
 
     .final-cta__form input::placeholder {
-        color: var(--color-text-faint);
+        color: var(--color-muted-foreground);
     }
 </style>

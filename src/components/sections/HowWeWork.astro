@@ -1,6 +1,6 @@
 ---
 // src/components/sections/HowWeWork.astro
-import Eyebrow from "../ui/Eyebrow.astro";
+import SectionSplit from "../ui/SectionSplit.astro";
 import NumberedItem from "../ui/NumberedItem.astro";
 
 const steps = [
@@ -31,28 +31,16 @@ const steps = [
 ];
 ---
 
-<section class="how-we-work section">
-    <div class="wrapper">
-        <div class="section-head">
-            <Eyebrow text="Cómo lo hacemos" />
-        </div>
-
-        <div class="how-we-work__grid">
-            {steps.map((step) => <NumberedItem {...step} />)}
-        </div>
-    </div>
-</section>
-
-<style>
-    .how-we-work__grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--space-lg);
-    }
-
-    @media (max-width: 800px) {
-        .how-we-work__grid {
-            grid-template-columns: 1fr;
+<SectionSplit heading="Cómo lo hacemos" id="como-lo-hacemos" class="bg-muted">
+    <div class="space-y-8">
+        {
+            steps.map((step) => (
+                <NumberedItem
+                    number={step.number}
+                    title={step.title}
+                    description={step.description}
+                />
+            ))
         }
-    }
-</style>
+    </div>
+</SectionSplit>

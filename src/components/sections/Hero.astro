@@ -4,67 +4,44 @@ import Button from "../ui/Button.astro";
 import Eyebrow from "../ui/Eyebrow.astro";
 ---
 
-<section class="hero">
-    <div class="wrapper hero__inner">
-        <Eyebrow text="Desarrollo web · Concepción, Chile" />
+<section class="py-16 md:py-24">
+    <div class="wrapper">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+            <!-- Columna Izquierda: Misma estructura y dimensión que el 404 -->
+            <div class="lg:col-span-7 max-w-xl space-y-6">
+                <Eyebrow text="DESARROLLO WEB · CONCEPCIÓN, CHILE" />
 
-        <h1 class="hero__title">
-            Tu proyecto paga<br />la carrera de alguien.
-        </h1>
+                <h1
+                    class="font-display font-bold text-5xl md:text-6xl text-foreground tracking-tight leading-[1.08]"
+                >
+                    Tu proyecto paga la carrera de alguien.
+                </h1>
 
-        <p class="hero__desc">
-            Construimos tu aplicación web y repartimos el trabajo, por dentro,
-            entre estudiantes universitarios que formamos y pagamos por entrega.
-            Tú tratas con nosotros: un contrato, un interlocutor, un
-            responsable.
-        </p>
+                <p
+                    class="text-muted-foreground text-base md:text-lg leading-relaxed"
+                >
+                    Construimos tu aplicación web y repartimos el trabajo, por
+                    dentro, entre estudiantes universitarios que formamos y
+                    pagamos por entrega. Tú tratas con nosotros: un contrato, un
+                    interlocutor, un responsable.
+                </p>
 
-        <div class="hero__actions">
-            <Button href="#agendar" variant="solid">Agendar 30 minutos</Button>
-            <p class="hero__note">
-                Sin costo y sin compromiso. Estamos partiendo: los primeros
-                proyectos van con precio y atención de fundador.
-            </p>
+                <div class="pt-2">
+                    <Button href="#agendar" variant="solid">
+                        Agendar 30 minutos
+                    </Button>
+                </div>
+            </div>
+
+            <!-- Columna Derecha: Texto secundario de fundadores -->
+            <div class="lg:col-span-5 pb-2 lg:pl-4">
+                <p
+                    class="text-xs md:text-sm text-muted-foreground leading-relaxed max-w-xs"
+                >
+                    Sin costo y sin compromiso. Estamos partiendo: los primeros
+                    proyectos van con precio y atención de fundador.
+                </p>
+            </div>
         </div>
     </div>
 </section>
-
-<style>
-    .hero {
-        padding-block: var(--space-3xl) var(--space-2xl);
-    }
-
-    .hero__inner {
-        max-width: 760px;
-    }
-
-    .hero__title {
-        font-size: var(--text-hero);
-        font-weight: 300;
-        line-height: 1.08;
-        letter-spacing: -0.02em;
-        margin-bottom: var(--space-md);
-    }
-
-    .hero__desc {
-        font-size: 1.125rem;
-        line-height: 1.65;
-        color: var(--color-text-muted);
-        max-width: 60ch;
-        margin-bottom: var(--space-lg);
-    }
-
-    .hero__actions {
-        display: flex;
-        align-items: center;
-        gap: var(--space-md);
-        flex-wrap: wrap;
-    }
-
-    .hero__note {
-        font-size: 0.8125rem;
-        color: var(--color-text-faint);
-        max-width: 26ch;
-        margin: 0;
-    }
-</style>
