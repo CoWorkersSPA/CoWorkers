@@ -1,74 +1,51 @@
 ---
 // src/components/sections/FinalCta.astro
+import SectionSplit from "../ui/SectionSplit.astro";
 import Button from "../ui/Button.astro";
 ---
 
-<section class="final-cta section" id="agendar">
-    <div class="wrapper final-cta__inner">
-        <h2 class="final-cta__title">
+<SectionSplit id="agendar" class="bg-muted border-t border-border">
+    <!-- Título principal en la columna izquierda -->
+    <Fragment slot="title">
+        <h2
+            class="font-display font-bold text-2xl md:text-3xl lg:text-4xl text-foreground leading-tight"
+        >
             Cuéntanos cómo funciona hoy tu operación.
         </h2>
-        <p class="final-cta__desc">
+    </Fragment>
+
+    <div class="space-y-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
+            <div>
+                <span class="block text-muted-foreground mb-1">Ubicación</span>
+                <p class="font-medium text-foreground">Concepción, Chile</p>
+            </div>
+            <div>
+                <span class="block text-muted-foreground mb-1">Contacto</span>
+                <a
+                    href="mailto:hola@coworkers.cl"
+                    class="font-medium text-foreground hover:underline"
+                >
+                    hola@coworkers.cl
+                </a>
+            </div>
+        </div>
+
+        <p class="text-muted-foreground text-sm md:text-base leading-relaxed">
             Treinta minutos, sin costo. Sales con el problema traducido a
-            entregables y un plazo — contrates o no.
+            entregables y un plazo. Contrates o no.
         </p>
 
-        <form class="final-cta__form">
-            <label class="visually-hidden" for="email">Correo electrónico</label
+        <div>
+            <Button
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=hola@coworkers.cl&su=Consulta%20Agendamiento%2030%20min"
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="solid"
+                size="md"
             >
-            <input
-                id="email"
-                type="email"
-                name="email"
-                placeholder="tu@empresa.cl"
-                required
-            />
-            <Button type="submit" variant="solid">Agendar 30 min</Button>
-        </form>
+                Agendar 30 minutos
+            </Button>
+        </div>
     </div>
-</section>
-
-<style>
-    .final-cta__inner {
-        max-width: 640px;
-    }
-
-    .final-cta__title {
-        font-size: var(--text-h2);
-        font-weight: 500;
-        letter-spacing: -0.01em;
-        margin-bottom: var(--space-sm);
-    }
-
-    .final-cta__desc {
-        color: var(--color-muted-foreground);
-        margin-bottom: var(--space-lg);
-    }
-
-    .final-cta__form {
-        display: flex;
-        gap: var(--space-sm);
-        flex-wrap: wrap;
-    }
-
-    .final-cta__form input {
-        flex: 1;
-        min-width: 220px;
-        padding: 0.75rem 1rem;
-        background: var(--color-background);
-        border: 1px solid var(--color-border);
-        border-radius: var(--radius-md);
-        color: var(--color-foreground);
-        font-family: var(--font-sans);
-        font-size: 0.9375rem;
-    }
-
-    .final-cta__form input:focus-visible {
-        outline: 2px solid var(--color-ring);
-        outline-offset: 2px;
-    }
-
-    .final-cta__form input::placeholder {
-        color: var(--color-muted-foreground);
-    }
-</style>
+</SectionSplit>

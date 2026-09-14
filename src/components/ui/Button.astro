@@ -2,15 +2,21 @@
 // src/components/ui/Button.astro
 interface Props {
     href?: string;
+    type?: "button" | "submit" | "reset";
     variant?: "solid" | "outline";
     size?: "sm" | "md" | "lg";
+    target?: string;
+    rel?: string;
     class?: string;
 }
 
 const {
     href,
+    type = "button",
     variant = "solid",
     size = "md",
+    target,
+    rel,
     class: className = "",
 } = Astro.props;
 
@@ -34,11 +40,11 @@ const classes = `${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} ${c
 
 {
     href ? (
-        <a href={href} class={classes}>
+        <a href={href} target={target} rel={rel} class={classes}>
             <slot />
         </a>
     ) : (
-        <button class={classes}>
+        <button type={type} class={classes}>
             <slot />
         </button>
     )

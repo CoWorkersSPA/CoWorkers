@@ -1,32 +1,47 @@
 ---
 // src/components/layout/Footer.astro
-const year = new Date().getFullYear();
+const navLinks = [
+    { label: "El problema", href: "#el-problema" },
+    { label: "Qué construimos", href: "#que-construimos" },
+    { label: "Garantías", href: "#garantias" },
+    { label: "Equipo", href: "#equipo" },
+];
 ---
 
-<footer class="footer">
-    <div class="wrapper footer__inner">
-        <p>Coworkers SpA · Concepción, Chile · hola@coworkers.cl</p>
-        <p class="footer__year">© {year}</p>
+<footer class="w-full border-t border-border bg-background py-8 md:py-10">
+    <div
+        class="wrapper flex flex-col md:flex-row items-center justify-between gap-6"
+    >
+        <div
+            class="flex flex-col sm:flex-row items-center gap-3 md:gap-6 text-center md:text-left"
+        >
+            <a
+                href="/"
+                class="font-display font-bold text-base text-foreground no-underline hover:opacity-80 transition-opacity"
+            >
+                coworkers.cl
+            </a>
+            <span class="hidden sm:inline text-border">|</span>
+            <p class="text-xs md:text-sm text-muted-foreground">
+                © {new Date().getFullYear()} Coworkers SpA. Todos los derechos reservados.
+            </p>
+        </div>
+
+        <nav aria-label="Navegación del pie de página">
+            <ul class="flex flex-wrap justify-center gap-6 list-none m-0 p-0">
+                {
+                    navLinks.map((link) => (
+                        <li>
+                            <a
+                                href={link.href}
+                                class="text-xs md:text-sm font-medium text-muted-foreground no-underline hover:text-foreground transition-colors"
+                            >
+                                {link.label}
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
+        </nav>
     </div>
 </footer>
-
-<style>
-    .footer {
-        background: var(--color-background);
-        border-top: 1px solid var(--color-border);
-    }
-
-    .footer__inner {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: var(--space-md);
-        padding-block: var(--space-md);
-    }
-
-    .footer__inner p {
-        margin: 0;
-        font-size: 0.8125rem;
-        color: var(--color-muted-foreground);
-    }
-</style>
