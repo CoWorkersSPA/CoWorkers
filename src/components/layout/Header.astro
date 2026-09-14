@@ -1,6 +1,7 @@
 ---
 // src/components/layout/Header.astro
 import Button from "../ui/Button.astro";
+import ThemeToggle from "../ui/ThemeToggle.astro";
 
 const navLinks = [
     { label: "El problema", href: "#el-problema" },
@@ -14,7 +15,6 @@ const navLinks = [
     class="sticky top-0 z-50 w-full border-b border-border bg-background/85 backdrop-blur-md"
 >
     <div class="w-full flex items-center justify-between px-6 md:px-12 py-4">
-        <!-- Logo -->
         <a
             href="/"
             class="font-display text-base font-bold text-foreground no-underline hover:opacity-80 transition-opacity"
@@ -22,7 +22,6 @@ const navLinks = [
             coworkers.cl
         </a>
 
-        <!-- Navegación principal -->
         <nav class="hidden md:block" aria-label="Navegación principal">
             <ul class="flex items-center gap-8 list-none m-0 p-0">
                 {
@@ -40,9 +39,11 @@ const navLinks = [
             </ul>
         </nav>
 
-        <!-- Botón CTA -->
-        <Button href="#agendar" variant="solid" class="px-4 py-2 text-sm">
-            Agendar 30 min
-        </Button>
+        <div class="flex items-center gap-3">
+            <ThemeToggle />
+            <Button href="#agendar" variant="solid" size="sm">
+                Agendar 30 min
+            </Button>
+        </div>
     </div>
 </header>

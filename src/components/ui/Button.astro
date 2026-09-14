@@ -1,71 +1,45 @@
 ---
 // src/components/ui/Button.astro
 interface Props {
-    variant?: "solid" | "outline";
     href?: string;
-    type?: "button" | "submit";
+    variant?: "solid" | "outline";
+    size?: "sm" | "md" | "lg";
     class?: string;
 }
 
 const {
-    variant = "solid",
     href,
-    type = "button",
+    variant = "solid",
+    size = "md",
     class: className = "",
 } = Astro.props;
-const Tag = href ? "a" : "button";
+
+const baseStyles =
+    "inline-flex items-center justify-center font-bold transition-all rounded-lg cursor-pointer";
+
+const sizeStyles = {
+    sm: "px-3.5 py-1.5 text-xs",
+    md: "px-5 py-2.5 text-sm",
+    lg: "px-8 py-3 text-base",
+};
+
+const variantStyles = {
+    solid: "bg-foreground text-background hover:opacity-90",
+    outline:
+        "border border-foreground/20 text-foreground hover:border-foreground",
+};
+
+const classes = `${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} ${className}`;
 ---
 
-<Tag
-    class:list={["btn", `btn--${variant}`, className]}
-    href={href}
-    type={!href ? type : undefined}
->
-    <slot />
-</Tag>
-
-<style>
-    .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        padding: 0.75rem 1.5rem;
-        border-radius: var(--radius-lg);
-        font-family: var(--font-sans);
-        font-size: 0.9375rem;
-        font-weight: 600;
-        text-decoration: none;
-        cursor: pointer;
-        border: 1px solid transparent;
-        transition:
-            background-color 0.15s var(--ease-standard),
-            border-color 0.15s var(--ease-standard),
-            opacity 0.15s var(--ease-standard);
-        white-space: nowrap;
-    }
-
-    .btn--solid {
-        background: var(--color-primary);
-        color: var(--color-primary-foreground);
-    }
-
-    .btn--solid:hover {
-        opacity: 0.85;
-    }
-
-    .btn--outline {
-        background: transparent;
-        border-color: var(--color-border);
-        color: var(--color-foreground);
-    }
-
-    .btn--outline:hover {
-        border-color: var(--color-foreground);
-    }
-
-    .btn:focus-visible {
-        outline: 2px solid var(--color-ring);
-        outline-offset: 2px;
-    }
-</style>
+{
+    href ? (
+        <a href={href} class={classes}>
+            <slot />
+        </a>
+    ) : (
+        <button class={classes}>
+            <slot />
+        </button>
+    )
+}
