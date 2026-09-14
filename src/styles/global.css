@@ -163,6 +163,24 @@
     margin: 0;
 }
 
+.fade-on-scroll {
+    animation: fadeOutScroll linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0px 350px;
+}
+
+@keyframes fadeOutScroll {
+    from {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     * {
         animation-duration: 0.01ms !important;
