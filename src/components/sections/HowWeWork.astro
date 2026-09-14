@@ -1,46 +1,159 @@
 ---
 // src/components/sections/HowWeWork.astro
 import SectionSplit from "../ui/SectionSplit.astro";
-import NumberedItem from "../ui/NumberedItem.astro";
 
 const steps = [
-    {
-        number: "01",
-        title: "Conversamos 30 minutos",
-        description:
-            "Nos cuentas cómo funciona hoy tu operación. Sales con un alcance escrito y un rango de plazo.",
-    },
-    {
-        number: "02",
-        title: "Lo cortamos en tareas chicas",
-        description:
-            "Cada una de pocas horas y con criterio de aceptación claro. Ese corte fino es lo que hace posible el modelo.",
-    },
-    {
-        number: "03",
-        title: "Se reparte dentro del equipo",
-        description:
-            "Cada tarea va al estudiante adecuado, que cobra por entrega. Eso pasa por dentro: tú no coordinas a nadie.",
-    },
-    {
-        number: "04",
-        title: "Revisamos y publicamos",
-        description:
-            "Nada se integra sin pasar por nuestra revisión. El riesgo lo corremos nosotros.",
-    },
+  {
+    number: "01",
+    title: "Conversamos 30 minutos",
+    description:
+      "Nos cuentas cómo funciona hoy tu operación. Sales con un alcance escrito y un rango de plazo.",
+  },
+  {
+    number: "02",
+    title: "Lo cortamos en tareas chicas",
+    description:
+      "Cada una de pocas horas y con criterio de aceptación claro. Ese corte fino es lo que hace posible el modelo.",
+  },
+  {
+    number: "03",
+    title: "Se reparte dentro del equipo",
+    description:
+      "Cada tarea va al estudiante adecuado, que cobra por entrega. Eso pasa por dentro, tú no coordinas a nadie.",
+  },
+  {
+    number: "04",
+    title: "Revisamos y publicamos",
+    description:
+      "Nada se integra sin pasar por nuestra revisión. El riesgo lo corremos nosotros.",
+  },
 ];
+const DURATION_MS = 5000;
 ---
 
 <SectionSplit heading="Cómo lo hacemos" id="como-lo-hacemos" class="bg-muted">
-    <div class="space-y-8">
-        {
-            steps.map((step) => (
-                <NumberedItem
-                    number={step.number}
-                    title={step.title}
-                    description={step.description}
-                />
-            ))
-        }
-    </div>
+  <div class="space-y-4" id="how-we-work-container">
+    {
+      steps.map((step, index) => (
+        <div
+          data-step-card={index}
+          class:list={[
+            "step-card group border rounded-xl p-5 md:p-6 transition-all duration-300 cursor-pointer overflow-hidden",
+            index === 0
+              ? "active border-foreground/20 bg-background/50 shadow-sm"
+              : "border-transparent hover:border-foreground/10"
+          ]}
+        >
+          <!-- Encabezado de la tarjeta -->
+          <div class="flex items-center gap-4">
+            <span class="font-mono text-sm md:text-base font-semibold text-muted-foreground/70 group-aria-selected:text-foreground">
+              {step.number}
+            </span>
+            <h3 class="font-display font-bold text-base md:text-lg text-foreground">
+              {step.title}
+            </h3>
+          </div>
+
+          <!-- Contenido desplegable -->
+          <div
+            data-step-content={index}
+            class:list={[
+              "grid transition-all duration-300 ease-in-out",
+              index === 0 ? "grid-rows-[1fr] opacity-100 mt-3" : "grid-rows-[0fr] opacity-0"
+            ]}
+          >
+            <div class="overflow-hidden space-y-4">
+              <p class="text-sm md:text-base text-muted-foreground leading-relaxed pl-9">
+                {step.description}
+              </p>
+
+              <!-- Barra de progreso -->
+              <div class="pl-9 pt-1">
+                <div class="w-full h-1 bg-foreground/10 rounded-full overflow-hidden">
+                  <div
+                    data-step-progress={index}
+                    class="h-full bg-foreground w-0 rounded-full"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
 </SectionSplit>
+
+<script is:inline define:vars={{ DURATION_MS }}>
+  (function () {
+    const cards = document.querySelectorAll('[data-step-card]');
+    const contents = document.querySelectorAll('[data-step-content]');
+    const progressBars = document.querySelectorAll('[data-step-progress]');
+
+    let currentIndex = 0;
+    let startTime = null;
+    let animationFrameId = null;
+
+    function resetProgressBars() {
+      progressBars.forEach((bar) => {
+        bar.style.transition = 'none';
+        bar.style.width = '0%';
+      });
+    }
+
+    function activateStep(index) {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+
+      cards.forEach((card, i) => {
+        const content = contents[i];
+        if (i === index) {
+          card.classList.add('border-foreground/20', 'bg-background/50', 'shadow-sm');
+          card.classList.remove('border-transparent');
+
+          content.classList.remove('grid-rows-[0fr]', 'opacity-0');
+          content.classList.add('grid-rows-[1fr]', 'opacity-100', 'mt-3');
+        } else {
+          card.classList.remove('border-foreground/20', 'bg-background/50', 'shadow-sm');
+          card.classList.add('border-transparent');
+
+          content.classList.remove('grid-rows-[1fr]', 'opacity-100', 'mt-3');
+          content.classList.add('grid-rows-[0fr]', 'opacity-0');
+        }
+      });
+
+      resetProgressBars();
+      currentIndex = index;
+      startProgress();
+    }
+
+    function startProgress() {
+      startTime = performance.now();
+
+      function step(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min((elapsed / DURATION_MS) * 100, 100);
+
+        if (progressBars[currentIndex]) {
+          progressBars[currentIndex].style.width = `${progress}%`;
+        }
+
+        if (elapsed < DURATION_MS) {
+          animationFrameId = requestAnimationFrame(step);
+        } else {
+          const nextIndex = (currentIndex + 1) % cards.length;
+          activateStep(nextIndex);
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(step);
+    }
+
+    cards.forEach((card, i) => {
+      card.addEventListener('click', () => {
+        activateStep(i);
+      });
+    });
+
+    activateStep(0);
+  })();
+</script>
