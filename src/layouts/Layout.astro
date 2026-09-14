@@ -43,7 +43,28 @@ const {
 			})();
 		</script>
 	</head>
+
 	<body>
 		<slot />
+		<script>
+			const sections = document.querySelectorAll(".fade-on-scroll");
+
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						entry.target.classList.toggle(
+							"is-visible",
+							entry.isIntersecting,
+						);
+					});
+				},
+				{
+					threshold: 0.15, // se activa cuando ~15% de la sección es visible
+					rootMargin: "0px 0px -10% 0px",
+				},
+			);
+
+			sections.forEach((section) => observer.observe(section));
+		</script>
 	</body>
 </html>

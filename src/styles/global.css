@@ -72,16 +72,12 @@
 .dark {
     /* MODO OSCURO (Paleta Nocturne / Warm Graphite) */
     --background: #161826;
-    /* --color-bg */
     --foreground: #e9e9ed;
-    /* --color-text */
     --card: #232532;
-    /* --color-surface */
     --card-foreground: #e9e9ed;
     --popover: #161826;
     --popover-foreground: #e9e9ed;
 
-    /* Acento y Botón Primario en Oscuro (Blurple #9184d9) */
     --primary: #9184d9;
     --primary-foreground: #161826;
     --accent: #9184d9;
@@ -90,7 +86,6 @@
     --secondary: #232532;
     --secondary-foreground: #e9e9ed;
     --muted: #232532;
-    /* Superficie oscura para secciones */
     --muted-foreground: #b2b6ca;
 
     --border: #3f424d;
@@ -108,6 +103,7 @@
     *::after {
         box-sizing: border-box;
         border-color: var(--color-border);
+        transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
     }
 
     html {
@@ -122,7 +118,6 @@
         font-size: 1rem;
         line-height: 1.6;
         -webkit-font-smoothing: antialiased;
-        transition: background-color 0.2s ease, color 0.2s ease;
     }
 
     h1,
@@ -163,21 +158,61 @@
     margin: 0;
 }
 
-.fade-on-scroll {
-    animation: fadeOutScroll linear both;
-    animation-timeline: scroll(root);
-    animation-range: 0px 350px;
+.section-full {
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    padding-block: 3rem;
 }
 
-@keyframes fadeOutScroll {
-    from {
+.fade-on-scroll {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    will-change: opacity, transform;
+}
+
+.fade-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fade-on-scroll {
+        transition: none;
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes fadeInOutScroll {
+    0% {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    15% {
         opacity: 1;
         transform: translateY(0px);
     }
 
-    to {
+    85% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+
+    100% {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateY(-24px);
+    }
+}
+
+/* Fallback para navegadores sin soporte de scroll-driven animations */
+@supports not (animation-timeline: view()) {
+    .fade-on-scroll {
+        animation: none;
+        opacity: 1;
+        transform: none;
     }
 }
 
