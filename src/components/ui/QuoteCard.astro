@@ -1,32 +1,15 @@
 ---
 // src/components/ui/QuoteCard.astro
 interface Props {
-    text: string;
+    quote: string;
     class?: string;
 }
 
-const { text, class: className = "" } = Astro.props;
+const { quote, class: className = "" } = Astro.props;
 ---
 
-<blockquote class:list={["quote-card", className]}>
-    <p>&ldquo;{text}&rdquo;</p>
-</blockquote>
-
-<style>
-    .quote-card {
-        margin: 0;
-        padding: 0 0 0 var(--space-md);
-        border-left: 2px solid var(--color-border);
-    }
-
-    .quote-card + .quote-card {
-        margin-top: var(--space-md);
-    }
-
-    .quote-card p {
-        color: var(--color-foreground);
-        font-size: 1.0625rem;
-        font-weight: 400;
-        line-height: 1.5;
-    }
-</style>
+<div
+    class={`pl-4 border-l border-foreground/20 text-foreground/90 font-normal text-base md:text-lg leading-snug ${className}`}
+>
+    “{quote}”
+</div>

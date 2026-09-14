@@ -8,7 +8,7 @@ const paragraphs = [
 ];
 ---
 
-<section id="equipo" class="py-16 md:py-24 border-t border-border">
+<section id="equipo" class="py-16 md:py-24 border-t border-border bg-muted">
     <div class="wrapper">
         <div
             class="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16 items-center"
@@ -23,11 +23,26 @@ const paragraphs = [
 
                 <div class="space-y-4">
                     {
-                        paragraphs.map((text) => (
-                            <p class="text-muted-foreground text-sm md:text-base leading-relaxed">
-                                {text}
-                            </p>
-                        ))
+                        paragraphs.map((text, index) => {
+                            const isFirst = index === 0;
+                            const isLast = index === paragraphs.length - 1;
+
+                            return (
+                                <p
+                                    class:list={[
+                                        "text-sm md:text-base leading-relaxed",
+                                        isFirst
+                                            ? "text-foreground font-medium"
+                                            : "text-muted-foreground",
+                                        isLast
+                                            ? "text-foreground font-medium pt-2"
+                                            : "",
+                                    ]}
+                                >
+                                    {text}
+                                </p>
+                            );
+                        })
                     }
                 </div>
             </div>
@@ -35,14 +50,10 @@ const paragraphs = [
             <!-- Columna Derecha: Foto -->
             <div class="lg:col-span-6">
                 <div
-                    class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-border bg-secondary/50 flex items-center justify-center shadow-sm"
+                    class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-border bg-background flex items-center justify-center shadow-sm"
                     role="img"
                     aria-label="Foto del equipo trabajando"
                 >
-                    <!-- 
-            Aquí puedes poner la ruta de tu imagen real. 
-            Si la imagen no carga, el onerror mostrará el texto alternativo centrado.
-          -->
                     <img
                         src="/team-photo.jpg"
                         alt="Equipo trabajando"

@@ -25,29 +25,23 @@ const items = [
 ];
 ---
 
-<section class="value-props section" id="el-problema">
-    <div class="wrapper">
-        <SectionSplit heading="Lo que te queda">
-            <div class="value-props__list">
-                {items.map((item) => <NumberedItem {...item} />)}
-            </div>
-
-            <p class="value-props__footnote">
-                Primer entregable usable en unas tres semanas: algo que puedas
-                abrir y usar, no una maqueta.
-            </p>
-        </SectionSplit>
+<SectionSplit heading="Lo que te queda" id="lo-que-te-queda" class="bg-muted">
+    <div class="space-y-8">
+        {
+            items.map((item) => (
+                <NumberedItem
+                    number={item.number}
+                    title={item.title}
+                    description={item.description}
+                />
+            ))
+        }
     </div>
-</section>
 
-<style>
-    .value-props {
-        background: var(--color-muted);
-    }
-
-    .value-props__footnote {
-        margin-top: var(--space-xl);
-        font-size: 0.9375rem;
-        color: var(--color-muted-foreground);
-    }
-</style>
+    <div class="pt-8 border-t border-border mt-8">
+        <p class="text-xs md:text-sm italic text-muted-foreground">
+            Primer entregable usable en unas tres semanas: algo que puedas abrir
+            y usar, no una maqueta.
+        </p>
+    </div>
+</SectionSplit>

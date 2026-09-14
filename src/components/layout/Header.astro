@@ -10,83 +10,39 @@ const navLinks = [
 ];
 ---
 
-<header class="header">
-    <div class="wrapper header__inner">
-        <a href="/" class="header__logo">coworkers.cl</a>
+<header
+    class="sticky top-0 z-50 w-full border-b border-border bg-background/85 backdrop-blur-md"
+>
+    <div class="w-full flex items-center justify-between px-6 md:px-12 py-4">
+        <!-- Logo -->
+        <a
+            href="/"
+            class="font-display text-base font-bold text-foreground no-underline hover:opacity-80 transition-opacity"
+        >
+            coworkers.cl
+        </a>
 
-        <nav class="header__nav" aria-label="Navegación principal">
-            <ul>
+        <!-- Navegación principal -->
+        <nav class="hidden md:block" aria-label="Navegación principal">
+            <ul class="flex items-center gap-8 list-none m-0 p-0">
                 {
                     navLinks.map((link) => (
                         <li>
-                            <a href={link.href}>{link.label}</a>
+                            <a
+                                href={link.href}
+                                class="text-sm font-medium text-muted-foreground no-underline hover:text-foreground transition-colors"
+                            >
+                                {link.label}
+                            </a>
                         </li>
                     ))
                 }
             </ul>
         </nav>
 
-        <Button href="#agendar" class="header__cta">Agendar 30 min</Button>
+        <!-- Botón CTA -->
+        <Button href="#agendar" variant="solid" class="px-4 py-2 text-sm">
+            Agendar 30 min
+        </Button>
     </div>
 </header>
-
-<style>
-    .header {
-        position: sticky;
-        top: 0;
-        z-index: 50;
-        background: color-mix(
-            in oklab,
-            var(--color-background) 85%,
-            transparent
-        );
-        backdrop-filter: blur(8px);
-        border-bottom: 1px solid var(--color-border);
-    }
-
-    .header__inner {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: var(--space-md);
-        padding-block: 1.125rem;
-    }
-
-    .header__logo {
-        font-family: var(--font-display);
-        font-size: 1rem;
-        font-weight: 700;
-        text-decoration: none;
-        color: var(--color-foreground);
-    }
-
-    .header__nav ul {
-        display: flex;
-        gap: var(--space-lg);
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
-
-    .header__nav a {
-        font-size: 0.9375rem;
-        color: var(--color-muted-foreground);
-        text-decoration: none;
-        transition: color 0.15s var(--ease-standard);
-    }
-
-    .header__nav a:hover {
-        color: var(--color-foreground);
-    }
-
-    .header__cta {
-        padding: 0.5rem 1.125rem;
-        font-size: 0.875rem;
-    }
-
-    @media (max-width: 800px) {
-        .header__nav {
-            display: none;
-        }
-    }
-</style>

@@ -31,18 +31,16 @@ const steps = [
 ];
 ---
 
-<section class="how-we-work section">
-    <div class="wrapper">
-        <SectionSplit heading="Cómo lo hacemos">
-            <div class="how-we-work__list">
-                {steps.map((step) => <NumberedItem {...step} />)}
-            </div>
-        </SectionSplit>
+<SectionSplit heading="Cómo lo hacemos" id="como-lo-hacemos" class="bg-muted">
+    <div class="space-y-8">
+        {
+            steps.map((step) => (
+                <NumberedItem
+                    number={step.number}
+                    title={step.title}
+                    description={step.description}
+                />
+            ))
+        }
     </div>
-</section>
-
-<style>
-    .how-we-work {
-        background: var(--color-muted);
-    }
-</style>
+</SectionSplit>
