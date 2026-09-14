@@ -80,7 +80,7 @@ Este proyecto está configurado para ejecutarse exclusivamente utilizando Docker
 docker compose up --build -d
 ```
 
-4. La aplicación estará disponible en [http://localhost:4321](http://localhost:4321). Gracias a la configuración de volumenes, cualquier cambio en los archivos de la carpeta `src/` se reflejará instantáneamente en el navegador.
+4. La aplicación estará disponible en [http://localhost:4322](http://localhost:4322). Gracias a la configuración de volumenes, cualquier cambio en los archivos de la carpeta `src/` se reflejará instantáneamente en el navegador.
 
 Para detener el servidor en cualquier momento, ejecuta:
 
