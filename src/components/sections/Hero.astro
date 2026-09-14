@@ -8,9 +8,7 @@ import Eyebrow from "../ui/Eyebrow.astro";
     <div class="wrapper hero__inner">
         <Eyebrow text="Desarrollo web · Concepción, Chile" />
 
-        <h1 class="hero__title">
-            Tu proyecto paga<br />la carrera de alguien.
-        </h1>
+        <h1 class="hero__title">Tu proyecto paga la carrera de alguien.</h1>
 
         <p class="hero__desc">
             Construimos tu aplicación web y repartimos el trabajo, por dentro,
@@ -35,21 +33,23 @@ import Eyebrow from "../ui/Eyebrow.astro";
     }
 
     .hero__inner {
-        max-width: 760px;
+        max-width: 900px;
     }
 
     .hero__title {
+        font-family: var(--font-display);
         font-size: var(--text-hero);
-        font-weight: 300;
+        font-weight: 700;
         line-height: 1.08;
         letter-spacing: -0.02em;
+        color: var(--color-foreground);
         margin-bottom: var(--space-md);
     }
 
     .hero__desc {
         font-size: 1.125rem;
         line-height: 1.65;
-        color: var(--color-text-muted);
+        color: var(--color-muted-foreground);
         max-width: 60ch;
         margin-bottom: var(--space-lg);
     }
@@ -62,9 +62,9 @@ import Eyebrow from "../ui/Eyebrow.astro";
     }
 
     .hero__note {
-        font-size: 0.8125rem;
-        color: var(--color-text-faint);
-        max-width: 26ch;
+        font-size: 0.875rem;
+        color: var(--color-muted-foreground);
+        max-width: 30ch;
         margin: 0;
     }
 </style>

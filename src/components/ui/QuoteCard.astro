@@ -15,12 +15,18 @@ const { text, class: className = "" } = Astro.props;
 <style>
     .quote-card {
         margin: 0;
-        padding: var(--space-md);
+        padding: 0 0 0 var(--space-md);
+        border-left: 2px solid var(--color-border);
+    }
+
+    .quote-card + .quote-card {
+        margin-top: var(--space-md);
     }
 
     .quote-card p {
-        color: #ffffff;
-        font-size: 1.125rem;
+        color: var(--color-foreground);
+        font-size: 1.0625rem;
         font-weight: 400;
+        line-height: 1.5;
     }
 </style>

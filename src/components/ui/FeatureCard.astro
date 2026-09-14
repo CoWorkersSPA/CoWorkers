@@ -16,22 +16,21 @@ const { title, description, class: className = "" } = Astro.props;
 
 <style>
     .feature-card {
-        border: 1px solid var(--color-border);
-        border-radius: var(--radius-md);
-        padding: var(--space-md);
         background: transparent;
     }
 
     .feature-card__title {
+        font-family: var(--font-display);
         font-size: var(--text-h3);
-        font-weight: 500;
+        font-weight: 600;
+        color: var(--color-foreground);
         margin-bottom: 0.5rem;
     }
 
     .feature-card__desc {
         font-size: 0.9375rem;
         line-height: 1.65;
-        color: var(--color-text-muted);
-        max-width: 45ch;
+        color: var(--color-muted-foreground);
+        max-width: 40ch;
     }
 </style>

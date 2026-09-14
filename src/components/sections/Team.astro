@@ -1,58 +1,77 @@
 ---
 // src/components/sections/Team.astro
-import Eyebrow from "../ui/Eyebrow.astro";
+const paragraphs = [
+    "Nuestro equipo son estudiantes, y eso lo decimos de frente. No subcontratamos: formamos.",
+    "Buscamos uno a uno a estudiantes universitarios de Concepción, les damos tareas acotadas compatibles con su semestre, les pagamos apenas se acepta la entrega y todo pasa por nuestra revisión.",
+    "La falta de recursos es una de las principales causas de deserción universitaria, y fuera de la capital estas oportunidades escasean todavía más.",
+    "Tú contratas software; de paso, tu presupuesto financia semestres que alguien termina.",
+];
 ---
 
 <section class="team section" id="equipo">
     <div class="wrapper">
-        <div class="section-head">
-            <Eyebrow text="Quiénes lo escriben" />
-            <h2 class="team__title">
-                Nuestro equipo son estudiantes, y eso lo decimos de frente.
-            </h2>
-        </div>
+        <div class="team__grid">
+            <div class="team__copy">
+                <h2 class="team__heading">Quiénes lo escriben</h2>
+                {
+                    paragraphs.map((text) => (
+                        <p class="team__paragraph">{text}</p>
+                    ))
+                }
+            </div>
 
-        <p class="team__body">
-            No subcontratamos: formamos. Buscamos uno a uno a estudiantes
-            universitarios de Concepción, les damos tareas acotadas compatibles
-            con el semestre, les pagamos apenas se acepta la entrega y todo pasa
-            por nuestra revisión. La falta de recursos es una de las principales
-            causas de deserción universitaria, y fuera de la capital estas
-            oportunidades escasean todavía más. Tú contratas software; de paso,
-            tu presupuesto financia semestres que alguien termina.
-        </p>
-
-        <div
-            class="team__photo"
-            role="img"
-            aria-label="Foto sobre fondo oscuro: el equipo trabajando"
-        >
-            <span>Foto sobre fondo oscuro: el equipo trabajando</span>
+            <div
+                class="team__photo"
+                role="img"
+                aria-label="Foto del equipo trabajando"
+            >
+                <span>Foto del equipo trabajando</span>
+            </div>
         </div>
     </div>
 </section>
 
 <style>
-    .team__title {
+    .team__grid {
+        display: grid;
+        grid-template-columns: minmax(160px, 240px) 1fr;
+        gap: var(--space-xl);
+        align-items: start;
+    }
+
+    .team__copy {
+        display: contents;
+    }
+
+    .team__heading {
+        grid-column: 1;
+        font-family: var(--font-display);
         font-size: var(--text-h2);
-        font-weight: 500;
+        font-weight: 600;
         letter-spacing: -0.01em;
+        line-height: 1.2;
+        color: var(--color-foreground);
+    }
+
+    .team__paragraph {
+        grid-column: 1;
+        font-size: 0.9375rem;
+        line-height: 1.65;
+        color: var(--color-muted-foreground);
+        max-width: 42ch;
+    }
+
+    .team__paragraph + .team__paragraph {
         margin-top: var(--space-sm);
     }
 
-    .team__body {
-        font-size: 1.0625rem;
-        line-height: 1.75;
-        color: var(--color-text-muted);
-        max-width: 68ch;
-        margin-bottom: var(--space-lg);
-    }
-
     .team__photo {
-        aspect-ratio: 21 / 9;
+        grid-column: 2;
+        grid-row: 1 / span 5;
+        aspect-ratio: 4 / 3;
         border: 1px solid var(--color-border);
-        border-radius: var(--radius-md);
-        background: var(--color-bg-raised);
+        border-radius: var(--radius-lg);
+        background: var(--color-secondary);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -60,6 +79,23 @@ import Eyebrow from "../ui/Eyebrow.astro";
 
     .team__photo span {
         font-size: 0.8125rem;
-        color: var(--color-text-faint);
+        color: var(--color-muted-foreground);
+    }
+
+    @media (max-width: 800px) {
+        .team__grid {
+            grid-template-columns: 1fr;
+        }
+
+        .team__heading,
+        .team__paragraph,
+        .team__photo {
+            grid-column: 1;
+        }
+
+        .team__photo {
+            grid-row: auto;
+            margin-top: var(--space-lg);
+        }
     }
 </style>

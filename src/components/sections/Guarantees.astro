@@ -1,8 +1,10 @@
 ---
 // src/components/sections/Guarantees.astro
-import Eyebrow from "../ui/Eyebrow.astro";
+import SectionSplit from "../ui/SectionSplit.astro";
 import FeatureCard from "../ui/FeatureCard.astro";
 
+// Orden pensado para una grilla de 2 columnas leída por fila
+// (antes: Revisión, Pagas / Código, Piloto).
 const guarantees = [
     {
         title: "Revisión antes de integrar",
@@ -10,36 +12,37 @@ const guarantees = [
             "Ninguna tarea entra al proyecto sin que la revisemos nosotros.",
     },
     {
-        title: "Pagas por entrega",
-        description:
-            "Por avance aceptado, no por adelantado ni por horas difusas.",
-    },
-    {
         title: "El código es tuyo",
         description:
             "Desde el día uno, en tu repositorio. No quedas amarrado a nosotros.",
     },
     {
+        title: "Pagas por entrega",
+        description:
+            "Por avance aceptado, no por adelantado ni por horas difusas.",
+    },
+    {
         title: "Empieza por un piloto",
         description:
-            "Una funcionalidad chica primero. Si no te convence, hasta ahí llegamos.",
+            "Una funcionalidad crítica para que pruebes cómo es trabajar con nosotros.",
     },
 ];
 ---
 
 <section class="guarantees section" id="garantias">
     <div class="wrapper">
-        <div class="section-head">
-            <Eyebrow text="Con qué te respaldamos" />
-        </div>
-
-        <div class="guarantees__grid">
-            {
-                guarantees.map((g) => (
-                    <FeatureCard title={g.title} description={g.description} />
-                ))
-            }
-        </div>
+        <SectionSplit heading="Con qué te respaldamos">
+            <div class="guarantees__grid">
+                {
+                    guarantees.map((g) => (
+                        <FeatureCard
+                            title={g.title}
+                            description={g.description}
+                        />
+                    ))
+                }
+            </div>
+        </SectionSplit>
     </div>
 </section>
 
@@ -47,7 +50,7 @@ const guarantees = [
     .guarantees__grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: var(--space-md);
+        gap: var(--space-lg) var(--space-xl);
     }
 
     @media (max-width: 700px) {
