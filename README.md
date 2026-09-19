@@ -22,7 +22,8 @@ CoWorkers/
 │   └── MENSAJES.md                     # marco de mensajes (fuente de verdad del copy)
 ├── public/
 │   ├── favicon.ico
-│   └── favicon.svg
+│   ├── favicon-32.png
+│   └── favicon-512.png
 ├── src/
 │   ├── components/
 │   │   ├── layout/
