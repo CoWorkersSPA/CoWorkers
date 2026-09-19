@@ -1,0 +1,75 @@
+---
+// src/components/sections/PainFacts.astro
+// "Nos llaman cuando": dos problemas con fecha. Solo cifras citables
+// (Investigación de mercado Mesón, sección 02). Es la única banda saturada de la página.
+const facts = [
+    {
+        figure: "1 de diciembre",
+        text: "La nueva ley de datos personales aplica a toda empresa en Chile, sin importar el tamaño. Tu lista de clientes, tus trabajadores y tus proveedores son datos personales.",
+        source: "Ley 21.719, vigente desde el 1 de diciembre de 2026",
+    },
+    {
+        figure: "40 días",
+        text: "Lo que tarda en pagarse una factura en el comercio. El 54,6% de las facturas de pymes pequeñas se paga después de los 30 días.",
+        source: "Estudio Xepelin, La Tercera, julio de 2026",
+    },
+];
+---
+
+<section
+    id="nos-llaman-cuando"
+    class="section fade-on-scroll bg-section-emphasis py-20 md:py-28"
+>
+    <div class="wrapper">
+        <h2
+            class="font-display font-bold text-2xl md:text-3xl lg:text-4xl leading-tight max-w-2xl"
+        >
+            Nos llaman cuando el cuaderno, el WhatsApp y la memoria ya no dan
+            más.
+        </h2>
+
+        <div class="pain-facts__grid mt-12 md:mt-16">
+            {
+                facts.map((f) => (
+                    <div class="pain-facts__item">
+                        <p class="font-display font-bold text-4xl md:text-5xl lg:text-6xl tracking-tight leading-none">
+                            {f.figure}
+                        </p>
+                        <p class="mt-4 text-base md:text-lg leading-relaxed max-w-md opacity-90">
+                            {f.text}
+                        </p>
+                        <p class="mt-4 text-xs md:text-sm opacity-70">
+                            {f.source}
+                        </p>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>
+
+<style>
+    .pain-facts__grid {
+        display: grid;
+        grid-template-columns: 1.15fr 1fr;
+        gap: 3rem;
+        max-width: 900px;
+    }
+    .pain-facts__item {
+        padding-top: 1.5rem;
+        border-top: 1px solid color-mix(in srgb, #e9e9ed 22%, transparent);
+    }
+    /* Escalón: el segundo hecho baja un poco, como las citas del mockup original */
+    .pain-facts__item:nth-child(2) {
+        margin-top: 2.5rem;
+    }
+    @media (max-width: 767px) {
+        .pain-facts__grid {
+            grid-template-columns: 1fr;
+            gap: 1.75rem;
+        }
+        .pain-facts__item:nth-child(2) {
+            margin-top: 0;
+        }
+    }
+</style>

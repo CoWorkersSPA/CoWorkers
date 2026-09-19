@@ -3,35 +3,39 @@
 import SectionSplit from "@components/ui/SectionSplit.astro";
 import FeatureCard from "@components/ui/FeatureCard.astro";
 
-// Orden pensado para una grilla de 2 columnas leída por fila
-// (antes: Revisión, Pagas / Código, Piloto).
+// Los cuatro pilares del marco de mensajes (docs/MENSAJES.md, nivel 3).
 const guarantees = [
     {
-        title: "Revisión antes de integrar",
+        title: "Lo tuyo es tuyo",
         description:
-            "Ninguna tarea entra al proyecto sin que la revisemos nosotros.",
+            "Sistema, datos y código en tus manos. Puedes tenerlo en tu local sin mensualidad, o con nosotros para que nunca se apague. Si un día prefieres a otro, te vas con todo.",
     },
     {
-        title: "El código es tuyo",
+        title: "Se entiende a la primera",
         description:
-            "Desde el día uno, en tu repositorio. No quedas amarrado a nosotros.",
+            "Sin manual, sin capacitación, sin implementador. Con el dedo, en una pantalla en tu mostrador, instalado en persona. Si necesita teclado, no es nuestro.",
     },
     {
-        title: "Pagas por entrega",
+        title: "Empiezas por lo que necesitas",
         description:
-            "Por avance aceptado, no por adelantado ni por horas difusas.",
+            "Compras la solución a un problema. Debajo trabaja un sistema completo, tuyo, con ventas, compras, inventario y contabilidad para cuando crezcas. Sin migrar nada.",
     },
     {
-        title: "Empieza por un piloto",
+        title: "Nadie entrega sin revisión",
         description:
-            "Una funcionalidad crítica para que pruebes cómo es trabajar con nosotros.",
+            "Ninguna tarea entra al proyecto sin pasar por los socios: cinco ingenieros con especialidades distintas mirando lo mismo desde cinco lados.",
     },
 ];
 ---
 
-<section class="guarantees section fade-on-scroll" id="garantias">
+<section class="guarantees section fade-on-scroll bg-muted border-t border-border" id="garantias">
     <div class="wrapper">
-        <SectionSplit heading="Con qué te respaldamos">
+        <SectionSplit heading="Lo que puedes exigirnos">
+            <Fragment slot="title">
+                <p class="mt-4 text-muted-foreground text-sm md:text-base leading-relaxed max-w-xs">
+                    Cuatro compromisos. Si alguno deja de cumplirse, dejamos de ser Coworkers.cl.
+                </p>
+            </Fragment>
             <div class="guarantees__grid">
                 {
                     guarantees.map((g) => (
@@ -51,6 +55,10 @@ const guarantees = [
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: var(--space-lg) var(--space-xl);
+    }
+    /* La grilla ya separa las tarjetas; el margen propio de FeatureCard no aplica aquí */
+    .guarantees__grid > :global(.feature-card) {
+        margin-top: 0;
     }
 
     @media (max-width: 700px) {

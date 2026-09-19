@@ -1,16 +1,17 @@
 ---
 // src/components/sections/Team.astro
+// Historia de marca, versión "home o pitch" (estrategia, sección 02).
 const paragraphs = [
-    "Nuestro equipo son estudiantes, y eso lo decimos de frente. No subcontratamos: formamos.",
-    "Buscamos uno a uno a estudiantes universitarios de Concepción, les damos tareas acotadas compatibles con su semestre, les pagamos apenas se acepta la entrega y todo pasa por nuestra revisión.",
-    "La falta de recursos es una de las principales causas de deserción universitaria, y fuera de la capital estas oportunidades escasean todavía más.",
-    "Tú contratas software; de paso, tu presupuesto financia semestres que alguien termina.",
+    "Nuestro equipo son estudiantes, y eso lo decimos de frente.",
+    "Empezó en una mesa de coworking de la Santa María. Cinco compañeros de Ingeniería en Informática, cada uno obsesionado con una cosa distinta: gestión, la máquina, el sistema, la seguridad, los datos. Cuando uno presentaba algo, los otros cuatro siempre encontraban algo. Eso era el equipo.",
+    "También vimos quién faltaba: compañeros buenos que dejaban de venir porque tenían que trabajar. Fuera de Santiago, estudiar y pagar la carrera son cosas excluyentes. Nos pareció una regla estúpida. Así que no subcontratamos: formamos. Tareas acotadas, compatibles con el semestre, pagadas al aceptarse y revisadas entre los cinco.",
+    "Estamos partiendo: no tenemos casos que mostrarte y no vamos a inventarlos.",
 ];
 ---
 
 <section
     id="equipo"
-    class="section fade-on-scroll py-16 md:py-24 border-t border-border bg-muted"
+    class="section fade-on-scroll py-16 md:py-24 border-t border-border"
 >
     <div class="wrapper">
         <div
@@ -20,7 +21,7 @@ const paragraphs = [
                 <h2
                     class="font-display font-bold text-2xl md:text-3xl text-foreground"
                 >
-                    Quiénes lo escriben
+                    Quiénes lo hacen
                 </h2>
 
                 <div class="space-y-4">
@@ -47,6 +48,17 @@ const paragraphs = [
                         })
                     }
                 </div>
+
+                <p class="pt-4 border-t border-border text-sm md:text-base text-muted-foreground leading-relaxed">
+                    ¿Estudias en Concepción? Tareas reales, pagadas al aceptarse,
+                    compatibles con el semestre.
+                    <a
+                        href="mailto:hola@coworkers.cl?subject=Quiero%20trabajar%20con%20Coworkers.cl"
+                        class="font-medium text-foreground hover:underline"
+                    >
+                        Escríbenos
+                    </a>
+                </p>
             </div>
 
             <!-- Columna Derecha: Foto -->
@@ -54,11 +66,11 @@ const paragraphs = [
                 <div
                     class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-border bg-background flex items-center justify-center shadow-sm"
                     role="img"
-                    aria-label="Foto del equipo trabajando"
+                    aria-label="Foto de los socios de Coworkers.cl"
                 >
                     <img
                         src="/team-photo.jpg"
-                        alt="Equipo trabajando"
+                        alt="Los socios de Coworkers.cl en la mesa de coworking de la Universidad Santa María"
                         class="w-full h-full object-cover"
                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                     />

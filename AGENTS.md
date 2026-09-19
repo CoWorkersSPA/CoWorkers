@@ -2,11 +2,11 @@
 
 ## Contexto del proyecto
 
-Landing page de **Coworkers**, un estudio de desarrollo web con sede en Concepción, Chile. Coworkers construye aplicaciones web para empresas (plataformas internas, portales de cliente, productos en tiempo real, sitios con lógica propia) y reparte el trabajo, por dentro, entre estudiantes universitarios a quienes forman y pagan por entrega.
+Landing corporativa de **Coworkers.cl**, una empresa de software para pymes con sede en Concepción, Chile, construida con talento universitario. Tiene dos capas: **Coworkers.cl** (servicios: desarrollo a medida, automatizaciones, infraestructura; talento y reclutamiento) y **Mesón, de Coworkers.cl** (la línea de soluciones para pymes: Datos, Cobros, cotizaciones). El equipo son cinco socios de Ingeniería en Informática de la UTFSM y estudiantes de Concepción a los que forman, revisan y pagan por entrega.
 
-Este repositorio contiene únicamente la landing pública: la página donde se presenta el servicio, se explica cómo trabajan, y se invita a agendar una reunión inicial sin costo. No es la plataforma del producto, es marketing/conversión.
+Este repositorio contiene únicamente la landing pública: presenta las dos puertas, explica cómo trabajan e invita a agendar una reunión inicial sin costo. No es la plataforma del producto ni la página de Mesón.
 
-**Fuente de verdad del contenido y layout**: el mockup original de la landing (`UI_mockups_para_Coworkers_cl.pdf`). Cualquier cambio de copy, orden de secciones o estructura debe respetar lo que ahí está definido, salvo que se indique explícitamente lo contrario.
+**Fuente de verdad del contenido**: `docs/MENSAJES.md` (marco de mensajes), derivado de *Estrategia de marca - Coworkers.cl y Mesón* e *Investigación de mercado - Módulos y servicios Mesón* (ambos del 19 de septiembre de 2026). El mockup antiguo (`UI_mockups_para_Coworkers_cl.pdf`) queda deprecado para el copy; solo sirve como referencia visual. Cualquier cambio de copy debe respetar `docs/MENSAJES.md`, en especial la sección "Lo que no se dice".
 
 ## Stack
 
@@ -21,22 +21,21 @@ src/components/
 ├── sections/     → un componente por bloque de contenido de la landing, sin props,
 │                   ensamblados en orden dentro de index.astro
 └── ui/           → piezas reutilizables con props (Button, Eyebrow, NumberedItem,
-                    FeatureCard, TechTag, QuoteCard)
+                    FeatureCard, SectionSplit, ThemeToggle)
 ```
 
-**Regla de oro**: antes de escribir markup nuevo dentro de una sección, revisar si el patrón ya existe en `ui/`. Ejemplo: `ValueProps` y `HowWeWork` comparten el patrón "número + título + descripción" → usan el mismo `NumberedItem`. `WhatWeBuild` y `Guarantees` comparten el patrón de card con borde → usan el mismo `FeatureCard`. No duplicar estructura HTML entre secciones que visualmente son lo mismo.
+**Regla de oro**: antes de escribir markup nuevo dentro de una sección, revisar si el patrón ya existe en `ui/`. Ejemplo: `Services` y `Guarantees` comparten el patrón título + descripción → usan el mismo `FeatureCard`. No duplicar estructura HTML entre secciones que visualmente son lo mismo.
 
-Orden de secciones en `index.astro` (mapea 1:1 con el mockup, de arriba a abajo):
+Orden de secciones en `index.astro`, de arriba a abajo:
 
-1. `Hero` — "Tu proyecto paga la carrera de alguien"
-2. `PainQuotes` — "Nos llaman cuando..."
-3. `ValueProps` — "Lo que te queda"
-4. `WhatWeBuild` — "Qué construimos"
-5. `HowWeWork` — "Cómo lo hacemos"
-6. `Guarantees` — "Con qué te respaldamos"
-7. `Team` — "Quiénes lo escriben"
-8. `WhatWeAreNot` — "Lo que no somos"
-9. `FinalCta` — "Cuéntanos cómo funciona hoy tu operación"
+1. `Hero` — titular rotativo "Tu proyecto…" + el problema (cobrar, cumplir, ordenar)
+2. `PainFacts` — "Nos llaman cuando": 1 de diciembre y 40 días, con fuente
+3. `Services` — las tres líneas de Coworkers.cl, el problema antes que la pieza
+4. `Meson` — la puerta para la pyme: "Tu negocio, a la mano."
+5. `HowWeWork` — "Cuatro pasos. Ningún manual."
+6. `Guarantees` — "Lo que puedes exigirnos": los cuatro pilares
+7. `Team` — "Quiénes lo hacen" + puerta para estudiantes
+8. `FinalCta` — "Cuéntanos cómo funciona hoy tu operación"
 
 ## Dirección de diseño
 
@@ -77,6 +76,10 @@ Este proyecto usa [Impeccable](https://github.com/pbakaus/impeccable) como skill
 
 ## Qué NO hacer
 
-- No agregar apps móviles, dashboards, ni nada fuera del alcance de "landing page pública" — eso es explícitamente parte de "Lo que no somos" en el propio contenido del sitio.
-- No inventar casos de éxito, testimonios de clientes o métricas — el mockup es explícito en que "no tenemos casos que mostrarte todavía, estamos partiendo, y no vamos a inventarlos".
-- No cambiar el copy del mockup sin indicación explícita; es contenido validado por el negocio, no un placeholder.
+- No agregar apps móviles, dashboards ni nada fuera del alcance de "landing page pública".
+- No inventar casos de éxito, testimonios de clientes ni métricas. La única cifra publicable es la que tiene fuente citada en `docs/MENSAJES.md`.
+- No nombrar herramientas ni tecnologías (ERPNext, Frappe, Nextcloud, Authentik, n8n, Astro) en ningún texto visible. La pyme compra el problema resuelto, no el motor.
+- No prometer Mesón Caja como disponible ni usar "Tuyo. Aunque nosotros no estemos." mientras no exista la cláusula contractual de entrega de código (estrategia, sección 07).
+- No publicar lenguaje de estrategia interna ("lo que no somos", bancos de pruebas, cifras de madurez digital). Si el cliente no lo necesita para decidir, no va.
+- No usar guiones largos (`—`) en texto visible.
+- No usar `window.addEventListener("scroll")`: para reaccionar al scroll se usa `IntersectionObserver` (ver `Header.astro`).

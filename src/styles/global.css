@@ -67,6 +67,12 @@
 
     --section-emphasis: #262a60;
     --section-glow: #353680;
+
+    /* Tokens que usan FeatureCard, NumberedItem y las grillas de secciones */
+    --space-xs: 0.5rem;
+    --space-lg: 2rem;
+    --space-xl: 2.5rem;
+    --text-h3: 1.125rem;
 }
 
 .dark {

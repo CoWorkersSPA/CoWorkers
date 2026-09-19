@@ -5,33 +5,33 @@ import SectionSplit from "@components/ui/SectionSplit.astro";
 const steps = [
   {
     number: "01",
-    title: "Conversamos 30 minutos",
+    title: "Treinta minutos en tu local",
     description:
-      "Nos cuentas cómo funciona hoy tu operación. Sales con un alcance escrito y un rango de plazo.",
+      "Vamos nosotros. Miramos cómo funciona hoy tu negocio: el cuaderno, el WhatsApp, lo que sea. Sales con el alcance por escrito, contrates o no.",
   },
   {
     number: "02",
     title: "Lo cortamos en tareas chicas",
     description:
-      "Cada una de pocas horas y con criterio de aceptación claro. Ese corte fino es lo que hace posible el modelo.",
+      "Cada una de pocas horas, con criterio de aceptación claro. Va al estudiante adecuado, que cobra al aceptarse la entrega. Tú no coordinas a nadie.",
   },
   {
     number: "03",
-    title: "Se reparte dentro del equipo",
+    title: "Revisamos antes de integrar",
     description:
-      "Cada tarea va al estudiante adecuado, que cobra por entrega. Eso pasa por dentro, tú no coordinas a nadie.",
+      "Ninguna tarea entra al proyecto sin pasar por uno de los cinco socios. El riesgo lo corremos nosotros, no tú.",
   },
   {
     number: "04",
-    title: "Revisamos y publicamos",
+    title: "Instalamos y lo mantenemos encendido",
     description:
-      "Nada se integra sin pasar por nuestra revisión. El riesgo lo corremos nosotros.",
+      "Lo dejamos funcionando en tu local. Una sola mensualidad cubre servidor, respaldo, mejoras y alguien con nombre a quien llamar.",
   },
 ];
 const DURATION_MS = 5000;
 ---
 
-<SectionSplit heading="Cómo lo hacemos" id="como-lo-hacemos" class="section fade-on-scroll bg-muted">
+<SectionSplit heading="Cuatro pasos. Ningún manual." id="como-trabajamos" class="section fade-on-scroll">
   <div class="space-y-4" id="how-we-work-container">
     {
       steps.map((step, index) => (

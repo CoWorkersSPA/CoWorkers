@@ -4,8 +4,9 @@ import Button from "@components/ui/Button.astro";
 import ThemeToggle from "@components/ui/ThemeToggle.astro";
 
 const navLinks = [
-    { label: "Qué construimos", href: "#que-construimos" },
-    { label: "Garantías", href: "#garantias" },
+    { label: "Servicios", href: "#servicios" },
+    { label: "Mesón", href: "#meson" },
+    { label: "Cómo trabajamos", href: "#como-trabajamos" },
     { label: "Equipo", href: "#equipo" },
 ];
 ---
@@ -68,17 +69,21 @@ const navLinks = [
     </style>
 
     <script>
+        // Un centinela invisible justo debajo del borde superior de la página:
+        // cuando sale del viewport, el header ya no está "arriba del todo".
+        // IntersectionObserver en vez de un listener de scroll (no corre en cada frame).
         const header = document.getElementById("site-header");
+        const sentinel = document.createElement("div");
+        sentinel.setAttribute("aria-hidden", "true");
+        sentinel.style.cssText =
+            "position:absolute;top:20px;left:0;width:1px;height:1px;pointer-events:none;";
+        document.body.prepend(sentinel);
 
-        const toggleHeaderBg = () => {
-            if (window.scrollY > 20) {
-                header?.classList.add("header--scrolled");
-            } else {
-                header?.classList.remove("header--scrolled");
-            }
-        };
-
-        toggleHeaderBg();
-        window.addEventListener("scroll", toggleHeaderBg, { passive: true });
+        new IntersectionObserver(
+            ([entry]) => {
+                header?.classList.toggle("header--scrolled", !entry.isIntersecting);
+            },
+            { threshold: 0 },
+        ).observe(sentinel);
     </script>
 </header>

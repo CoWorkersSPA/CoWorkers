@@ -2,11 +2,11 @@
 
 ## coworkers.cl - Landing Page
 
-Landing page de  **Coworkers** , Empresa de desarrollo Concepción, Chile.
+Landing corporativa de **Coworkers.cl**, empresa de software para pymes en Concepción, Chile.
 
 ### Sobre este repositorio
 
-Este proyecto contiene el código fuente de la landing page pública de Coworkers: la página donde se presenta el servicio, se explica cómo trabajan, y se invita a agendar una reunión inicial sin costo.
+Este proyecto contiene el código fuente de la landing pública de Coworkers.cl: presenta las dos puertas (servicios y Mesón), explica cómo trabajan e invita a agendar una reunión inicial sin costo. El contenido sigue `docs/MENSAJES.md`.
 
 ### Stack
 
@@ -18,6 +18,8 @@ CoWorkers/
 ├── docker/
 │   ├── Dockerfile
 │   └── Dockerfile.dev
+├── docs/
+│   └── MENSAJES.md                     # marco de mensajes (fuente de verdad del copy)
 ├── public/
 │   └── favicon.svg
 ├── src/
@@ -30,21 +32,20 @@ CoWorkers/
 │   │   │   └── Footer.astro
 │   │   ├── sections/
 │   │   │   ├── Hero.astro
-│   │   │   ├── PainQuotes.astro        # "Nos llaman cuando"
-│   │   │   ├── ValueProps.astro        # "Lo que te queda"
-│   │   │   ├── WhatWeBuild.astro       # "Qué construimos"
-│   │   │   ├── HowWeWork.astro         # "Cómo lo hacemos"
-│   │   │   ├── Guarantees.astro        # "Con qué te respaldamos"
-│   │   │   ├── Team.astro              # "Quiénes lo escriben"
-│   │   │   ├── WhatWeAreNot.astro      # "Lo que no somos"
+│   │   │   ├── PainFacts.astro         # "Nos llaman cuando"
+│   │   │   ├── Services.astro          # Servicios de Coworkers.cl
+│   │   │   ├── Meson.astro             # Mesón, de Coworkers.cl
+│   │   │   ├── HowWeWork.astro         # "Cuatro pasos. Ningún manual."
+│   │   │   ├── Guarantees.astro        # "Lo que puedes exigirnos"
+│   │   │   ├── Team.astro              # "Quiénes lo hacen"
 │   │   │   └── FinalCta.astro
 │   │   └── ui/
 │   │       ├── Button.astro            # variantes: solid, outline
-│   │       ├── Eyebrow.astro           # etiqueta pequeña tipo "LO QUE TE QUEDA"
+│   │       ├── Eyebrow.astro           # etiqueta pequeña sobre el titular del hero
 │   │       ├── NumberedItem.astro      # número + título + descripción
-│   │       ├── FeatureCard.astro       # card con borde
-│   │       ├── TechTag.astro           # pill de tecnología
-│   │       └── QuoteCard.astro         # citas de "Nos llaman cuando"
+│   │       ├── FeatureCard.astro       # título + descripción
+│   │       ├── SectionSplit.astro      # título a la izquierda, contenido a la derecha
+│   │       └── ThemeToggle.astro       # claro / oscuro
 │   ├── layouts/
 │   │   └── Layout.astro
 │   └── pages/

@@ -2,45 +2,75 @@
 // src/components/sections/Hero.astro
 import Button from "@components/ui/Button.astro";
 import Eyebrow from "@components/ui/Eyebrow.astro";
+
+// Sistema rotativo "Tu proyecto…" (estrategia de marca, sección 03: mantener).
+// La primera frase es la que se renderiza en el HTML; el resto rota por script.
+const phrases = [
+    "paga la carrera de alguien.",
+    "le da experiencia real a un estudiante.",
+    "mantiene a alguien en la universidad.",
+    "contrata talento de regiones.",
+    "cuesta menos de lo que te dijeron.",
+];
+const ROTATION_MS = 3200;
 ---
 
 <section class="section-full fade-on-scroll py-16 md:py-24">
     <div class="wrapper">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
-            <div class="lg:col-span-7 max-w-xl space-y-6">
-                <Eyebrow text="DESARROLLO WEB · CONCEPCIÓN, CHILE" />
+        <div class="max-w-4xl space-y-6">
+            <Eyebrow text="Software para pymes. Concepción, Chile." />
 
-                <h1
-                    class="font-display font-bold text-5xl md:text-6xl text-foreground tracking-tight leading-[1.08]"
-                >
-                    Tu proyecto paga la carrera de alguien.
-                </h1>
+            <h1
+                class="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-foreground tracking-tight leading-[1.08] min-h-[2.16em]"
+                aria-live="polite"
+            >
+                Tu proyecto <span class="hero-phrase text-primary" data-hero-phrase>{phrases[0]}</span>
+            </h1>
 
-                <p
-                    class="text-muted-foreground text-base md:text-lg leading-relaxed"
-                >
-                    Construimos tu aplicación web y repartimos el trabajo, por
-                    dentro, entre estudiantes universitarios que formamos y
-                    pagamos por entrega. Tú tratas con nosotros: un contrato, un
-                    interlocutor, un responsable.
-                </p>
+            <p
+                class="text-muted-foreground text-base md:text-lg leading-relaxed max-w-xl"
+            >
+                Resolvemos un problema concreto de tu pyme, cobrar, cumplir,
+                ordenar, con software que se entiende y es tuyo.
+            </p>
 
-                <div class="pt-2">
-                    <Button href="#agendar" variant="solid">
-                        Agendar 30 minutos
-                    </Button>
-                </div>
-            </div>
-
-            <!-- Columna Derecha: Texto secundario de fundadores -->
-            <div class="lg:col-span-5 pb-2 lg:pl-4">
-                <p
-                    class="text-xs md:text-sm text-muted-foreground leading-relaxed max-w-xs"
-                >
-                    Sin costo y sin compromiso. Estamos partiendo: los primeros
-                    proyectos van con precio y atención de fundador.
-                </p>
+            <div class="flex flex-wrap gap-3 pt-2">
+                <Button href="#agendar" variant="solid">Agendar 30 min</Button>
+                <Button href="#meson" variant="outline">Conocer Mesón</Button>
             </div>
         </div>
     </div>
 </section>
+
+<style>
+    @media (prefers-reduced-motion: no-preference) {
+        .hero-phrase {
+            animation: hero-phrase-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        @keyframes hero-phrase-in {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    }
+</style>
+
+<script is:inline define:vars={{ phrases, ROTATION_MS }}>
+    (function () {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        let el = document.querySelector("[data-hero-phrase]");
+        if (!el) return;
+        let i = 0;
+        setInterval(() => {
+            i = (i + 1) % phrases.length;
+            // Nodo nuevo para que la animación de entrada vuelva a correr.
+            const next = el.cloneNode(false);
+            next.textContent = phrases[i];
+            el.replaceWith(next);
+            el = next;
+        }, ROTATION_MS);
+    })();
+</script>
