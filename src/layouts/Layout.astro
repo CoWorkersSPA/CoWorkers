@@ -18,53 +18,53 @@ const {
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="color-scheme" content="dark" />
+		<meta name="theme-color" content="#161826" />
+		<link rel="icon" href="/favicon.ico" sizes="32x32" />
+		<link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32" />
+		<link rel="icon" type="image/png" href="/favicon-512.png" sizes="512x512" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+
+		<!-- Producción: auto-hospedar Inter con @font-face + font-display: swap. -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@500;600;700&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
 			rel="stylesheet"
 		/>
-		<title>{title}</title>
-		<meta name="description" content={description} />
-
-		<!-- Script anti-FOUC (Evita destello blanco antes de cargar el CSS) -->
-		<script is:inline>
-			(function () {
-				const savedTheme = localStorage.getItem("theme");
-				const systemDark = window.matchMedia(
-					"(prefers-color-scheme: dark)",
-				).matches;
-				if (savedTheme === "dark" || (!savedTheme && systemDark)) {
-					document.documentElement.classList.add("dark");
-				} else {
-					document.documentElement.classList.remove("dark");
-				}
-			})();
-		</script>
+		<!-- Íconos: Phosphor (el set que fija Nocturne). -->
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+		/>
 	</head>
 
 	<body>
 		<slot />
 		<script>
-			const sections = document.querySelectorAll(".fade-on-scroll");
-
-			const observer = new IntersectionObserver(
-				(entries) => {
-					entries.forEach((entry) => {
-						entry.target.classList.toggle(
-							"is-visible",
-							entry.isIntersecting,
-						);
-					});
-				},
-				{
-					threshold: 0.15, // se activa cuando ~15% de la sección es visible
-					rootMargin: "0px 0px -10% 0px",
-				},
-			);
-
-			sections.forEach((section) => observer.observe(section));
+			// Scroll-reveal con IntersectionObserver (nunca listeners de scroll).
+			const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+			const els = document.querySelectorAll<HTMLElement>(".reveal:not(.in)");
+			if (reduce || !("IntersectionObserver" in window)) {
+				els.forEach((el) => el.classList.add("in"));
+			} else {
+				const io = new IntersectionObserver(
+					(entries) => {
+						entries.forEach((e) => {
+							if (e.isIntersecting) {
+								e.target.classList.add("in");
+								io.unobserve(e.target);
+							}
+						});
+					},
+					{ rootMargin: "0px 0px -10% 0px", threshold: 0.15 },
+				);
+				els.forEach((el) => io.observe(el));
+			}
 		</script>
 	</body>
 </html>

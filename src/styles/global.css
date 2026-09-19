@@ -1,230 +1,88 @@
 /* src/styles/global.css */
 @import "tailwindcss";
-@import "tw-animate-css";
 
 @source "../src";
 
-@custom-variant dark (&:is(.dark *));
+/* ---------- Tokens: Nocturne (UI Palette Coworkers.cl) ----------
+   Tema oscuro fijo: es el tema de la marca corporativa (brief de identidad, sección 06). */
+:root {
+    --bg: #161826;
+    --surface: #232532;
+    --text: #e9e9ed;
+    --accent: #9184d9;
+    --section: #262a60;
+    --section-glow: #353b80;
+    --section-ghost: #4c5397;
+
+    --n-100: #f3f5fe; --n-200: #e4e7f5; --n-300: #cfd3e5; --n-400: #b2b6ca; --n-500: #9397ab;
+    --n-600: #75798c; --n-700: #595d6c; --n-800: #3f424d; --n-900: #292b31;
+
+    --a-100: #f5f4ff; --a-200: #e7e5fe; --a-300: #d2cefd; --a-400: #b5abfc; --a-500: #968ae0;
+    --a-600: #796cbf; --a-700: #5d5294; --a-800: #423a6a; --a-900: #2b2741;
+
+    --divider: color-mix(in srgb, var(--text) 16%, transparent);
+    --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --radius: 8px;
+    --radius-lg: 14px;
+    --container: 1200px;
+    --gutter: 24px;
+    --nav-h: 68px;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* Capas: solo el navbar usa z-index. */
+    --z-nav: 10;
+}
 
 @theme inline {
-    --radius-sm: calc(var(--radius) - 4px);
-    --radius-md: calc(var(--radius) - 2px);
-    --radius-lg: var(--radius);
-    --radius-xl: calc(var(--radius) + 4px);
-    --radius-2xl: calc(var(--radius) + 8px);
-    --radius-3xl: calc(var(--radius) + 12px);
-    --radius-4xl: calc(var(--radius) + 16px);
-
-    --color-background: var(--background);
-    --color-foreground: var(--foreground);
-    --color-card: var(--card);
-    --color-card-foreground: var(--card-foreground);
-    --color-popover: var(--popover);
-    --color-popover-foreground: var(--popover-foreground);
-    --color-primary: var(--primary);
-    --color-primary-foreground: var(--primary-foreground);
-    --color-secondary: var(--secondary);
-    --color-secondary-foreground: var(--secondary-foreground);
-    --color-muted: var(--muted);
-    --color-muted-foreground: var(--muted-foreground);
+    --color-bg: var(--bg);
+    --color-surface: var(--surface);
+    --color-text: var(--text);
     --color-accent: var(--accent);
-    --color-accent-foreground: var(--accent-foreground);
-    --color-border: var(--border);
-    --color-input: var(--input);
-    --color-ring: var(--ring);
-
-    --color-section-emphasis: var(--section-emphasis);
-    --color-section-glow: var(--section-glow);
+    --font-sans: var(--font);
 }
 
-@theme {
-    --font-sans: "DM Sans", sans-serif;
-    --font-display: "Space Grotesk", sans-serif;
-}
-
-:root {
-    /* Modo Claro (Warm Cream) */
-    --radius: 0.625rem;
-    --background: oklch(0.965 0.006 75);
-    --foreground: oklch(0.28 0.003 270);
-    --card: oklch(0.965 0.006 75);
-    --card-foreground: oklch(0.28 0.003 270);
-    --popover: oklch(0.965 0.006 75);
-    --popover-foreground: oklch(0.28 0.003 270);
-    --primary: oklch(0.18 0.002 270);
-    --primary-foreground: oklch(0.965 0.006 75);
-    --accent: oklch(0.91 0.008 75);
-    --accent-foreground: oklch(0.18 0.002 270);
-
-    --secondary: oklch(0.91 0.008 75);
-    --secondary-foreground: oklch(0.18 0.002 270);
-    --muted: oklch(0.91 0.008 75);
-    --muted-foreground: oklch(0.5 0.006 75);
-
-    --border: oklch(0.91 0.008 75);
-    --input: oklch(0.91 0.008 75);
-    --ring: oklch(0.28 0.003 270);
-
-    --section-emphasis: #262a60;
-    --section-glow: #353680;
-
-    /* Tokens que usan FeatureCard, NumberedItem y las grillas de secciones */
-    --space-xs: 0.5rem;
-    --space-lg: 2rem;
-    --space-xl: 2.5rem;
-    --text-h3: 1.125rem;
-}
-
-.dark {
-    /* MODO OSCURO (Paleta Nocturne / Warm Graphite) */
-    --background: #161826;
-    --foreground: #e9e9ed;
-    --card: #232532;
-    --card-foreground: #e9e9ed;
-    --popover: #161826;
-    --popover-foreground: #e9e9ed;
-
-    --primary: #9184d9;
-    --primary-foreground: #161826;
-    --accent: #9184d9;
-    --accent-foreground: #161826;
-
-    --secondary: #232532;
-    --secondary-foreground: #e9e9ed;
-    --muted: #232532;
-    --muted-foreground: #b2b6ca;
-
-    --border: #3f424d;
-    --input: #3f424d;
-    --ring: #9184d9;
-
-    --section-emphasis: #262a60;
-    --section-glow: #353680;
-}
-
-@layer base {
-
-    *,
-    *::before,
-    *::after {
-        box-sizing: border-box;
-        border-color: var(--color-border);
-        transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-    }
-
-    html {
-        color-scheme: light dark;
-    }
-
-    body {
-        margin: 0;
-        background-color: var(--color-background);
-        color: var(--color-foreground);
-        font-family: var(--font-sans);
-        font-size: 1rem;
-        line-height: 1.6;
-        -webkit-font-smoothing: antialiased;
-    }
-
-    h1,
-    h2,
-    h3 {
-        font-family: var(--font-sans);
-        margin: 0;
-        color: inherit;
-    }
-
-    p {
-        margin: 0;
-    }
-
-    a {
-        color: inherit;
-    }
-}
-
-.bg-section-emphasis {
-    background-color: var(--color-section-emphasis);
-    color: #e9e9ed;
-}
-
-.wrapper {
-    max-width: 1120px;
-    margin-inline: auto;
-    padding-inline: clamp(1.25rem, 4vw, 2.5rem);
-}
-
-.section {
-    padding-block: 5.5rem;
-}
-
-.divider {
-    border: none;
-    border-top: 1px solid var(--color-border);
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; color-scheme: dark; }
+body {
     margin: 0;
+    background: var(--bg);
+    color: var(--n-300);
+    font-family: var(--font);
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+h1, h2, h3, h4 { color: var(--text); font-weight: 500; margin: 0; letter-spacing: -0.02em; }
+p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+::selection { background: var(--a-800); color: var(--a-100); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+.container { max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); }
+.section { padding-block: 96px; }
+.section-title { font-size: clamp(28px, 3.4vw, 40px); }
+@media (max-width: 767px) {
+    :root { --gutter: 16px; }
+    .section { padding-block: 64px; }
 }
 
-.section-full {
-    min-height: 100svh;
-    display: flex;
-    align-items: center;
-    padding-block: 3rem;
+/* Regla que se desvanece en los extremos (firma de Nocturne) */
+.rule {
+    height: 1px; border: 0; margin: 0;
+    background: linear-gradient(90deg, transparent, var(--divider) 48px, var(--divider) calc(100% - 48px), transparent);
 }
 
-.fade-on-scroll {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-    will-change: opacity, transform;
-}
+/* Las fotos pasan por .lighten: lo más oscuro que el fondo desaparece */
+.lighten { mix-blend-mode: lighten; }
 
-.fade-on-scroll.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .fade-on-scroll {
-        transition: none;
-        opacity: 1;
-        transform: none;
-    }
-}
-
-@keyframes fadeInOutScroll {
-    0% {
-        opacity: 0;
-        transform: translateY(24px);
-    }
-
-    15% {
-        opacity: 1;
-        transform: translateY(0px);
-    }
-
-    85% {
-        opacity: 1;
-        transform: translateY(0px);
-    }
-
-    100% {
-        opacity: 0;
-        transform: translateY(-24px);
-    }
-}
-
-/* Fallback para navegadores sin soporte de scroll-driven animations */
-@supports not (animation-timeline: view()) {
-    .fade-on-scroll {
-        animation: none;
-        opacity: 1;
-        transform: none;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-    }
+/* ---------- Motion: scroll-reveal con IntersectionObserver (Layout.astro) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal[data-delay="1"] { transition-delay: 0.08s; }
+    .reveal[data-delay="2"] { transition-delay: 0.16s; }
+    .reveal[data-delay="3"] { transition-delay: 0.24s; }
 }

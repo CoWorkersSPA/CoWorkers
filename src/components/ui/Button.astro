@@ -1,51 +1,63 @@
 ---
 // src/components/ui/Button.astro
+// Botones de contorno, nunca relleno (Nocturne): "primary" con borde en acento, "ghost" en neutro.
 interface Props {
     href?: string;
     type?: "button" | "submit" | "reset";
-    variant?: "solid" | "outline";
-    size?: "sm" | "md" | "lg";
+    variant?: "primary" | "ghost";
+    size?: "sm" | "md";
     target?: string;
     rel?: string;
     class?: string;
+    /** Ícono Phosphor al final, p. ej. "ph-arrow-right" */
+    icon?: string;
 }
 
 const {
     href,
     type = "button",
-    variant = "solid",
+    variant = "primary",
     size = "md",
     target,
     rel,
     class: className = "",
+    icon,
 } = Astro.props;
 
-const baseStyles =
-    "inline-flex items-center justify-center font-bold transition-all rounded-lg cursor-pointer";
-
-const sizeStyles = {
-    sm: "px-3.5 py-1.5 text-xs",
-    md: "px-5 py-2.5 text-sm",
-    lg: "px-8 py-3 text-base",
-};
-
-const variantStyles = {
-    solid: "bg-foreground text-background hover:opacity-90",
-    outline:
-        "border border-foreground/20 text-foreground hover:border-foreground",
-};
-
-const classes = `${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} ${className}`;
+const classes = ["btn", `btn-${variant}`, `btn-${size}`, className].join(" ");
 ---
 
 {
     href ? (
         <a href={href} target={target} rel={rel} class={classes}>
             <slot />
+            {icon && <i class={`ph ${icon}`} aria-hidden="true" />}
         </a>
     ) : (
         <button type={type} class={classes}>
             <slot />
+            {icon && <i class={`ph ${icon}`} aria-hidden="true" />}
         </button>
     )
 }
+
+<style is:global>
+    .btn {
+        display: inline-flex; align-items: center; gap: 10px;
+        min-height: 48px; padding: 0 22px;
+        border-radius: var(--radius);
+        border: 1px solid var(--accent);
+        background: transparent;
+        color: var(--a-300);
+        font: 500 15px/1 var(--font);
+        white-space: nowrap;
+        cursor: pointer;
+        transition: background-color 0.25s var(--ease), border-color 0.25s var(--ease), transform 0.15s var(--ease), color 0.25s var(--ease);
+    }
+    .btn:hover { background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--a-200); }
+    .btn:active { transform: translateY(1px) scale(0.985); background: color-mix(in srgb, var(--accent) 22%, transparent); }
+    .btn .ph { font-size: 18px; }
+    .btn-ghost { border-color: var(--n-700); color: var(--n-300); }
+    .btn-ghost:hover { border-color: var(--n-500); background: color-mix(in srgb, var(--n-500) 10%, transparent); color: var(--text); }
+    .btn-sm { min-height: 40px; padding: 0 16px; font-size: 14px; }
+</style>

@@ -1,55 +1,25 @@
 ---
 // src/components/sections/FinalCta.astro
-import SectionSplit from "@components/ui/SectionSplit.astro";
 import Button from "@components/ui/Button.astro";
 ---
 
-<SectionSplit
-    id="agendar"
-    class="section fade-on-scroll bg-muted border-t border-border"
->
-    <Fragment slot="title">
-        <h2
-            class="font-display font-bold text-2xl md:text-3xl lg:text-4xl text-foreground leading-tight"
-        >
-            Cuéntanos cómo funciona hoy tu operación.
-        </h2>
-    </Fragment>
-
-    <div class="space-y-8">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
-            <div>
-                <span class="block text-muted-foreground mb-1">Ubicación</span>
-                <p class="font-medium text-foreground">Concepción, Chile</p>
-            </div>
-            <div>
-                <span class="block text-muted-foreground mb-1">Contacto</span>
-                <a
-                    href="https://mail.google.com/mail/?view=cm&fs=1&to=hola@coworkers.cl&su=Consulta%20Agendamiento%2030%20min"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="font-medium text-foreground hover:underline"
-                >
-                    hola@coworkers.cl
-                </a>
-            </div>
-        </div>
-
-        <p class="text-muted-foreground text-sm md:text-base leading-relaxed">
-            Treinta minutos en tu local, sin costo. Sales con el alcance
-            escrito y un plazo, contrates o no.
+<section class="close" id="agendar">
+    <div class="container">
+        <h2 class="reveal">Cuéntanos cómo funciona hoy tu operación.</h2>
+        <p class="reveal" data-delay="1">
+            Treinta minutos en tu local, sin costo. Sales con el alcance escrito y un plazo, contrates o no.
         </p>
-
-        <div>
-            <Button
-                href="https://mail.google.com/mail/?view=cm&fs=1&to=hola@coworkers.cl&su=Consulta%20Agendamiento%2030%20min"
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="solid"
-                size="md"
-            >
-                Agendar 30 min
-            </Button>
-        </div>
+        <Button
+            href="mailto:hola@coworkers.cl?subject=Agendar%2030%20min"
+            class="reveal"
+            icon="ph-arrow-right">Agendar 30 min</Button
+        >
     </div>
-</SectionSplit>
+</section>
+
+<style>
+    .close { padding-block: 112px; }
+    h2 { font-size: clamp(32px, 4.4vw, 54px); letter-spacing: -0.03em; line-height: 1.08; max-width: 22ch; }
+    p { margin-top: 22px; max-width: 48ch; color: var(--n-400); font-size: 18px; }
+    .close :global(.btn) { margin-top: 34px; }
+</style>

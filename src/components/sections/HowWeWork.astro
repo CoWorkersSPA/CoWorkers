@@ -1,159 +1,68 @@
 ---
 // src/components/sections/HowWeWork.astro
-import SectionSplit from "@components/ui/SectionSplit.astro";
-
+// Cuatro pasos sobre una sola línea (vertical en móvil). Sin numerales: el contenido es la etiqueta.
 const steps = [
-  {
-    number: "01",
-    title: "Treinta minutos en tu local",
-    description:
-      "Vamos nosotros. Miramos cómo funciona hoy tu negocio: el cuaderno, el WhatsApp, lo que sea. Sales con el alcance por escrito, contrates o no.",
-  },
-  {
-    number: "02",
-    title: "Lo cortamos en tareas chicas",
-    description:
-      "Cada una de pocas horas, con criterio de aceptación claro. Va al estudiante adecuado, que cobra al aceptarse la entrega. Tú no coordinas a nadie.",
-  },
-  {
-    number: "03",
-    title: "Revisamos antes de integrar",
-    description:
-      "Ninguna tarea entra al proyecto sin pasar por uno de los cinco socios. El riesgo lo corremos nosotros, no tú.",
-  },
-  {
-    number: "04",
-    title: "Instalamos y lo mantenemos encendido",
-    description:
-      "Lo dejamos funcionando en tu local. Una sola mensualidad cubre servidor, respaldo, mejoras y alguien con nombre a quien llamar.",
-  },
+    {
+        title: "Treinta minutos en tu local",
+        description:
+            "Vamos nosotros. Miramos cómo funciona hoy tu negocio: el cuaderno, el WhatsApp, lo que sea. Sales con el alcance por escrito, contrates o no.",
+    },
+    {
+        title: "Lo cortamos en tareas chicas",
+        description:
+            "Cada una de pocas horas, con criterio de aceptación claro. Va al estudiante adecuado, que cobra al aceptarse la entrega. Tú no coordinas a nadie.",
+    },
+    {
+        title: "Revisamos antes de integrar",
+        description:
+            "Ninguna tarea entra al proyecto sin pasar por uno de los cinco socios. El riesgo lo corremos nosotros, no tú.",
+    },
+    {
+        title: "Instalamos y lo mantenemos encendido",
+        description:
+            "Lo dejamos funcionando en tu local. Una sola mensualidad cubre servidor, respaldo, mejoras y alguien con nombre a quien llamar.",
+    },
 ];
-const DURATION_MS = 5000;
 ---
 
-<SectionSplit heading="Cuatro pasos. Ningún manual." id="como-trabajamos" class="section fade-on-scroll">
-  <div class="space-y-4" id="how-we-work-container">
-    {
-      steps.map((step, index) => (
-        <div
-          data-step-card={index}
-          class:list={[
-            "step-card group border rounded-xl p-5 md:p-6 transition-all duration-300 cursor-pointer overflow-hidden",
-            index === 0
-              ? "active border-foreground/20 bg-background/50 shadow-sm"
-              : "border-transparent hover:border-foreground/10"
-          ]}
-        >
-          <!-- Encabezado de la tarjeta -->
-          <div class="flex items-center gap-4">
-            <span class="font-mono text-sm md:text-base font-semibold text-muted-foreground/70 group-aria-selected:text-foreground">
-              {step.number}
-            </span>
-            <h3 class="font-display font-bold text-base md:text-lg text-foreground">
-              {step.title}
-            </h3>
-          </div>
-
-          <!-- Contenido desplegable -->
-          <div
-            data-step-content={index}
-            class:list={[
-              "grid transition-all duration-300 ease-in-out",
-              index === 0 ? "grid-rows-[1fr] opacity-100 mt-3" : "grid-rows-[0fr] opacity-0"
-            ]}
-          >
-            <div class="overflow-hidden space-y-4">
-              <p class="text-sm md:text-base text-muted-foreground leading-relaxed pl-9">
-                {step.description}
-              </p>
-
-              <!-- Barra de progreso -->
-              <div class="pl-9 pt-1">
-                <div class="w-full h-1 bg-foreground/10 rounded-full overflow-hidden">
-                  <div
-                    data-step-progress={index}
-                    class="h-full bg-foreground w-0 rounded-full"
-                  />
+<section class="section how" id="como-trabajamos">
+    <div class="container">
+        <hr class="rule" />
+        <h2 class="section-title reveal">Cuatro pasos. Ningún manual.</h2>
+        <div class="steps">
+            {steps.map((s, i) => (
+                <div class="step reveal" data-delay={i}>
+                    <h3>{s.title}</h3>
+                    <p>{s.description}</p>
                 </div>
-              </div>
-            </div>
-          </div>
+            ))}
         </div>
-      ))
+    </div>
+</section>
+
+<style>
+    .how { padding-top: 0; }
+    h2 { margin-top: 96px; max-width: 30ch; }
+    .steps { margin-top: 56px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; position: relative; }
+    .steps::before {
+        content: ""; position: absolute; left: 0; right: 0; top: 7px; height: 1px;
+        background: linear-gradient(90deg, transparent, var(--divider) 48px, var(--divider) calc(100% - 48px), transparent);
     }
-  </div>
-</SectionSplit>
-
-<script is:inline define:vars={{ DURATION_MS }}>
-  (function () {
-    const cards = document.querySelectorAll('[data-step-card]');
-    const contents = document.querySelectorAll('[data-step-content]');
-    const progressBars = document.querySelectorAll('[data-step-progress]');
-
-    let currentIndex = 0;
-    let startTime = null;
-    let animationFrameId = null;
-
-    function resetProgressBars() {
-      progressBars.forEach((bar) => {
-        bar.style.transition = 'none';
-        bar.style.width = '0%';
-      });
+    .step { position: relative; padding-top: 28px; }
+    .step::before {
+        content: ""; position: absolute; top: 0; left: 0; width: 15px; height: 15px; border-radius: 50%;
+        background: var(--bg); border: 1px solid var(--accent);
     }
-
-    function activateStep(index) {
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
-
-      cards.forEach((card, i) => {
-        const content = contents[i];
-        if (i === index) {
-          card.classList.add('border-foreground/20', 'bg-background/50', 'shadow-sm');
-          card.classList.remove('border-transparent');
-
-          content.classList.remove('grid-rows-[0fr]', 'opacity-0');
-          content.classList.add('grid-rows-[1fr]', 'opacity-100', 'mt-3');
-        } else {
-          card.classList.remove('border-foreground/20', 'bg-background/50', 'shadow-sm');
-          card.classList.add('border-transparent');
-
-          content.classList.remove('grid-rows-[1fr]', 'opacity-100', 'mt-3');
-          content.classList.add('grid-rows-[0fr]', 'opacity-0');
+    .step h3 { font-size: 20px; margin-bottom: 10px; }
+    .step p { color: var(--n-400); font-size: 16px; }
+    @media (max-width: 1023px) {
+        h2 { margin-top: 64px; }
+        .steps { grid-template-columns: 1fr; gap: 0; padding-left: 28px; }
+        .steps::before {
+            left: 7px; right: auto; top: 0; bottom: 0; width: 1px; height: auto;
+            background: linear-gradient(180deg, transparent, var(--divider) 24px, var(--divider) calc(100% - 24px), transparent);
         }
-      });
-
-      resetProgressBars();
-      currentIndex = index;
-      startProgress();
+        .step { padding: 0 0 36px 0; }
+        .step::before { left: -28px; top: 6px; }
     }
-
-    function startProgress() {
-      startTime = performance.now();
-
-      function step(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min((elapsed / DURATION_MS) * 100, 100);
-
-        if (progressBars[currentIndex]) {
-          progressBars[currentIndex].style.width = `${progress}%`;
-        }
-
-        if (elapsed < DURATION_MS) {
-          animationFrameId = requestAnimationFrame(step);
-        } else {
-          const nextIndex = (currentIndex + 1) % cards.length;
-          activateStep(nextIndex);
-        }
-      }
-
-      animationFrameId = requestAnimationFrame(step);
-    }
-
-    cards.forEach((card, i) => {
-      card.addEventListener('click', () => {
-        activateStep(i);
-      });
-    });
-
-    activateStep(0);
-  })();
-</script>
+</style>

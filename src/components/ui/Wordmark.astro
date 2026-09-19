@@ -1,0 +1,28 @@
+---
+// src/components/ui/Wordmark.astro
+// Wordmark del manual v1: "coworkers" en texto, ".cl" en acento.
+interface Props {
+    height?: number;
+    class?: string;
+}
+const { height = 30, class: className = "" } = Astro.props;
+const width = Math.round((height * 161) / 30);
+---
+
+<svg
+    viewBox="-3 4 161 30"
+    width={width}
+    height={height}
+    role="img"
+    aria-label="coworkers.cl"
+    class={className}
+>
+    <text
+        x="0"
+        y="28"
+        font-family="Inter, system-ui, sans-serif"
+        font-size="26"
+        font-weight="600"
+        letter-spacing="-0.5"
+    ><tspan fill="#e9e9ed">coworkers</tspan><tspan fill="#9184d9">.cl</tspan></text>
+</svg>

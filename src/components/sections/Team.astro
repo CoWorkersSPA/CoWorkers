@@ -1,84 +1,50 @@
 ---
 // src/components/sections/Team.astro
-// Historia de marca, versión "home o pitch" (estrategia, sección 02).
+// Historia de marca, versión "home o pitch" (estrategia, sección 02), sobre foto a sangre.
+import Button from "@components/ui/Button.astro";
+
 const paragraphs = [
-    "Nuestro equipo son estudiantes, y eso lo decimos de frente.",
     "Empezó en una mesa de coworking de la Santa María. Cinco compañeros de Ingeniería en Informática, cada uno obsesionado con una cosa distinta: gestión, la máquina, el sistema, la seguridad, los datos. Cuando uno presentaba algo, los otros cuatro siempre encontraban algo. Eso era el equipo.",
     "También vimos quién faltaba: compañeros buenos que dejaban de venir porque tenían que trabajar. Fuera de Santiago, estudiar y pagar la carrera son cosas excluyentes. Nos pareció una regla estúpida. Así que no subcontratamos: formamos. Tareas acotadas, compatibles con el semestre, pagadas al aceptarse y revisadas entre los cinco.",
-    "Estamos partiendo: no tenemos casos que mostrarte y no vamos a inventarlos.",
 ];
 ---
 
-<section
-    id="equipo"
-    class="section fade-on-scroll py-16 md:py-24 border-t border-border"
->
-    <div class="wrapper">
-        <div
-            class="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16 items-center"
-        >
-            <div class="lg:col-span-6 space-y-6">
-                <h2
-                    class="font-display font-bold text-2xl md:text-3xl text-foreground"
-                >
-                    Quiénes lo hacen
-                </h2>
-
-                <div class="space-y-4">
-                    {
-                        paragraphs.map((text, index) => {
-                            const isFirst = index === 0;
-                            const isLast = index === paragraphs.length - 1;
-
-                            return (
-                                <p
-                                    class:list={[
-                                        "text-sm md:text-base leading-relaxed",
-                                        isFirst
-                                            ? "text-foreground font-medium"
-                                            : "text-muted-foreground",
-                                        isLast
-                                            ? "text-foreground font-medium pt-2"
-                                            : "",
-                                    ]}
-                                >
-                                    {text}
-                                </p>
-                            );
-                        })
-                    }
-                </div>
-
-                <p class="pt-4 border-t border-border text-sm md:text-base text-muted-foreground leading-relaxed">
-                    ¿Estudias en Concepción? Tareas reales, pagadas al aceptarse,
-                    compatibles con el semestre.
-                    <a
-                        href="mailto:hola@coworkers.cl?subject=Quiero%20trabajar%20con%20Coworkers.cl"
-                        class="font-medium text-foreground hover:underline"
-                    >
-                        Escríbenos
-                    </a>
-                </p>
-            </div>
-
-            <!-- Columna Derecha: Foto -->
-            <div class="lg:col-span-6">
-                <div
-                    class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-border bg-background flex items-center justify-center shadow-sm"
-                    role="img"
-                    aria-label="Foto de los socios de Coworkers.cl"
-                >
-                    <img
-                        src="/team-photo.jpg"
-                        alt="Los socios de Coworkers.cl en la mesa de coworking de la Universidad Santa María"
-                        class="w-full h-full object-cover"
-                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                    />
-                    <span class="absolute text-sm text-muted-foreground hidden">
-                        Foto del equipo trabajando
-                    </span>
-                </div>
-            </div>
+<section class="team" id="equipo">
+    <!-- TODO: foto real de los cinco socios, fondo oscuro, 2400x1350 -->
+    <img
+        class="lighten"
+        src="https://picsum.photos/seed/coworkers-socios-santa-maria/2400/1350"
+        width="2400"
+        height="1350"
+        alt="Los socios de Coworkers.cl en la mesa de coworking de la Universidad Santa María"
+        loading="lazy"
+    />
+    <div class="container">
+        <h2 class="reveal">Nuestro equipo son estudiantes, y eso lo decimos de frente.</h2>
+        <div class="story">
+            {paragraphs.map((t, i) => <p class="reveal" data-delay={i}>{t}</p>)}
         </div>
+        <!-- <div class="student reveal">
+            <span>¿Estudias en Concepción? Tareas reales, pagadas al aceptarse, compatibles con el semestre.</span>
+            <Button
+                href="mailto:hola@coworkers.cl?subject=Quiero%20trabajar%20con%20Coworkers.cl"
+                variant="ghost"
+                icon="ph-arrow-right">Escríbenos</Button
+            >
+        </div> -->
     </div>
 </section>
+
+<style>
+    .team { position: relative; overflow: hidden; isolation: isolate; padding-block: 120px; }
+    .team > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.45; }
+    .team::after {
+        content: ""; position: absolute; inset: 0; pointer-events: none;
+        background: linear-gradient(90deg, var(--bg) 0%, var(--bg) 30%, color-mix(in srgb, var(--bg) 90%, transparent) 62%, color-mix(in srgb, var(--bg) 45%, transparent) 100%);
+    }
+    .container { position: relative; z-index: 1; }
+    h2 { font-size: clamp(28px, 3.4vw, 40px); max-width: 20ch; }
+    .story { margin-top: 24px; max-width: 60ch; display: grid; gap: 16px; color: var(--n-300); }
+    .student { margin-top: 44px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; color: var(--n-400); }
+    @media (max-width: 767px) { .team { padding-block: 80px; } .team > img { opacity: 0.4; } }
+</style>

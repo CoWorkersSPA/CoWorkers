@@ -1,7 +1,7 @@
 ---
 // src/components/layout/Header.astro
 import Button from "@components/ui/Button.astro";
-import ThemeToggle from "@components/ui/ThemeToggle.astro";
+import Wordmark from "@components/ui/Wordmark.astro";
 
 const navLinks = [
     { label: "Servicios", href: "#servicios" },
@@ -11,79 +11,83 @@ const navLinks = [
 ];
 ---
 
-<header id="site-header" class="sticky top-0 z-50 w-full site-header">
-    <div class="w-full flex items-center justify-between px-6 md:px-12 py-4">
-        <a
-            href="/"
-            class="font-display text-base font-bold text-foreground no-underline hover:opacity-80 transition-opacity"
-        >
-            coworkers.cl
+<header class="nav" id="site-nav">
+    <div class="container">
+        <a class="brand" href="/" aria-label="coworkers.cl, inicio">
+            <Wordmark height={30} />
         </a>
 
-        <nav class="hidden md:block" aria-label="Navegación principal">
-            <ul class="flex items-center gap-8 list-none m-0 p-0">
-                {
-                    navLinks.map((link) => (
-                        <li>
-                            <a
-                                href={link.href}
-                                class="text-sm font-medium text-muted-foreground no-underline hover:text-foreground transition-colors"
-                            >
-                                {link.label}
-                            </a>
-                        </li>
-                    ))
-                }
-            </ul>
-        </nav>
+        <ul class="nav-links" id="site-nav-links">
+            {navLinks.map((l) => (
+                <li><a href={l.href}>{l.label}</a></li>
+            ))}
+            <li class="only-menu"><a href="#agendar">Agendar 30 min</a></li>
+        </ul>
 
-        <div class="flex items-center gap-3">
-            <ThemeToggle />
-            <Button href="#agendar" variant="solid" size="sm">
-                Agendar 30 min
-            </Button>
+        <div class="nav-cta">
+            <Button href="#agendar" size="sm">Agendar 30 min</Button>
+            <button
+                class="nav-toggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="site-nav-links"
+                aria-label="Abrir menú"
+            >
+                <i class="ph ph-list" aria-hidden="true"></i>
+            </button>
         </div>
     </div>
-
-    <style>
-        .site-header {
-            background-color: transparent;
-            border-bottom: 1px solid transparent;
-            backdrop-filter: blur(0px);
-            transition:
-                background-color 0.3s ease,
-                border-color 0.3s ease,
-                backdrop-filter 0.3s ease;
-        }
-
-        .site-header.header--scrolled {
-            background-color: color-mix(
-                in oklab,
-                var(--color-background) 85%,
-                transparent
-            );
-            border-bottom-color: var(--color-border);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-    </style>
-
-    <script>
-        // Un centinela invisible justo debajo del borde superior de la página:
-        // cuando sale del viewport, el header ya no está "arriba del todo".
-        // IntersectionObserver en vez de un listener de scroll (no corre en cada frame).
-        const header = document.getElementById("site-header");
-        const sentinel = document.createElement("div");
-        sentinel.setAttribute("aria-hidden", "true");
-        sentinel.style.cssText =
-            "position:absolute;top:20px;left:0;width:1px;height:1px;pointer-events:none;";
-        document.body.prepend(sentinel);
-
-        new IntersectionObserver(
-            ([entry]) => {
-                header?.classList.toggle("header--scrolled", !entry.isIntersecting);
-            },
-            { threshold: 0 },
-        ).observe(sentinel);
-    </script>
 </header>
+
+<style>
+    .nav {
+        position: sticky; top: 0; z-index: var(--z-nav);
+        height: var(--nav-h);
+        background: color-mix(in srgb, var(--bg) 82%, transparent);
+        backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+        border-bottom: 1px solid var(--divider);
+    }
+    .nav .container { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; }
+    .brand :global(svg) { height: 26px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: 28px; margin: 0; padding: 0; list-style: none; }
+    .nav-links a { font-size: 15px; color: var(--n-400); transition: color 0.2s var(--ease); }
+    .nav-links a:hover { color: var(--text); }
+    .only-menu { display: none; } /* el CTA vive en el botón del nav; en el menú móvil aparece como ítem */
+    .nav-cta { display: flex; align-items: center; gap: 12px; }
+    .nav-toggle {
+        display: none; width: 44px; height: 44px; align-items: center; justify-content: center;
+        background: transparent; border: 1px solid var(--n-700); border-radius: var(--radius); color: var(--text); font-size: 22px; cursor: pointer;
+    }
+    @media (max-width: 1023px) {
+        .nav-links { display: none; }
+        .nav-toggle { display: inline-flex; }
+        .nav.open .nav-links {
+            display: flex; flex-direction: column; align-items: stretch; gap: 0;
+            position: absolute; left: 0; right: 0; top: var(--nav-h);
+            background: var(--bg); border-bottom: 1px solid var(--divider); padding: 8px var(--gutter) 16px;
+        }
+        .nav.open .nav-links a { display: block; padding: 14px 0; border-bottom: 1px solid var(--divider); font-size: 17px; }
+        .nav.open .only-menu { display: block; }
+        .nav.open .only-menu a { color: var(--a-300); border-bottom: 0; }
+        .nav-cta :global(.btn) { display: none; }
+    }
+</style>
+
+<script>
+    const nav = document.getElementById("site-nav")!;
+    const toggle = nav.querySelector<HTMLButtonElement>(".nav-toggle")!;
+    const icon = toggle.querySelector("i")!;
+
+    const setOpen = (open: boolean) => {
+        nav.classList.toggle("open", open);
+        toggle.setAttribute("aria-expanded", String(open));
+        toggle.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+        icon.className = open ? "ph ph-x" : "ph ph-list";
+    };
+
+    toggle.addEventListener("click", () => setOpen(!nav.classList.contains("open")));
+    nav.querySelectorAll(".nav-links a").forEach((a) =>
+        a.addEventListener("click", () => setOpen(false)),
+    );
+</script>

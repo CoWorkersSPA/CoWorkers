@@ -4,7 +4,6 @@ import Button from "@components/ui/Button.astro";
 import Eyebrow from "@components/ui/Eyebrow.astro";
 
 // Sistema rotativo "Tu proyecto…" (estrategia de marca, sección 03: mantener).
-// La primera frase es la que se renderiza en el HTML; el resto rota por script.
 const phrases = [
     "paga la carrera de alguien.",
     "le da experiencia real a un estudiante.",
@@ -15,46 +14,67 @@ const phrases = [
 const ROTATION_MS = 3200;
 ---
 
-<section class="section-full fade-on-scroll py-16 md:py-24">
-    <div class="wrapper">
-        <div class="max-w-4xl space-y-6">
-            <Eyebrow text="Software para pymes. Concepción, Chile." />
-
-            <h1
-                class="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-foreground tracking-tight leading-[1.08] min-h-[2.16em]"
-                aria-live="polite"
-            >
-                Tu proyecto <span class="hero-phrase text-primary" data-hero-phrase>{phrases[0]}</span>
+<section class="hero">
+    <div class="container hero-grid">
+        <div>
+            <Eyebrow text="Software para pymes. Concepción, Chile." class="reveal in" />
+            <h1 class="reveal in" aria-live="polite">
+                Tu proyecto <span class="rot" data-hero-phrase>{phrases[0]}</span>
             </h1>
-
-            <p
-                class="text-muted-foreground text-base md:text-lg leading-relaxed max-w-xl"
-            >
+            <p class="lead reveal in" data-delay="1">
                 Resolvemos un problema concreto de tu pyme, cobrar, cumplir,
                 ordenar, con software que se entiende y es tuyo.
             </p>
-
-            <div class="flex flex-wrap gap-3 pt-2">
-                <Button href="#agendar" variant="solid">Agendar 30 min</Button>
-                <Button href="#meson" variant="outline">Conocer Mesón</Button>
+            <div class="ctas reveal in" data-delay="2">
+                <Button href="#agendar" icon="ph-arrow-right">Agendar 30 min</Button>
+                <Button href="#meson" variant="ghost">Conocer Mesón</Button>
             </div>
+        </div>
+        <div class="hero-visual reveal in" data-delay="2">
+            <!-- TODO: foto real del equipo sobre fondo oscuro, pantallas encendidas, 1200x1500 -->
+            <img
+                class="lighten"
+                src="https://picsum.photos/seed/coworkers-equipo-mesa-oscura/1200/1500"
+                width="1200"
+                height="1500"
+                alt="El equipo de Coworkers.cl trabajando en una mesa compartida"
+                fetchpriority="high"
+            />
         </div>
     </div>
 </section>
 
 <style>
+    .hero { position: relative; padding: 80px 0 96px; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 56px; align-items: center; }
+    h1 {
+        font-size: clamp(36px, 3.7vw, 50px);
+        line-height: 1.08;
+        letter-spacing: -0.032em;
+        max-width: 28ch;
+        min-height: 2.16em; /* reserva 2 líneas: la frase rota sin mover el resto */
+    }
+    .rot { color: var(--a-300); } /* inline: la frase puede partir de línea junto con el titular */
+    .lead { margin-top: 26px; max-width: 52ch; font-size: 19px; color: var(--n-400); }
+    .ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
+    .hero-visual { position: relative; aspect-ratio: 4 / 5; border-radius: var(--radius-lg); overflow: hidden; }
+    .hero-visual::before {
+        content: ""; position: absolute; inset: -30%; pointer-events: none;
+        background: radial-gradient(60% 50% at 70% 30%, color-mix(in srgb, var(--accent) 28%, transparent), transparent 70%);
+    }
+    .hero-visual img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-visual::after {
+        content: ""; position: absolute; inset: 0; pointer-events: none;
+        background: linear-gradient(180deg, transparent 55%, var(--bg) 100%), linear-gradient(90deg, var(--bg) 0%, transparent 25%);
+    }
+    @media (max-width: 1023px) {
+        .hero { padding: 56px 0 72px; }
+        .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+        .hero-visual { aspect-ratio: 16 / 10; order: 2; }
+    }
     @media (prefers-reduced-motion: no-preference) {
-        .hero-phrase {
-            animation: hero-phrase-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
-        }
-        @keyframes hero-phrase-in {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
+        .rot { animation: rot-in 0.55s var(--ease) both; }
+        @keyframes rot-in { from { opacity: 0; } to { opacity: 1; } }
     }
 </style>
 
@@ -66,8 +86,7 @@ const ROTATION_MS = 3200;
         let i = 0;
         setInterval(() => {
             i = (i + 1) % phrases.length;
-            // Nodo nuevo para que la animación de entrada vuelva a correr.
-            const next = el.cloneNode(false);
+            const next = el.cloneNode(false); // nodo nuevo = la animación de entrada vuelve a correr
             next.textContent = phrases[i];
             el.replaceWith(next);
             el = next;

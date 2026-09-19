@@ -1,75 +1,54 @@
 ---
 // src/components/sections/PainFacts.astro
-// "Nos llaman cuando": dos problemas con fecha. Solo cifras citables
-// (Investigación de mercado Mesón, sección 02). Es la única banda saturada de la página.
+// "Nos llaman cuando": dos problemas con fecha, con fuente (Investigación de mercado Mesón, sección 02).
+// Es la única banda saturada de la página.
 const facts = [
     {
         figure: "1 de diciembre",
-        text: "La nueva ley de datos personales aplica a toda empresa en Chile, sin importar el tamaño. Tu lista de clientes, tus trabajadores y tus proveedores son datos personales.",
+        text: "Día en que la nueva ley de datos personales aplica a toda empresa en Chile, sin importar el tamaño. Tu lista de clientes, tus trabajadores y tus proveedores son datos personales.",
         source: "Ley 21.719, vigente desde el 1 de diciembre de 2026",
     },
     {
         figure: "40 días",
-        text: "Lo que tarda en pagarse una factura en el comercio. El 54,6% de las facturas de pymes pequeñas se paga después de los 30 días.",
+        text: "Es lo que tarda en pagarse una factura en el comercio. El 54,6% de las facturas de pymes pequeñas se paga después de los 30 días.",
         source: "Estudio Xepelin, La Tercera, julio de 2026",
     },
 ];
 ---
 
-<section
-    id="nos-llaman-cuando"
-    class="section fade-on-scroll bg-section-emphasis py-20 md:py-28"
->
-    <div class="wrapper">
-        <h2
-            class="font-display font-bold text-2xl md:text-3xl lg:text-4xl leading-tight max-w-2xl"
-        >
-            Nos llaman cuando el cuaderno, el WhatsApp y la memoria ya no dan
-            más.
-        </h2>
-
-        <div class="pain-facts__grid mt-12 md:mt-16">
-            {
-                facts.map((f) => (
-                    <div class="pain-facts__item">
-                        <p class="font-display font-bold text-4xl md:text-5xl lg:text-6xl tracking-tight leading-none">
-                            {f.figure}
-                        </p>
-                        <p class="mt-4 text-base md:text-lg leading-relaxed max-w-md opacity-90">
-                            {f.text}
-                        </p>
-                        <p class="mt-4 text-xs md:text-sm opacity-70">
-                            {f.source}
-                        </p>
-                    </div>
-                ))
-            }
+<section class="band" id="nos-llaman-cuando">
+    <div class="container">
+        <h2 class="reveal">Nos llaman cuando el cuaderno, el WhatsApp y la memoria ya no dan más.</h2>
+        <div class="facts">
+            {facts.map((f, i) => (
+                <div class="fact reveal" data-delay={i}>
+                    <p class="fact-n">{f.figure}</p>
+                    <p class="fact-t">{f.text}</p>
+                    <p class="fact-s">{f.source}</p>
+                </div>
+            ))}
         </div>
     </div>
 </section>
 
 <style>
-    .pain-facts__grid {
-        display: grid;
-        grid-template-columns: 1.15fr 1fr;
-        gap: 3rem;
-        max-width: 900px;
+    .band {
+        background:
+            radial-gradient(70% 90% at 15% 0%, var(--section-glow), transparent 60%),
+            radial-gradient(50% 70% at 95% 100%, color-mix(in srgb, var(--section-ghost) 55%, transparent), transparent 70%),
+            var(--section);
+        color: var(--a-100);
+        padding-block: 88px;
     }
-    .pain-facts__item {
-        padding-top: 1.5rem;
-        border-top: 1px solid color-mix(in srgb, #e9e9ed 22%, transparent);
-    }
-    /* Escalón: el segundo hecho baja un poco, como las citas del mockup original */
-    .pain-facts__item:nth-child(2) {
-        margin-top: 2.5rem;
-    }
-    @media (max-width: 767px) {
-        .pain-facts__grid {
-            grid-template-columns: 1fr;
-            gap: 1.75rem;
-        }
-        .pain-facts__item:nth-child(2) {
-            margin-top: 0;
-        }
+    h2 { color: var(--a-100); font-size: clamp(26px, 3vw, 34px); max-width: 20ch; }
+    .facts { margin-top: 56px; display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; max-width: 900px;}
+    .fact { padding-top: 22px; border-top: 1px solid color-mix(in srgb, var(--a-100) 22%, transparent); }
+    /* .fact:nth-child(2) { margin-top: 40px; } */
+    .fact-n { font-size: clamp(38px, 4.2vw, 56px); line-height: 1; letter-spacing: -0.03em; color: var(--a-100); font-weight: 500; }
+    .fact-t { margin-top: 16px; font-size: 17px; line-height: 1.5; color: var(--a-200); max-width: 34ch; }
+    .fact-s { margin-top: 14px; font-size: 13px; color: var(--a-300); }
+    @media (max-width: 1023px) {
+        .facts { grid-template-columns: 1fr; gap: 28px; }
+        .fact:nth-child(2) { margin-top: 0; }
     }
 </style>

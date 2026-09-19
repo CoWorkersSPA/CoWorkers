@@ -1,0 +1,108 @@
+---
+// src/components/sections/TwoDoors.astro
+// Dos puertas, una empresa: los servicios de Coworkers.cl (el problema antes que la pieza,
+// sin nombrar herramientas) y Mesón, la línea para la pyme que atiende en el mostrador.
+import Button from "@components/ui/Button.astro";
+import Eyebrow from "@components/ui/Eyebrow.astro";
+
+const services = [
+    {
+        icon: "ph-code",
+        title: "Desarrollo a medida",
+        description:
+            "Cuando tu operación necesita algo que ningún sistema trae: un portal donde tus clientes vean su pedido, un módulo sobre tu sistema de gestión, un sitio con lógica propia.",
+        tags: ["Plataformas internas", "Portales de cliente", "Sitios y landings"],
+    },
+    {
+        icon: "ph-arrows-clockwise",
+        title: "Automatizaciones",
+        description:
+            "Cobranza que recuerda sola, citas que se confirman, el reporte del lunes y documentos que se leen sin que nadie los transcriba. Corren en servidores propios: sin costo por ejecución.",
+        tags: ["Cobranza", "Citas", "Reportes", "Lectura de documentos"],
+    },
+    {
+        icon: "ph-hard-drives",
+        title: "Infraestructura",
+        description:
+            "Correo con tu dominio, nube para tus archivos y una sola clave para todo. Va incluida en cada proyecto, no se vende por pieza. Lo que te ofrecemos es lo que usamos.",
+        tags: ["Correo", "Nube", "Acceso único", "Dominio"],
+    },
+];
+
+// TODO: cuando exista la página de Mesón (meson.coworkers.cl o /meson), apuntar ahí.
+const MESON_HREF = "/meson";
+---
+
+<section class="section" id="servicios">
+    <div class="container">
+        <Eyebrow text="Dos puertas, una empresa" class="reveal" />
+        <h2 class="section-title reveal">Servicios para quien ya sabe qué necesita. Mesón para quien atiende en el mostrador.</h2>
+
+        <div class="doors">
+            <div class="services">
+                {services.map((s, i) => (
+                    <article class="service reveal" data-delay={i}>
+                        <i class={`ph ${s.icon}`} aria-hidden="true"></i>
+                        <div>
+                            <h3>{s.title}</h3>
+                            <p>{s.description}</p>
+                            <div class="what">{s.tags.map((t) => <span>{t}</span>)}</div>
+                        </div>
+                    </article>
+                ))}
+            </div>
+
+            <aside class="meson reveal" id="meson" data-delay="1">
+                <!-- TODO: foto real de la tablet en un mostrador de Concepción, manos de trabajo, 1000x1200 -->
+                <img
+                    src="https://picsum.photos/seed/meson-tablet-mostrador-ferreteria/1000/1200"
+                    width="1000"
+                    height="1200"
+                    alt="Una tablet sobre el mostrador de una ferretería"
+                    loading="lazy"
+                />
+                <p class="kicker">Mesón, de Coworkers.cl</p>
+                <h3>Tu negocio, <em>a la mano.</em></h3>
+                <p>Una tablet en tu mostrador que te deja ordenado para la ley de datos, cobra a tiempo y cotiza sin llamar al proveedor. Se usa con el dedo. Sin manual.</p>
+                <Button href={MESON_HREF} icon="ph-arrow-right">Conocer Mesón</Button>
+            </aside>
+        </div>
+    </div>
+</section>
+
+<style>
+    h2.section-title { max-width: 30ch; }
+    .doors { display: grid; grid-template-columns: 7fr 5fr; gap: 48px; margin-top: 48px; align-items: stretch; }
+    .services { display: flex; flex-direction: column; }
+    .service { display: grid; grid-template-columns: 56px 1fr; gap: 20px; padding: 30px 0; border-top: 1px solid var(--divider); }
+    .service:last-child { border-bottom: 1px solid var(--divider); }
+    .service > .ph { font-size: 30px; color: var(--a-400); margin-top: 2px; }
+    .service h3 { font-size: 22px; margin-bottom: 8px; }
+    .service p { color: var(--n-400); max-width: 54ch; }
+    .what { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 14px; font-size: 14px; color: var(--n-500); }
+
+    .meson {
+        position: relative; overflow: hidden; isolation: isolate;
+        border-radius: var(--radius-lg);
+        background: var(--a-900);
+        box-shadow: 0 0 0 1px var(--a-800);
+        display: flex; flex-direction: column; justify-content: flex-end;
+        min-height: 520px;
+        padding: 32px;
+    }
+    .meson img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.55; }
+    .meson::after {
+        content: ""; position: absolute; inset: 0;
+        background: linear-gradient(180deg, color-mix(in srgb, var(--a-900) 10%, transparent) 20%, var(--a-900) 78%);
+    }
+    .meson > :not(img) { position: relative; z-index: 1; } /* sobre el degradado, dentro del contexto aislado */
+    .kicker { font-size: 14px; color: var(--a-300); margin-bottom: 10px; }
+    .meson h3 { font-size: 30px; line-height: 1.1; }
+    .meson h3 em { font-style: italic; color: var(--a-300); }
+    .meson p:not(.kicker) { color: var(--a-200); margin-top: 12px; max-width: 40ch; }
+    .meson :global(.btn) { margin-top: 22px; align-self: flex-start; }
+    @media (max-width: 1023px) {
+        .doors { grid-template-columns: 1fr; }
+        .meson { min-height: 420px; }
+    }
+</style>

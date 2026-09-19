@@ -4,36 +4,23 @@ import Layout from "@layouts/Layout.astro";
 import Header from "@components/layout/Header.astro";
 import Footer from "@components/layout/Footer.astro";
 import Button from "@components/ui/Button.astro";
-import Eyebrow from "@components/ui/Eyebrow.astro";
 ---
 
 <Layout title="Página no encontrada · Coworkers.cl">
     <Header />
-
-    <main class="py-24 md:py-36">
-        <div class="wrapper">
-            <div class="max-w-xl space-y-6">
-                <Eyebrow text="ERROR 404" />
-
-                <h1
-                    class="font-display font-bold text-5xl md:text-6xl text-foreground tracking-tight"
-                >
-                    Página no encontrada.
-                </h1>
-
-                <p
-                    class="text-muted-foreground text-base md:text-lg leading-relaxed"
-                >
-                    La página que buscas no existe o fue movida. Volvamos al
-                    inicio para que encuentres lo que necesitas.
-                </p>
-
-                <div class="pt-4">
-                    <Button href="/" variant="solid"> Volver al inicio </Button>
-                </div>
-            </div>
+    <main class="nf">
+        <div class="container">
+            <h1>Página no encontrada.</h1>
+            <p>La página que buscas no existe o fue movida.</p>
+            <Button href="/" icon="ph-arrow-left">Volver al inicio</Button>
         </div>
     </main>
-
     <Footer />
 </Layout>
+
+<style>
+    .nf { padding-block: 120px; min-height: 60vh; }
+    h1 { font-size: clamp(32px, 4vw, 50px); letter-spacing: -0.03em; max-width: 20ch; }
+    p { margin-top: 18px; max-width: 48ch; color: var(--n-400); font-size: 18px; }
+    .nf :global(.btn) { margin-top: 32px; }
+</style>
