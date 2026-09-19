@@ -20,59 +20,41 @@ src/components/
 ├── layout/       → Header, Footer (envuelven toda la página, se usan una sola vez)
 ├── sections/     → un componente por bloque de contenido de la landing, sin props,
 │                   ensamblados en orden dentro de index.astro
-└── ui/           → piezas reutilizables con props (Button, Eyebrow, NumberedItem,
-                    FeatureCard, SectionSplit, ThemeToggle)
+└── ui/           → piezas reutilizables con props (Button, Eyebrow, Wordmark)
 ```
 
-**Regla de oro**: antes de escribir markup nuevo dentro de una sección, revisar si el patrón ya existe en `ui/`. Ejemplo: `Services` y `Guarantees` comparten el patrón título + descripción → usan el mismo `FeatureCard`. No duplicar estructura HTML entre secciones que visualmente son lo mismo.
+Cada sección lleva sus textos como arrays en el frontmatter y sus estilos en un `<style>` propio; los tokens (colores, tipografía, radios, contenedor) viven en `src/styles/global.css` y se consumen con `var(--…)`. No hardcodear un hex ni un font-family que ya exista como token.
 
 Orden de secciones en `index.astro`, de arriba a abajo:
 
-1. `Hero` — titular rotativo "Tu proyecto…" + el problema (cobrar, cumplir, ordenar)
-2. `PainFacts` — "Nos llaman cuando": 1 de diciembre y 40 días, con fuente
-3. `Services` — las tres líneas de Coworkers.cl, el problema antes que la pieza
-4. `Meson` — la puerta para la pyme: "Tu negocio, a la mano."
-5. `HowWeWork` — "Cuatro pasos. Ningún manual."
-6. `Guarantees` — "Lo que puedes exigirnos": los cuatro pilares
-7. `Team` — "Quiénes lo hacen" + puerta para estudiantes
-8. `FinalCta` — "Cuéntanos cómo funciona hoy tu operación"
+1. `Hero` — titular rotativo "Tu proyecto…" + el problema (cobrar, cumplir, ordenar), foto a la derecha
+2. `PainFacts` — "Nos llaman cuando": 1 de diciembre y 40 días, con fuente, sobre la banda índigo
+3. `TwoDoors` — servicios de Coworkers.cl (lista con reglas) + tarjeta de Mesón con foto
+4. `HowWeWork` — "Cuatro pasos. Ningún manual.", cuatro pasos sobre una línea
+5. `Guarantees` — "Lo que puedes exigirnos": los cuatro pilares en 2×2
+6. `Team` — historia corta sobre foto a sangre (la puerta para estudiantes está comentada hasta que se abra el reclutamiento)
+7. `FinalCta` — "Cuéntanos cómo funciona hoy tu operación"
 
 ## Dirección de diseño
 
-Basado en el mockup: fondo oscuro (azul-negro, no negro puro), acento morado sólido para CTAs y para la sección "Nos llaman cuando", tipografía con jerarquía clara (hero grande y liviano, headings de sección con más peso), cards con borde fino en vez de sombra decorativa, números (01, 02, 03...) como elemento estructural recurrente, espaciado generoso entre secciones.
+Sistema **Nocturne** (`UI Palette Coworkers.cl.pdf`), tema oscuro fijo: es el tema de la marca corporativa según el brief de identidad (estrategia, sección 06). No hay modo claro ni toggle.
 
-### Reglas anti-patrón (vía skill Impeccable — `pbakaus/impeccable`)
-
-Este proyecto usa [Impeccable](https://github.com/pbakaus/impeccable) como skill de diseño para evitar los "tells" genéricos de interfaces hechas por IA. Si la herramienta con la que estás trabajando (Claude Code, Cursor, Antigravity, etc.) tiene Impeccable instalado, usar sus comandos según corresponda:
-
-- `/impeccable critique` — antes de dar por cerrada una sección nueva, revisar jerarquía visual y claridad
-- `/impeccable audit` — antes de un PR, chequear accesibilidad, responsive y calidad técnica
-- `/impeccable polish` — pasada final antes de mergear a `main`
-
-**Nota**: el `DESIGN.md` del repo de Impeccable define la paleta "Neo Kinpaku" (dorado + lacado + verdigris), que es la identidad de marca propia de esa herramienta — **no se debe aplicar esa paleta a Coworkers**. Lo que sí aplica aquí es su sección "Do / Do Not" de anti-patrones generales:
-
-**No hacer:**
-- Degradados morado-azul genéricos tipo SaaS
-- Cards anidadas dentro de cards
-- Negro puro (`#000`) o blanco puro (`#fff`) — siempre con tinte
-- Sombras decorativas por defecto en vez de bordes finos (hairline) de 1px
-- Texto gris sobre fondos de color
-- Fuente Inter o system-ui por defecto sin intención tipográfica
-- Easing tipo "bounce"/elástico en hovers o transiciones
-- Eyebrow (etiqueta pequeña en mayúsculas) en cada sección sin excepción — usar con criterio, no como scaffolding automático
-
-**Sí hacer:**
-- Bordes de 1px como primera opción para dar estructura a cards, antes que `box-shadow`
-- Ancho de línea contenido en párrafos largos (65-75 caracteres) para lectura cómoda
-- Radios de esquina pequeños y consistentes en todo el sitio
-- Jerarquía tipográfica deliberada: el hero puede ser más liviano en peso que los headings de sección (no es un error, es una decisión de diseño válida si se aplica consistente)
+- Fondo `#161826`, texto `#e9e9ed`, un solo acento blurple `#9184d9` usado como línea, marca y resplandor, nunca como relleno grande. Rampas neutra y de acento 100–900 en `global.css`.
+- Una sola banda saturada por página (`#262a60`, la de "Nos llaman cuando"). El resto de los fondos se mantiene desaturado.
+- Inter, peso 500 en títulos; la jerarquía es por tamaño y espacio, no por peso.
+- Botones de contorno (borde en acento), nunca rellenos. Radio 8px en botones, 14px en imágenes; nada más redondeado.
+- Reglas que se desvanecen en los extremos (`.rule`) en vez de líneas que cortan.
+- Layouts asimétricos y alineados a la izquierda. Nada centrado salvo por decisión explícita.
+- Íconos: Phosphor (`ph ph-*`). No dibujar SVG a mano.
+- Fotografías con `.lighten` (`mix-blend-mode: lighten`) sobre fondo oscuro. Las actuales son placeholders de picsum marcados con `<!-- TODO -->`.
+- Movimiento: revelado al hacer scroll con `IntersectionObserver` (`.reveal` / `.in`), titular rotativo en el hero, hover en botones. Todo respeta `prefers-reduced-motion`.
+- Máximo dos antetítulos (`Eyebrow`) en toda la página. Cero guiones largos. Cero puntos medios como separador en texto visible.
 
 ## Convenciones de código
 
 - Un componente = una responsabilidad. Si un `.astro` empieza a mezclar layout de varias secciones, dividirlo.
 - Los textos de cada sección (citas, listas, pasos) viven como arrays dentro del propio componente de `sections/`, salvo que el equipo decida moverlos a `src/content/` para iterar copy sin tocar código.
-- No usar `localStorage`/`sessionStorage` en ningún componente (no aplica en este proyecto de todas formas, es solo landing estática).
-- Todo cambio visual relevante debe revisarse en `http://localhost:4321` levantado vía Docker antes de dar por terminada la tarea.
+- Todo cambio visual relevante debe revisarse en `http://localhost:4322` (Docker) o `npm run dev` antes de dar por terminada la tarea. `npm run build` y `npx astro check` deben pasar limpios.
 
 ## Qué NO hacer
 

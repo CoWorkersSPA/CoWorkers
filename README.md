@@ -21,11 +21,9 @@ CoWorkers/
 ├── docs/
 │   └── MENSAJES.md                     # marco de mensajes (fuente de verdad del copy)
 ├── public/
+│   ├── favicon.ico
 │   └── favicon.svg
 ├── src/
-│   ├── assets/
-│   │   ├── astro.svg
-│   │   └── background.svg
 │   ├── components/
 │   │   ├── layout/
 │   │   │   ├── Header.astro
@@ -33,19 +31,15 @@ CoWorkers/
 │   │   ├── sections/
 │   │   │   ├── Hero.astro
 │   │   │   ├── PainFacts.astro         # "Nos llaman cuando"
-│   │   │   ├── Services.astro          # Servicios de Coworkers.cl
-│   │   │   ├── Meson.astro             # Mesón, de Coworkers.cl
+│   │   │   ├── TwoDoors.astro          # Servicios + Mesón
 │   │   │   ├── HowWeWork.astro         # "Cuatro pasos. Ningún manual."
 │   │   │   ├── Guarantees.astro        # "Lo que puedes exigirnos"
-│   │   │   ├── Team.astro              # "Quiénes lo hacen"
+│   │   │   ├── Team.astro              # "Nuestro equipo son estudiantes"
 │   │   │   └── FinalCta.astro
 │   │   └── ui/
-│   │       ├── Button.astro            # variantes: solid, outline
-│   │       ├── Eyebrow.astro           # etiqueta pequeña sobre el titular del hero
-│   │       ├── NumberedItem.astro      # número + título + descripción
-│   │       ├── FeatureCard.astro       # título + descripción
-│   │       ├── SectionSplit.astro      # título a la izquierda, contenido a la derecha
-│   │       └── ThemeToggle.astro       # claro / oscuro
+│   │       ├── Button.astro            # contorno: primary (acento) / ghost (neutro)
+│   │       ├── Eyebrow.astro           # antetítulo en acento
+│   │       └── Wordmark.astro          # coworkers.cl con ".cl" en acento
 │   ├── layouts/
 │   │   └── Layout.astro
 │   └── pages/
