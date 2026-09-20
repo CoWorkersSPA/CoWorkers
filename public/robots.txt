@@ -1,0 +1,36 @@
+# coworkers.cl
+# Sitio público de marketing: todo el contenido puede indexarse.
+# Se nombran explícitamente los rastreadores de asistentes de IA para que
+# ningún filtro por defecto los deje fuera.
+
+User-agent: *
+Allow: /
+
+# Anthropic (Claude)
+User-agent: ClaudeBot
+User-agent: Claude-User
+User-agent: Claude-SearchBot
+Allow: /
+
+# OpenAI (ChatGPT)
+User-agent: GPTBot
+User-agent: ChatGPT-User
+User-agent: OAI-SearchBot
+Allow: /
+
+# Google (búsqueda y Gemini)
+User-agent: Googlebot
+User-agent: Google-Extended
+Allow: /
+
+# Otros asistentes
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Bingbot
+User-agent: Applebot
+User-agent: Applebot-Extended
+User-agent: meta-externalagent
+User-agent: DuckAssistBot
+Allow: /
+
+Sitemap: https://coworkers.cl/sitemap-index.xml

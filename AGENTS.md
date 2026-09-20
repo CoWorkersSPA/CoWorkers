@@ -50,6 +50,12 @@ Sistema **Nocturne** (`UI Palette Coworkers.cl.pdf`), tema oscuro fijo: es el te
 - Movimiento: revelado al hacer scroll con `IntersectionObserver` (`.reveal` / `.in`), titular rotativo en el hero, hover en botones. Todo respeta `prefers-reduced-motion`.
 - Máximo dos antetítulos (`Eyebrow`) en toda la página. Cero guiones largos. Cero puntos medios como separador en texto visible.
 
+## Legibilidad para buscadores y asistentes de IA
+
+- `public/robots.txt` permite todo y nombra explícitamente a ClaudeBot, GPTBot, Google-Extended, PerplexityBot y otros.
+- `public/llms.txt` es el resumen en texto plano que leen los asistentes (convención llmstxt.org). Si cambia el copy de la página, cambia también este archivo: dicen lo mismo.
+- `Layout.astro` emite canonical, `og:*`, `<link rel="sitemap">` y un JSON-LD `Organization` con las líneas de servicio. `@astrojs/sitemap` genera `sitemap-index.xml` en el build; requiere `site` en `astro.config.mjs`.
+
 ## Convenciones de código
 
 - Un componente = una responsabilidad. Si un `.astro` empieza a mezclar layout de varias secciones, dividirlo.

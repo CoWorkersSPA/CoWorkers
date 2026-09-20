@@ -11,6 +11,41 @@ const {
 	title = "Coworkers.cl · Software que se entiende",
 	description = "Resolvemos un problema concreto de tu pyme, cobrar, cumplir, ordenar, con software que se entiende y es tuyo. Construido en Concepción por un equipo universitario que formamos, revisamos y pagamos por entrega.",
 } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+
+// Datos estructurados: quién es la empresa, para buscadores y asistentes de IA.
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "Organization",
+	"@id": "https://coworkers.cl/#organization",
+	name: "Coworkers.cl",
+	legalName: "Coworkers SpA",
+	url: "https://coworkers.cl",
+	logo: "https://coworkers.cl/favicon-512.png",
+	slogan: "Software que se entiende.",
+	description:
+		"Empresa de software para pymes en Concepción, Chile. Resuelve un problema concreto del negocio (cobrar, cumplir con la ley de datos, ordenar) con software que se entiende y es del cliente, construido y revisado por un equipo universitario.",
+	email: "hola@coworkers.cl",
+	address: {
+		"@type": "PostalAddress",
+		addressLocality: "Concepción",
+		addressRegion: "Región del Biobío",
+		addressCountry: "CL",
+	},
+	areaServed: ["Concepción", "Talcahuano", "San Pedro de la Paz", "Chiguayante", "Hualpén", "Chile"],
+	knowsLanguage: "es-CL",
+	brand: [
+		{ "@type": "Brand", name: "Coworkers.cl" },
+		{ "@type": "Brand", name: "Mesón, de Coworkers.cl", slogan: "Tu negocio, a la mano." },
+	],
+	makesOffer: [
+		{ "@type": "Offer", itemOffered: { "@type": "Service", name: "Desarrollo a medida", description: "Portales de cliente, módulos sobre el sistema de gestión y sitios con lógica propia." } },
+		{ "@type": "Offer", itemOffered: { "@type": "Service", name: "Automatizaciones", description: "Cobranza automática, confirmación de citas, reportes y lectura de documentos." } },
+		{ "@type": "Offer", itemOffered: { "@type": "Service", name: "Mesón Datos", description: "Auditoría y cumplimiento de la Ley 21.719 de datos personales." } },
+		{ "@type": "Offer", itemOffered: { "@type": "Service", name: "Mesón Cobros", description: "Cobranza automática por WhatsApp y correo desde una tablet en el mostrador." } },
+	],
+};
 ---
 
 <!doctype html>
@@ -25,9 +60,17 @@ const {
 		<link rel="icon" type="image/png" href="/favicon-512.png" sizes="512x512" />
 		<title>{title}</title>
 		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+		<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:locale" content="es_CL" />
+		<meta property="og:site_name" content="Coworkers.cl" />
+		<link rel="sitemap" href="/sitemap-index.xml" />
+		<link rel="alternate" type="text/plain" href="/llms.txt" title="Resumen para asistentes de IA" />
+		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
 		<!-- Producción: auto-hospedar Inter con @font-face + font-display: swap. -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />

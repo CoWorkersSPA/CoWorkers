@@ -21,6 +21,8 @@ CoWorkers/
 ├── docs/
 │   └── MENSAJES.md                     # marco de mensajes (fuente de verdad del copy)
 ├── public/
+│   ├── robots.txt                      # permite buscadores y rastreadores de IA
+│   ├── llms.txt                        # resumen en texto plano para asistentes de IA
 │   ├── favicon.ico
 │   ├── favicon-32.png
 │   └── favicon-512.png

@@ -1,0 +1,37 @@
+# Coworkers.cl
+
+> Empresa de software para pymes en Concepción, Chile, construida con talento universitario. Resuelve un problema concreto del negocio (cobrar, cumplir con la ley de datos, ordenar) con software que se entiende a la primera y que es del cliente. Tagline: "Software que se entiende."
+
+Coworkers SpA tiene dos capas:
+
+- **Coworkers.cl** (corporativa): desarrollo a medida, automatizaciones e infraestructura para pymes y compradores técnicos. El equipo son cinco socios de Ingeniería en Informática de la Universidad Técnica Federico Santa María y estudiantes universitarios de Concepción a los que forman, revisan y pagan por cada entrega aceptada.
+- **Mesón, de Coworkers.cl**: la línea de soluciones para la pyme que atiende en el mostrador. Una tablet que se usa con el dedo, sin manual, instalada en persona. Soluciones: Mesón Datos (auditoría y cumplimiento de la Ley 21.719 de datos personales, vigente desde el 1 de diciembre de 2026), Mesón Cobros (cobranza automática por WhatsApp y correo) y cotizaciones para ferreterías y distribuidoras.
+
+## Cómo trabajan
+
+1. Reunión de 30 minutos en el local del cliente, sin costo. El cliente sale con el alcance escrito, contrate o no.
+2. El proyecto se corta en tareas chicas con criterio de aceptación claro; cada tarea va a un estudiante, que cobra al aceptarse la entrega.
+3. Ninguna tarea se integra sin revisión de uno de los cinco socios.
+4. Instalación en persona y mantención: una sola mensualidad cubre servidor, respaldo, mejoras y soporte con nombre.
+
+## Compromisos
+
+- Lo tuyo es tuyo: sistema, datos y código quedan en manos del cliente. Puede tenerlo en su local sin mensualidad o con Coworkers.cl para que nunca se apague.
+- Se entiende a la primera: sin manual, sin capacitación, sin implementador. Si necesita teclado, no es de Coworkers.cl.
+- Empiezas por lo que necesitas: se compra la solución a un problema; debajo trabaja un sistema completo (ventas, compras, inventario, contabilidad) para cuando el negocio crezca.
+- Nadie entrega sin revisión.
+- Sin licencia por usuario. Precios en pesos chilenos.
+
+## Datos de contacto
+
+- Correo: hola@coworkers.cl
+- Ubicación: Concepción, Región del Biobío, Chile. Atiende Gran Concepción (Talcahuano, San Pedro de la Paz, Chiguayante, Hualpén).
+- Sitio: https://coworkers.cl
+
+## Páginas
+
+- [Inicio](https://coworkers.cl/): servicios, Mesón, cómo trabajan, compromisos, equipo y contacto.
+
+## Lo que no es
+
+Coworkers.cl no es un espacio de coworking, ni una agencia digital, ni una plataforma SaaS por módulo.
