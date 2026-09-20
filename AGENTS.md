@@ -46,7 +46,7 @@ Sistema **Nocturne** (`UI Palette Coworkers.cl.pdf`), tema oscuro fijo: es el te
 - Reglas que se desvanecen en los extremos (`.rule`) en vez de líneas que cortan.
 - Layouts asimétricos y alineados a la izquierda. Nada centrado salvo por decisión explícita.
 - Íconos: Phosphor (`ph ph-*`). No dibujar SVG a mano.
-- Fotografías con `.lighten` (`mix-blend-mode: lighten`) sobre fondo oscuro. Las actuales son placeholders de picsum marcados con `<!-- TODO -->`.
+- Fotografías con `.lighten` (`mix-blend-mode: lighten`) sobre fondo oscuro. Las actuales (`public/img/`) son fotos de archivo de Unsplash bajadas vía Picsum, marcadas con `<!-- TODO -->` para reemplazarlas por fotos propias; llevan `alt=""` porque no muestran al equipo real.
 - Movimiento: revelado al hacer scroll con `IntersectionObserver` (`.reveal` / `.in`), titular rotativo en el hero, hover en botones. Todo respeta `prefers-reduced-motion`.
 - Máximo dos antetítulos (`Eyebrow`) en toda la página. Cero guiones largos. Cero puntos medios como separador en texto visible.
 
