@@ -27,7 +27,7 @@ Cada sección lleva sus textos como arrays en el frontmatter y sus estilos en un
 
 Orden de secciones en `index.astro`, de arriba a abajo:
 
-1. `Hero` — titular rotativo "Tu proyecto…" + el problema (cobrar, cumplir, ordenar), foto a la derecha
+1. `Hero` — titular rotativo "Tu proyecto…" a gran escala + el problema (cobrar, cumplir, ordenar). Sin foto hasta que exista una propia (tablet en un mostrador); una de archivo aquí es una prueba falsa
 2. `PainFacts` — "Nos llaman cuando": 1 de diciembre y 40 días, con fuente, sobre la banda índigo
 3. `TwoDoors` — servicios de Coworkers.cl (lista con reglas) + tarjeta de Mesón con foto
 4. `HowWeWork` — "Cuatro pasos. Ningún manual.", cuatro pasos sobre una línea
@@ -41,13 +41,19 @@ Sistema **Nocturne** (`UI Palette Coworkers.cl.pdf`), tema oscuro fijo: es el te
 
 - Fondo `#161826`, texto `#e9e9ed`, un solo acento blurple `#9184d9` usado como línea, marca y resplandor, nunca como relleno grande. Rampas neutra y de acento 100–900 en `global.css`.
 - Una sola banda saturada por página (`#262a60`, la de "Nos llaman cuando"). El resto de los fondos se mantiene desaturado.
+- Paleta índigo + coral con el violeta como marca (proporción 60-30-10). El índigo (`--section`, `--section-ghost`) es la atmósfera: domina las luces de fondo. `--accent` violeta es marca y acción (nav, botones, íconos, palabras destacadas). `--coral` `#d1746a` es el único secundario y la luz cálida de la página: resplandores de cada sección, la línea y puntos de "Cómo trabajamos", la tarjeta de Mesón, el contador de la banda. Nunca en botones de contorno ni en títulos. Siempre plano, sin degradados ni halos.
 - Inter, peso 500 en títulos; la jerarquía es por tamaño y espacio, no por peso.
 - Botones de contorno (borde en acento), nunca rellenos. Radio 8px en botones, 14px en imágenes; nada más redondeado.
 - Reglas que se desvanecen en los extremos (`.rule`) en vez de líneas que cortan.
 - Layouts asimétricos y alineados a la izquierda. Nada centrado salvo por decisión explícita.
 - Íconos: Phosphor (`ph ph-*`). No dibujar SVG a mano.
 - Fotografías con `.lighten` (`mix-blend-mode: lighten`) sobre fondo oscuro. Las actuales (`public/img/`) son fotos de archivo de Unsplash bajadas vía Picsum, marcadas con `<!-- TODO -->` para reemplazarlas por fotos propias; llevan `alt=""` porque no muestran al equipo real.
-- Movimiento: revelado al hacer scroll con `IntersectionObserver` (`.reveal` / `.in`), titular rotativo en el hero, hover en botones. Todo respeta `prefers-reduced-motion`.
+- Profundidad: el fondo nunca es un plano. `body::before` pinta una aurora fija de dos tonos de la propia paleta (violeta `--accent` e índigo `--section-ghost`) y `body::after` un grano fino; cada sección suma su propio resplandor (`.glow`, `.orb`, `.aurora`) con `filter: blur`. Son luz, no relleno: opacidades bajas y siempre `pointer-events: none`.
+- Sombras tintadas (`--shadow-tint`, `--shadow-lg`, `--shadow-glow`), nunca negro puro. Íconos dentro de `.icon-tile` (borde en degradado). Texto con degradado solo en la palabra que importa (`.text-glow`).
+- La banda índigo se funde con el fondo por arriba y por abajo; no corta.
+- Apertura (`ui/Intro.astro`): telón índigo con grano y partículas que muestra el wordmark y se levanta (2,3 s). Se activa con `data-intro` en `<html>`, que un script inline de `Layout.astro` pone solo una vez por sesión (`sessionStorage`) y nunca con `prefers-reduced-motion`. Mientras está arriba, el hero espera; al retirarse entra en cascada.
+- Un solo momento cinematográfico: la banda "Fechas clave" (cifras fantasma en contorno que se desplazan con `animation-timeline: view()`, el 40 que cuenta al entrar y los días que faltan para el 1 de diciembre calculados en el navegador). No repetir el recurso en otras secciones.
+- Movimiento: revelado al hacer scroll con `IntersectionObserver` (`.reveal` / `.in`, con desenfoque), titular rotativo en el hero, línea de pasos que se dibuja al aparecer, sección activa en el nav, spotlight que sigue al puntero en la tarjeta de Mesón (`pointermove`), hover con luz en botones, servicios y garantías, anillo que gira lento en el hero y una luz tenue que sigue al cursor en toda la página (`pointermove`, una actualización por frame). Todo respeta `prefers-reduced-motion` y se desactiva sin puntero fino (`hover: none`).
 - Máximo dos antetítulos (`Eyebrow`) en toda la página. Cero guiones largos. Cero puntos medios como separador en texto visible.
 
 ## Legibilidad para buscadores y asistentes de IA
@@ -60,7 +66,7 @@ Sistema **Nocturne** (`UI Palette Coworkers.cl.pdf`), tema oscuro fijo: es el te
 
 - Un componente = una responsabilidad. Si un `.astro` empieza a mezclar layout de varias secciones, dividirlo.
 - Los textos de cada sección (citas, listas, pasos) viven como arrays dentro del propio componente de `sections/`, salvo que el equipo decida moverlos a `src/content/` para iterar copy sin tocar código.
-- Todo cambio visual relevante debe revisarse en `http://localhost:4322` (Docker) o `npm run dev` antes de dar por terminada la tarea. `npm run build` y `npx astro check` deben pasar limpios.
+- Todo cambio visual relevante debe revisarse en `http://localhost:4322` (Docker) o `npm run dev` antes de dar por terminada la tarea. Si Vite deja un módulo de estilos rancio en HMR (la página carga CSS viejo aunque `astro build` esté bien), `touch` del componente lo invalida. `npm run build` y `npx astro check` deben pasar limpios.
 
 ## Qué NO hacer
 

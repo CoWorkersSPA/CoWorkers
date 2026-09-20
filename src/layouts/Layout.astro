@@ -1,6 +1,7 @@
 ---
 // src/layouts/Layout.astro
 import "@styles/global.css";
+import Intro from "@components/ui/Intro.astro";
 
 interface Props {
 	title?: string;
@@ -71,6 +72,15 @@ const jsonLd = {
 		<link rel="sitemap" href="/sitemap-index.xml" />
 		<link rel="alternate" type="text/plain" href="/llms.txt" title="Resumen para asistentes de IA" />
 		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+		<!-- Apertura: solo la primera vez en la sesión y nunca con reduced-motion. Se decide antes
+		     del primer pintado para que el telón exista desde el primer frame. -->
+		<script is:inline>
+			try {
+				if (!sessionStorage.getItem("cw-intro") && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+					document.documentElement.setAttribute("data-intro", "");
+				}
+			} catch (e) {}
+		</script>
 
 		<!-- Producción: auto-hospedar Inter con @font-face + font-display: swap. -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -87,8 +97,25 @@ const jsonLd = {
 	</head>
 
 	<body>
+		<Intro />
+		<div class="pointer-glow" aria-hidden="true"></div>
 		<slot />
 		<script>
+			// Luz que sigue al puntero: dos variables en :root, actualizadas como máximo una vez por frame.
+			if (matchMedia("(hover: hover)").matches && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+				let raf = 0, px = 0, py = 0;
+				const root = document.documentElement;
+				window.addEventListener("pointermove", (e) => {
+					px = e.clientX; py = e.clientY;
+					if (raf) return;
+					raf = requestAnimationFrame(() => {
+						root.style.setProperty("--cx", `${px}px`);
+						root.style.setProperty("--cy", `${py}px`);
+						raf = 0;
+					});
+				}, { passive: true });
+			}
+
 			// Scroll-reveal con IntersectionObserver (nunca listeners de scroll).
 			const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 			const els = document.querySelectorAll<HTMLElement>(".reveal:not(.in)");

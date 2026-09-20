@@ -3,8 +3,8 @@
 import Wordmark from "@components/ui/Wordmark.astro";
 
 const navLinks = [
+    { label: "Fechas clave", href: "#nos-llaman-cuando" },
     { label: "Servicios", href: "#servicios" },
-    { label: "Mesón", href: "#meson" },
     { label: "Cómo trabajamos", href: "#como-trabajamos" },
     { label: "Equipo", href: "#equipo" },
 ];
@@ -12,6 +12,9 @@ const navLinks = [
 
 <footer class="footer">
     <div class="container">
+        <hr class="rule" />
+    </div>
+    <div class="container grid">
         <div>
             <Wordmark height={24} />
             <p class="tag">Software que se entiende.</p>
@@ -30,10 +33,16 @@ const navLinks = [
 </footer>
 
 <style>
-    .footer { border-top: 1px solid var(--divider); padding: 40px 0 48px; font-size: 14px; color: var(--n-500); }
-    .footer .container { display: grid; grid-template-columns: 1fr auto auto; gap: 24px 56px; align-items: start; }
+    .footer { position: relative; padding: 0 0 48px; font-size: 14px; color: var(--n-500); }
+    .footer::before {
+        content: ""; position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+        width: 60vw; height: 160px; pointer-events: none; z-index: -1;
+        background: radial-gradient(60% 100% at 50% 100%, color-mix(in srgb, var(--section-ghost) 26%, transparent), transparent 70%);
+    }
+    .grid { display: grid; grid-template-columns: 1fr auto auto; gap: 24px 56px; align-items: start; padding-top: 40px; }
     .tag { margin-top: 12px; color: var(--n-400); }
     ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-    a:hover { color: var(--text); }
-    @media (max-width: 767px) { .footer .container { grid-template-columns: 1fr; } }
+    a { transition: color 0.2s var(--ease); }
+    a:hover { color: var(--a-300); }
+    @media (max-width: 767px) { .grid { grid-template-columns: 1fr; } }
 </style>
