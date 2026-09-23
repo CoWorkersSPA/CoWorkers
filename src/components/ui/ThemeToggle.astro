@@ -56,10 +56,13 @@
         const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
         if (reduce || !origin || !document.startViewTransition) { apply(theme); return; }
 
+        const { x, y } = origin;
+        // +2px: el radio exacto a la esquina deja una hebra sin cubrir al quitar el recorte.
+        const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y)) + 2;
+        root.style.setProperty("--wipe-x", `${x}px`);
+        root.style.setProperty("--wipe-y", `${y}px`);
         root.classList.add("theme-wipe");
         const vt = document.startViewTransition(() => apply(theme));
-        const { x, y } = origin;
-        const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
 
         vt.ready
             .then(() =>
@@ -68,6 +71,7 @@
                     {
                         duration: WIPE_MS,
                         easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+                        fill: "forwards", // sin esto el recorte vuelve al valor CSS en el último fotograma
                         pseudoElement: "::view-transition-new(root)",
                     },
                 ).finished,
@@ -75,7 +79,11 @@
             // La transición se salta sola si el documento está oculto o si llega otra encima: el tema
             // igual queda aplicado, así que no hay nada que rescatar ni que reportar.
             .catch(() => {})
-            .finally(() => root.classList.remove("theme-wipe"));
+            .finally(() => {
+                root.classList.remove("theme-wipe");
+                root.style.removeProperty("--wipe-x");
+                root.style.removeProperty("--wipe-y");
+            });
     };
 
     apply(root.getAttribute("data-theme") === "light" ? "light" : "dark");

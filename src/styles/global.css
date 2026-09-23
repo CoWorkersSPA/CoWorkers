@@ -196,10 +196,22 @@ body::after {
    contenido nunca desaparece, que es justo lo que pasaba al taparlo con un círculo de color plano.
    Los pseudo-elementos viven en el documento, por eso la regla va aquí y no en el componente.
    La clase la pone ThemeToggle.astro solo cuando el cambio nace de un clic. */
+/* Hay que apagar las CUATRO animaciones que el navegador pone por su cuenta, no solo las de las
+   instantáneas: el grupo interpola geometría con su propia duración, termina antes que el círculo
+   y suelta de golpe. Eso se veía como un salto al final. */
+html.theme-wipe::view-transition-group(root),
+html.theme-wipe::view-transition-image-pair(root),
 html.theme-wipe::view-transition-old(root),
-html.theme-wipe::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+html.theme-wipe::view-transition-new(root) { animation: none; }
+html.theme-wipe::view-transition-old(root),
+html.theme-wipe::view-transition-new(root) { mix-blend-mode: normal; }
 html.theme-wipe::view-transition-old(root) { z-index: 1; }
-html.theme-wipe::view-transition-new(root) { z-index: 2; }
+/* El recorte inicial se declara aquí, no en JS: entre vt.ready y el primer fotograma de la
+   animación hay un hueco en el que el tema nuevo se vería entero. */
+html.theme-wipe::view-transition-new(root) {
+    z-index: 2;
+    clip-path: circle(0px at var(--wipe-x, 50%) var(--wipe-y, 50%));
+}
 
 /* Las fotos pasan por .lighten: sobre fondo oscuro desaparece lo más oscuro que el fondo; sobre
    claro, el equivalente es multiply (desaparece lo más claro). El nombre se queda por compatibilidad. */
