@@ -36,7 +36,15 @@ const paragraphs = [
 </section>
 
 <style>
-    .team { position: relative; overflow: hidden; isolation: isolate; padding-block: 140px; }
+    .team {
+        position: relative; overflow: hidden; isolation: isolate; padding-block: 140px;
+        /* Igual que la banda: los bordes se desvanecen con máscara en vez de pintar --bg encima, así
+           el fondo de la página y su aurora se ven a través y la unión no tiene canto. Alcanza a la
+           foto y al velo de legibilidad. 80px cabe en el padding también en móvil (96px).
+           Abajo NO se desvanece: el cierre empieza con un corte duro a propósito. */
+        -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 80px);
+        mask-image: linear-gradient(180deg, transparent 0, #000 80px);
+    }
     .team > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
     .team::before {
         /* baño de color sobre la foto: violeta arriba a la derecha, índigo abajo */
@@ -50,9 +58,9 @@ const paragraphs = [
     :global(html[data-theme="light"]) .team::before { mix-blend-mode: multiply; }
     .team::after {
         content: ""; position: absolute; inset: 0; pointer-events: none;
-        background:
-            linear-gradient(90deg, var(--bg) 0%, var(--bg) 28%, color-mix(in srgb, var(--bg) 88%, transparent) 60%, color-mix(in srgb, var(--bg) 40%, transparent) 100%),
-            linear-gradient(180deg, var(--bg) 0%, transparent 18%, transparent 82%, var(--bg) 100%);
+        /* Solo el velo horizontal, para que el texto se lea sobre la foto. El desvanecido vertical
+           lo hace ahora la máscara de .team. */
+        background: linear-gradient(90deg, var(--bg) 0%, var(--bg) 28%, color-mix(in srgb, var(--bg) 88%, transparent) 60%, color-mix(in srgb, var(--bg) 40%, transparent) 100%);
     }
     .container { position: relative; z-index: 1; }
     h2 { font-size: clamp(28px, 3.4vw, 42px); max-width: 20ch; }

@@ -45,7 +45,10 @@ const steps = [
 <style>
     .how { padding-top: 0; overflow: hidden; }
     .glow {
-        position: absolute; right: -10%; top: 10%; width: 46vw; height: 46vw; max-width: 720px; max-height: 720px;
+        /* Centrado y con la altura limitada a la sección: así el degradado llega a alfa 0 dentro
+           del recorte y overflow: hidden nunca corta nada con color. */
+        position: absolute; right: -10%; top: 50%; translate: 0 -50%;
+        width: 46vw; height: min(46vw, 100%); max-width: 720px; max-height: 720px;
         border-radius: 50%; pointer-events: none; z-index: -1;
         background: radial-gradient(closest-side,
             color-mix(in srgb, var(--coral) 16%, transparent) 0%,

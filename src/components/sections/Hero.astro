@@ -119,7 +119,7 @@ const ROTATION_MS = 3200;
     @media (max-width: 767px) {
         h1 { min-height: 4.16em; } /* en móvil la frase más larga ocupa cuatro líneas */
         .ring { display: none; }
-        .orb-a { right: -30vw; top: -20vw; width: 90vw; height: 90vw; }
+        .orb-a { right: -30vw; top: 0; width: 90vw; height: 90vw; } /* top: 0 por lo mismo que en escritorio */
     }
     @media (prefers-reduced-motion: no-preference) {
         .rot { animation: rot-in 0.6s var(--ease) both; }
