@@ -37,7 +37,14 @@ Orden de secciones en `index.astro`, de arriba a abajo:
 
 ## Dirección de diseño
 
-Sistema **Nocturne** (`UI Palette Coworkers.cl.pdf`), tema oscuro fijo: es el tema de la marca corporativa según el brief de identidad (estrategia, sección 06). No hay modo claro ni toggle.
+Sistema **Nocturne** (`UI Palette Coworkers.cl.pdf`). El **oscuro es el tema de marca y el predeterminado** (brief de identidad, estrategia sección 06). Desde el 23 de septiembre de 2026 existe además un **tema claro** como variante, por decisión del equipo; la estrategia todavía dice "sin modo claro", así que conviene actualizarla o revertir esto.
+
+- El tema vive en `data-theme` sobre `<html>` (`dark` o `light`). Un script en línea de `Layout.astro` lo fija antes del primer pintado: primero la elección guardada (`localStorage` `cw-theme`), si no la del sistema. Sin JavaScript queda el oscuro.
+- El cambio lo hace `ui/ThemeToggle.astro`, montado en el header. Si el visitante no ha elegido, sigue en vivo los cambios del sistema.
+- **Las rampas (`--n-*`, `--a-*`, `--coral-*`) significan contraste contra el fondo, no claridad absoluta**: 100 es siempre lo más contrastado (texto) y 900 lo más cercano al fondo. El tema claro solo invierte sus valores, por eso los componentes no necesitan saber en qué tema están y casi nunca hace falta una regla `[data-theme="light"]`.
+- Al agregar un color: token en los dos bloques de `:root`, nunca un hex suelto en un componente (el wordmark lo hacía y se corrigió).
+- Lo que sí necesita regla propia por tema: mezclas que dependen de la dirección de la luz (`.lighten` pasa a `multiply`, el grano pasa a `multiply` con ruido oscuro, el baño de color de `Team` pasa a `multiply`).
+- Contraste verificado en claro: cuerpo 9,9:1, secundario 6,6:1, pie 5,0:1, botones 7,4:1, banda 7,9:1. Los hairlines (`--n-700`) quedan en 2,2:1, la misma sutileza que en oscuro.
 
 - Fondo `#161826`, texto `#e9e9ed`, un solo acento blurple `#9184d9` usado como línea, marca y resplandor, nunca como relleno grande. Rampas neutra y de acento 100–900 en `global.css`.
 - Una sola banda saturada por página (`#262a60`, la de "Nos llaman cuando"). El resto de los fondos se mantiene desaturado.

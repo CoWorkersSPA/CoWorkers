@@ -46,6 +46,8 @@ const paragraphs = [
             radial-gradient(50% 60% at 70% 100%, color-mix(in srgb, var(--section-ghost) 55%, transparent), transparent 70%);
         mix-blend-mode: screen;
     }
+    /* Sobre claro el baño de color tiene que oscurecer, no aclarar. */
+    :global(html[data-theme="light"]) .team::before { mix-blend-mode: multiply; }
     .team::after {
         content: ""; position: absolute; inset: 0; pointer-events: none;
         background:

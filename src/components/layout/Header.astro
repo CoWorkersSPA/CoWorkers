@@ -1,6 +1,7 @@
 ---
 // src/components/layout/Header.astro
 import Button from "@components/ui/Button.astro";
+import ThemeToggle from "@components/ui/ThemeToggle.astro";
 import Wordmark from "@components/ui/Wordmark.astro";
 
 const navLinks = [
@@ -25,6 +26,7 @@ const navLinks = [
         </ul>
 
         <div class="nav-cta">
+            <ThemeToggle />
             <Button href="#agendar" size="sm">Agendar 30 min</Button>
             <button
                 class="nav-toggle"

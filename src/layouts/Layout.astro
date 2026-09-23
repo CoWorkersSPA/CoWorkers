@@ -72,8 +72,17 @@ const jsonLd = {
 		<link rel="sitemap" href="/sitemap-index.xml" />
 		<link rel="alternate" type="text/plain" href="/llms.txt" title="Resumen para asistentes de IA" />
 		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-		<!-- Apertura: solo la primera vez en la sesión y nunca con reduced-motion. Se decide antes
-		     del primer pintado para que el telón exista desde el primer frame. -->
+		<!-- Tema y apertura se deciden antes del primer pintado: el tema para que no haya destello
+		     y la apertura para que el telón exista desde el primer frame. -->
+		<script is:inline>
+			try {
+				var saved = localStorage.getItem("cw-theme");
+				var light = saved ? saved === "light" : matchMedia("(prefers-color-scheme: light)").matches;
+				document.documentElement.setAttribute("data-theme", light ? "light" : "dark");
+			} catch (e) {
+				document.documentElement.setAttribute("data-theme", "dark");
+			}
+		</script>
 		<script is:inline>
 			try {
 				if (!sessionStorage.getItem("cw-intro") && !matchMedia("(prefers-reduced-motion: reduce)").matches) {

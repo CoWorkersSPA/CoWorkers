@@ -35,6 +35,8 @@ import Wordmark from "@components/ui/Wordmark.astro";
         background-size: 160px 160px;
         opacity: 0.12; mix-blend-mode: overlay;
     }
+    /* En claro el grano del telón multiplica, como el de la página. */
+    :global(html[data-theme="light"]) .intro::after { opacity: 0.06; mix-blend-mode: multiply; }
     .intro-aurora { position: absolute; border-radius: 50%; filter: blur(90px); z-index: -1; }
     .intro-aurora-a {
         width: 70vw; height: 70vw; left: -20vw; top: -30vw;

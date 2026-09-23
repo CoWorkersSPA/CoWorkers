@@ -1,0 +1,65 @@
+---
+// src/components/ui/ThemeToggle.astro
+// Cambio de tema. El oscuro es el de marca y el predeterminado; el claro es la variante.
+// El estado real vive en data-theme sobre <html> y se guarda en localStorage. Mientras el visitante
+// no elija, sigue la preferencia del sistema (Layout.astro lo resuelve antes del primer pintado).
+---
+
+<button class="theme-toggle" type="button" data-theme-toggle aria-label="Cambiar a tema claro">
+    <i class="ph ph-sun" aria-hidden="true"></i>
+    <i class="ph ph-moon" aria-hidden="true"></i>
+</button>
+
+<style>
+    /* Sin contorno: es una utilidad, no una acción de marca. El único control delineado de la barra
+       es "Agendar 30 min", que es la conversión. Aquí la afordancia la da el ícono y el fondo al pasar. */
+    .theme-toggle {
+        display: inline-flex; align-items: center; justify-content: center;
+        width: 36px; height: 36px; flex: none;
+        background: transparent;
+        border: 0;
+        border-radius: var(--radius);
+        color: var(--n-500);
+        font-size: 19px; line-height: 1; cursor: pointer;
+        transition: color 0.25s var(--ease), background-color 0.25s var(--ease);
+    }
+    .theme-toggle:hover {
+        color: var(--text);
+        background: color-mix(in srgb, var(--n-500) 14%, transparent);
+    }
+    .theme-toggle:active { transform: translateY(1px); }
+    /* Se muestra el ícono del tema al que se va, no el del actual. */
+    .theme-toggle .ph { display: none; }
+    :global(html:not([data-theme="light"])) .theme-toggle .ph-sun { display: inline; }
+    :global(html[data-theme="light"]) .theme-toggle .ph-moon { display: inline; }
+</style>
+
+<script>
+    const root = document.documentElement;
+    const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+    const COLORS = { dark: "#161826", light: "#f2f3fa" };
+
+    const apply = (theme: "dark" | "light") => {
+        root.setAttribute("data-theme", theme);
+        if (meta) meta.content = COLORS[theme];
+        document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]").forEach((b) => {
+            b.setAttribute("aria-label", theme === "light" ? "Cambiar a tema oscuro" : "Cambiar a tema claro");
+        });
+    };
+
+    apply(root.getAttribute("data-theme") === "light" ? "light" : "dark");
+
+    document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+            apply(next);
+            try { localStorage.setItem("cw-theme", next); } catch {}
+        });
+    });
+
+    // Si el visitante no ha elegido, sigue los cambios del sistema en vivo.
+    matchMedia("(prefers-color-scheme: light)").addEventListener("change", (e) => {
+        try { if (localStorage.getItem("cw-theme")) return; } catch {}
+        apply(e.matches ? "light" : "dark");
+    });
+</script>

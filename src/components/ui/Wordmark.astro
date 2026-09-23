@@ -1,6 +1,7 @@
 ---
 // src/components/ui/Wordmark.astro
-// Wordmark del manual v1: "coworkers" en texto, ".cl" en acento.
+// Wordmark del manual v1: "coworkers" en texto, ".cl" en acento. Los rellenos van por token para
+// que funcione en los dos temas; nunca hex hardcodeado.
 interface Props {
     height?: number;
     class?: string;
@@ -24,5 +25,5 @@ const width = Math.round((height * 161) / 30);
         font-size="26"
         font-weight="600"
         letter-spacing="-0.5"
-    ><tspan fill="#e9e9ed">coworkers</tspan><tspan fill="#9184d9">.cl</tspan></text>
+    ><tspan fill="var(--text)">coworkers</tspan><tspan fill="var(--accent)">.cl</tspan></text>
 </svg>

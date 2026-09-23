@@ -4,7 +4,12 @@
 @source "../src";
 
 /* ---------- Tokens: Nocturne (UI Palette Coworkers.cl) ----------
-   Tema oscuro fijo: es el tema de la marca corporativa (brief de identidad, sección 06). */
+   El oscuro es el tema de marca y el predeterminado (brief de identidad, sección 06). El claro es
+   una variante: mismos tokens con otros valores, nunca otra hoja de estilos.
+
+   Las rampas (--n-*, --a-*, --coral-*) significan "contraste contra el fondo", no "claridad
+   absoluta": 100 es siempre lo más contrastado (texto) y 900 lo más cercano al fondo. Por eso el
+   tema claro solo invierte sus valores y los componentes no necesitan saber en qué tema están. */
 :root {
     --bg: #161826;
     --surface: #232532;
@@ -61,6 +66,42 @@
     --cy: -100vh;
 }
 
+/* ---------- Tema claro ----------
+   Se activa con data-theme="light" en <html>, que fija un script en línea de Layout.astro antes
+   del primer pintado (preferencia guardada, si no la del sistema). Sin JavaScript queda el oscuro. */
+:root[data-theme="light"] {
+    color-scheme: light;
+
+    --bg: #f2f3fa;
+    --surface: #ffffff;
+    --text: #1a1c2e;
+    --accent: #6b5cc4;      /* violeta más oscuro: 4.9:1 sobre --bg, el de marca no llega a AA en claro */
+    --section: #d2d8f6;     /* la banda sigue siendo la única superficie saturada: debe separarse del fondo */
+    --section-glow: #bcc4ee;
+    --section-ghost: #a2abdf;
+
+    --n-100: #14161f; --n-200: #23263a; --n-300: #363b52; --n-400: #4f5570; --n-500: #63687f;
+    --n-600: #82869a; --n-700: #9fa4ba; --n-800: #d1d5e2; --n-900: #e8eaf3;
+
+    --a-100: #2a2350; --a-200: #3b3270; --a-300: #4f4490; --a-400: #6b5cc4; --a-500: #8b7fd6;
+    --a-600: #a99fe3; --a-700: #c7c0ee; --a-800: #ded9f7; --a-900: #eeecfd;
+
+    --coral: #c4564a;       /* más saturado que en oscuro: los resplandores al 12% deben verse sobre claro */
+    --coral-200: #5a2a25;
+    --coral-300: #8f3f35;
+    --coral-800: #f2d4cf;
+
+    /* La luz ambiental baja de intensidad: sobre claro, el mismo porcentaje mancha. */
+    --glow-a: color-mix(in srgb, var(--coral) 10%, transparent);
+    --glow-i: color-mix(in srgb, var(--section-ghost) 34%, transparent);
+    --glow-soft: color-mix(in srgb, var(--accent) 8%, transparent);
+
+    /* Sombras tintadas de índigo, nunca negras. */
+    --shadow-tint: color-mix(in srgb, #2a2f6b 20%, transparent);
+    --shadow-lg: 0 24px 60px -24px var(--shadow-tint), 0 0 0 1px color-mix(in srgb, var(--a-400) 18%, transparent);
+    --shadow-glow: 0 0 0 1px color-mix(in srgb, var(--accent) 45%, transparent), 0 12px 40px -14px color-mix(in srgb, var(--accent) 38%, transparent);
+}
+
 @theme inline {
     --color-bg: var(--bg);
     --color-surface: var(--surface);
@@ -101,12 +142,19 @@ body::before {
         radial-gradient(48% 42% at 60% 96%, color-mix(in srgb, var(--section-glow) 50%, transparent), transparent 70%);
     opacity: 0.85;
 }
+:root[data-theme="light"] body::before { opacity: 0.7; }
 body::after {
     content: ""; position: fixed; inset: 0; z-index: 2; pointer-events: none;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
     background-size: 160px 160px;
     opacity: 0.045;
     mix-blend-mode: overlay;
+}
+/* En claro el grano tiene que ser oscuro y multiplicar: el blanco sobre blanco no se ve. */
+:root[data-theme="light"] body::after {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity: 0.035;
+    mix-blend-mode: multiply;
 }
 /* Luz que sigue al puntero: un foco tenue del acento, solo con puntero fino. */
 .pointer-glow { display: none; }
@@ -142,8 +190,10 @@ body::after {
     background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 45%, transparent) 30%, color-mix(in srgb, var(--accent) 70%, transparent) 50%, color-mix(in srgb, var(--accent) 45%, transparent) 70%, transparent);
 }
 
-/* Las fotos pasan por .lighten: lo más oscuro que el fondo desaparece */
+/* Las fotos pasan por .lighten: sobre fondo oscuro desaparece lo más oscuro que el fondo; sobre
+   claro, el equivalente es multiply (desaparece lo más claro). El nombre se queda por compatibilidad. */
 .lighten { mix-blend-mode: lighten; }
+:root[data-theme="light"] .lighten { mix-blend-mode: multiply; }
 
 /* Texto con degradado del acento: para la palabra que importa, no para párrafos. */
 .text-glow {
