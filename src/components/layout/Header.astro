@@ -5,10 +5,10 @@ import ThemeToggle from "@components/ui/ThemeToggle.astro";
 import Wordmark from "@components/ui/Wordmark.astro";
 
 const navLinks = [
-    { label: "Fechas clave", href: "#nos-llaman-cuando" },
-    { label: "Servicios", href: "#servicios" },
-    { label: "Cómo trabajamos", href: "#como-trabajamos" },
-    { label: "Equipo", href: "#equipo" },
+    { label: "Fechas clave", href: "/#nos-llaman-cuando" },
+    { label: "Servicios", href: "/#servicios" },
+    { label: "Cómo trabajamos", href: "/#como-trabajamos" },
+    { label: "Equipo", href: "/#equipo" },
 ];
 ---
 
@@ -22,12 +22,12 @@ const navLinks = [
             {navLinks.map((l) => (
                 <li><a href={l.href}>{l.label}</a></li>
             ))}
-            <li class="only-menu"><a href="#agendar">Agendar 30 min</a></li>
+            <li class="only-menu"><a href="/#agendar">Agendar 30 min</a></li>
         </ul>
 
         <div class="nav-cta">
             <ThemeToggle />
-            <Button href="#agendar" size="sm">Agendar 30 min</Button>
+            <Button href="/#agendar" size="sm">Agendar 30 min</Button>
             <button
                 class="nav-toggle"
                 type="button"

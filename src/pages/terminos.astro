@@ -1,0 +1,29 @@
+---
+// src/pages/terminos.astro
+// TODO: reemplazar por el documento definitivo. Mientras el contenido sea provisional, la página
+// va con noindex y excluida del sitemap (ver astro.config.mjs). Al publicar el texto real hay que
+// quitar el noindex de aquí y el filtro del sitemap.
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/layout/Header.astro";
+import Footer from "@components/layout/Footer.astro";
+import Button from "@components/ui/Button.astro";
+---
+
+<Layout title="Términos de servicio · Coworkers.cl" description="Estamos redactando este documento. Mientras tanto, las condiciones de cada proyecto van por escrito en la propuesta que te entregamos después de la reunión inicial." noindex>
+    <Header />
+    <main class="legal">
+        <div class="container">
+            <h1>Términos de servicio.</h1>
+            <p>Estamos redactando este documento. Mientras tanto, las condiciones de cada proyecto van por escrito en la propuesta que te entregamos después de la reunión inicial.</p>
+            <Button href="/" icon="ph-arrow-left">Volver al inicio</Button>
+        </div>
+    </main>
+    <Footer />
+</Layout>
+
+<style>
+    .legal { padding-block: 120px; min-height: 60vh; }
+    h1 { font-size: clamp(32px, 4vw, 50px); letter-spacing: -0.03em; max-width: 20ch; }
+    p { margin-top: 18px; max-width: 58ch; color: var(--n-400); font-size: 18px; }
+    .legal :global(.btn) { margin-top: 32px; }
+</style>
