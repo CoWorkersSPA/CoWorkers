@@ -55,8 +55,11 @@ const guarantees = [
     .glow {
         position: absolute; left: -12%; top: 20%; width: 44vw; height: 44vw; max-width: 680px; max-height: 680px;
         border-radius: 50%; pointer-events: none; z-index: -1;
-        background: radial-gradient(circle, color-mix(in srgb, var(--coral) 12%, transparent), transparent 62%);
-        filter: blur(70px);
+        background: radial-gradient(closest-side,
+            color-mix(in srgb, var(--coral) 12%, transparent) 0%,
+            color-mix(in srgb, var(--coral) 7%, transparent) 40%,
+            color-mix(in srgb, var(--coral) 2%, transparent) 68%,
+            transparent 100%);
     }
     .guarantees { display: grid; grid-template-columns: 5fr 7fr; gap: 56px; }
     .intro { position: sticky; top: calc(var(--nav-h) + 40px); align-self: start; }

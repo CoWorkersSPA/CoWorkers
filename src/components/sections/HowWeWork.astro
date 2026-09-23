@@ -47,8 +47,11 @@ const steps = [
     .glow {
         position: absolute; right: -10%; top: 10%; width: 46vw; height: 46vw; max-width: 720px; max-height: 720px;
         border-radius: 50%; pointer-events: none; z-index: -1;
-        background: radial-gradient(circle, color-mix(in srgb, var(--coral) 16%, transparent), transparent 62%);
-        filter: blur(60px);
+        background: radial-gradient(closest-side,
+            color-mix(in srgb, var(--coral) 16%, transparent) 0%,
+            color-mix(in srgb, var(--coral) 9%, transparent) 40%,
+            color-mix(in srgb, var(--coral) 3%, transparent) 68%,
+            transparent 100%);
     }
     h2 { margin-top: 96px; max-width: 30ch; }
     .steps { margin-top: 56px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; position: relative; }

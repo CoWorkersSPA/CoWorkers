@@ -37,15 +37,15 @@ import Wordmark from "@components/ui/Wordmark.astro";
     }
     /* En claro el grano del telón multiplica, como el de la página. */
     :global(html[data-theme="light"]) .intro::after { opacity: 0.06; mix-blend-mode: multiply; }
-    .intro-aurora { position: absolute; border-radius: 50%; filter: blur(90px); z-index: -1; }
+    .intro-aurora { position: absolute; border-radius: 50%; z-index: -1; }
     .intro-aurora-a {
         width: 70vw; height: 70vw; left: -20vw; top: -30vw;
-        background: radial-gradient(closest-side, var(--section-ghost), transparent);
+        background: radial-gradient(closest-side, var(--section-ghost) 0%, color-mix(in srgb, var(--section-ghost) 40%, transparent) 55%, transparent 100%);
         animation: intro-aurora 2.6s ease-out both;
     }
     .intro-aurora-b {
         width: 60vw; height: 60vw; right: -20vw; bottom: -30vw;
-        background: radial-gradient(closest-side, color-mix(in srgb, var(--coral) 40%, transparent), transparent);
+        background: radial-gradient(closest-side, color-mix(in srgb, var(--coral) 40%, transparent) 0%, color-mix(in srgb, var(--coral) 16%, transparent) 55%, transparent 100%);
         animation: intro-aurora 2.6s ease-out 0.15s both;
     }
     .intro-dots {

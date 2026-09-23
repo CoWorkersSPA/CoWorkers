@@ -28,8 +28,12 @@ import Button from "@components/ui/Button.astro";
     .orb {
         /* queda dentro de la sección: si tocara el borde superior, el recorte se vería como una línea */
         position: absolute; left: 28%; top: 62%; width: 44vw; height: 30vw; max-width: 720px; max-height: 480px;
-        transform: translate(-50%, -50%); border-radius: 50%; filter: blur(70px);
-        background: radial-gradient(closest-side, color-mix(in srgb, var(--coral) 20%, transparent), color-mix(in srgb, var(--section-ghost) 40%, transparent) 55%, transparent 100%);
+        transform: translate(-50%, -50%); border-radius: 50%;
+        background: radial-gradient(closest-side,
+            color-mix(in srgb, var(--coral) 20%, transparent) 0%,
+            color-mix(in srgb, var(--section-ghost) 40%, transparent) 55%,
+            color-mix(in srgb, var(--section-ghost) 16%, transparent) 78%,
+            transparent 100%);
     }
     .ring {
         /* anillo fino, descentrado a la derecha: profundidad sin ser un relleno */

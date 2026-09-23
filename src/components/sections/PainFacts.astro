@@ -60,16 +60,24 @@ const facts = [
     .band::before { top: 0; background: linear-gradient(180deg, var(--bg), transparent); }
     .band::after { bottom: 0; background: linear-gradient(0deg, var(--bg), transparent); }
     .band-bg { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
-    .aurora { position: absolute; border-radius: 50%; filter: blur(80px); will-change: transform; }
+    .aurora { position: absolute; border-radius: 50%; will-change: transform; }
     .aurora-a {
         width: 70vw; height: 50vw; max-width: 1000px; max-height: 700px;
         left: -18vw; top: -30%;
-        background: radial-gradient(closest-side, var(--section-ghost), color-mix(in srgb, var(--section-glow) 60%, transparent) 50%, transparent 100%);
+        background: radial-gradient(closest-side,
+            var(--section-ghost) 0%,
+            color-mix(in srgb, var(--section-glow) 60%, transparent) 46%,
+            color-mix(in srgb, var(--section-glow) 22%, transparent) 72%,
+            transparent 100%);
     }
     .aurora-b {
         width: 50vw; height: 46vw; max-width: 760px; max-height: 700px;
         right: -12vw; bottom: -40%;
-        background: radial-gradient(closest-side, color-mix(in srgb, var(--coral) 30%, transparent), transparent 100%);
+        background: radial-gradient(closest-side,
+            color-mix(in srgb, var(--coral) 30%, transparent) 0%,
+            color-mix(in srgb, var(--coral) 14%, transparent) 46%,
+            color-mix(in srgb, var(--coral) 5%, transparent) 72%,
+            transparent 100%);
     }
     .band-bg::after {
         /* malla fina que se desvanece hacia la derecha */
