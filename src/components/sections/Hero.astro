@@ -54,7 +54,9 @@ const ROTATION_MS = 3200;
     .orb { position: absolute; border-radius: 50%; will-change: transform; }
     .orb-a {
         width: 52vw; height: 52vw; max-width: 820px; max-height: 820px;
-        right: -14vw; top: -10vw;
+        /* Alineado al borde del hero, no fuera: con closest-side el degradado llega a alfa 0 justo
+           en el borde del elemento, así overflow: hidden no corta nada con color. */
+        right: -14vw; top: 0;
         /* closest-side: el degradado llega a transparente justo en el borde del elemento. Con
            farthest-corner todavía quedaba color ahí y el border-radius lo cortaba en seco. */
         background: radial-gradient(closest-side,
@@ -65,7 +67,7 @@ const ROTATION_MS = 3200;
     }
     .orb-b {
         width: 40vw; height: 40vw; max-width: 620px; max-height: 620px;
-        left: -14vw; bottom: -22vw;
+        left: -14vw; bottom: 0;
         background: radial-gradient(closest-side,
             color-mix(in srgb, var(--section-ghost) 60%, transparent) 0%,
             color-mix(in srgb, var(--section-ghost) 30%, transparent) 40%,

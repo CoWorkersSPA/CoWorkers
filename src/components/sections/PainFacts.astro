@@ -52,12 +52,13 @@ const facts = [
         background: var(--section);
         color: var(--a-100);
         padding-block: 112px 120px;
+        /* Los bordes se desvanecen con máscara, no pintando --bg opaco encima. Así el fondo de la
+           página y su aurora se ven a través de la unión y no hay salto de color con las secciones
+           vecinas. 80px cabe dentro del padding también en móvil (88px), así que el texto nunca se
+           desvanece. La máscara alcanza además a las auroras y a la retícula de dentro. */
+        -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%);
+        mask-image: linear-gradient(180deg, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%);
     }
-    .band::before, .band::after {
-        content: ""; position: absolute; left: 0; right: 0; height: 96px; pointer-events: none; z-index: 1;
-    }
-    .band::before { top: 0; background: linear-gradient(180deg, var(--bg), transparent); }
-    .band::after { bottom: 0; background: linear-gradient(0deg, var(--bg), transparent); }
     .band-bg { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
     .aurora { position: absolute; border-radius: 50%; will-change: transform; }
     .aurora-a {
