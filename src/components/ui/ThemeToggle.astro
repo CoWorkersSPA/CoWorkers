@@ -65,7 +65,7 @@
         const vt = document.startViewTransition(() => apply(theme));
 
         vt.ready
-            .then(() =>
+            .then(() => {
                 root.animate(
                     { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
                     {
@@ -74,10 +74,17 @@
                         fill: "forwards", // sin esto el recorte vuelve al valor CSS en el último fotograma
                         pseudoElement: "::view-transition-new(root)",
                     },
-                ).finished,
-            )
+                );
+            })
             // La transición se salta sola si el documento está oculto o si llega otra encima: el tema
             // igual queda aplicado, así que no hay nada que rescatar ni que reportar.
+            .catch(() => {});
+
+        // La limpieza cuelga de vt.finished, NO del final del círculo. El navegador desmonta las
+        // instantáneas uno o dos fotogramas después; si la clase se va antes, se caen las reglas que
+        // apagan sus animaciones y fijan el orden de capas, y la instantánea vieja vuelve a pintarse
+        // encima. Eso se veía como un parpadeo al tema anterior justo al terminar.
+        vt.finished
             .catch(() => {})
             .finally(() => {
                 root.classList.remove("theme-wipe");
