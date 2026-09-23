@@ -71,6 +71,7 @@ Sistema **Nocturne** (`UI Palette Coworkers.cl.pdf`). El **oscuro es el tema de 
 
 ## Convenciones de código
 
+- Los comentarios del template van en `{/* ... */}`, no en `<!-- ... -->`: Astro renderiza los segundos al HTML final y viajan al visitante. `compressHTML` colapsa espacios pero no borra comentarios. Los del frontmatter (`//`) y los de `<style>` no salen nunca.
 - Un componente = una responsabilidad. Si un `.astro` empieza a mezclar layout de varias secciones, dividirlo.
 - Los textos de cada sección (citas, listas, pasos) viven como arrays dentro del propio componente de `sections/`, salvo que el equipo decida moverlos a `src/content/` para iterar copy sin tocar código.
 - Todo cambio visual relevante debe revisarse en `http://localhost:4322` (Docker) o `npm run dev` antes de dar por terminada la tarea. Si Vite deja un módulo de estilos rancio en HMR (la página carga CSS viejo aunque `astro build` esté bien), `touch` del componente lo invalida. `npm run build` y `npx astro check` deben pasar limpios.

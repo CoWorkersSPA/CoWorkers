@@ -47,19 +47,59 @@
         });
     };
 
+    // El cambio nace del botón: un círculo del color entrante se abre desde ahí, el tema cambia por
+    // detrás y el círculo se desvanece. Es feedback, no decoración. Con reduced-motion es instantáneo.
+    const GROW_MS = 430;
+    const FADE_MS = 260;
+    let wash: HTMLElement | null = null;
+
+    const swap = (theme: "dark" | "light", origin?: { x: number; y: number }) => {
+        const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (reduce || !origin || !document.body) { apply(theme); return; }
+
+        wash?.remove(); // un clic rápido cancela el barrido anterior
+        const el = document.createElement("span");
+        wash = el;
+        el.className = "theme-wash";
+        el.setAttribute("aria-hidden", "true");
+        el.style.background = COLORS[theme];
+
+        const { x, y } = origin;
+        const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+        const SIZE = 120; // diámetro base; el crecimiento va por escala, que es lo que sabe hacer la GPU
+        el.style.left = `${x - SIZE / 2}px`;
+        el.style.top = `${y - SIZE / 2}px`;
+        el.style.width = el.style.height = `${SIZE}px`;
+
+        document.body.appendChild(el);
+
+        el.animate(
+            { transform: ["scale(0)", `scale(${(radius / (SIZE / 2)).toFixed(3)})`] },
+            { duration: GROW_MS, easing: "cubic-bezier(0.16, 1, 0.3, 1)", fill: "forwards" },
+        ).finished
+            .then(() => {
+                apply(theme); // el cambio ocurre tapado: nunca se ve un estado a medias
+                return el.animate({ opacity: [1, 0] }, { duration: FADE_MS, easing: "ease-out", fill: "forwards" }).finished;
+            })
+            .catch(() => apply(theme))
+            .finally(() => { el.remove(); if (wash === el) wash = null; });
+    };
+
     apply(root.getAttribute("data-theme") === "light" ? "light" : "dark");
 
     document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]").forEach((btn) => {
         btn.addEventListener("click", () => {
             const next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
-            apply(next);
+            const r = btn.getBoundingClientRect();
+            swap(next, { x: r.left + r.width / 2, y: r.top + r.height / 2 });
             try { localStorage.setItem("cw-theme", next); } catch {}
         });
     });
 
-    // Si el visitante no ha elegido, sigue los cambios del sistema en vivo.
+    // Si el visitante no ha elegido, sigue los cambios del sistema en vivo. Sin clic no hay origen,
+    // así que el navegador hace su fundido cruzado.
     matchMedia("(prefers-color-scheme: light)").addEventListener("change", (e) => {
         try { if (localStorage.getItem("cw-theme")) return; } catch {}
-        apply(e.matches ? "light" : "dark");
+        swap(e.matches ? "light" : "dark");
     });
 </script>

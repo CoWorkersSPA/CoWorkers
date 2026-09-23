@@ -72,8 +72,8 @@ const jsonLd = {
 		<link rel="sitemap" href="/sitemap-index.xml" />
 		<link rel="alternate" type="text/plain" href="/llms.txt" title="Resumen para asistentes de IA" />
 		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-		<!-- Tema y apertura se deciden antes del primer pintado: el tema para que no haya destello
-		     y la apertura para que el telón exista desde el primer frame. -->
+		{/* Tema y apertura se deciden antes del primer pintado: el tema para que no haya destello
+		     y la apertura para que el telón exista desde el primer frame. */}
 		<script is:inline>
 			try {
 				var saved = localStorage.getItem("cw-theme");
@@ -91,14 +91,14 @@ const jsonLd = {
 			} catch (e) {}
 		</script>
 
-		<!-- Producción: auto-hospedar Inter con @font-face + font-display: swap. -->
+		{/* Producción: auto-hospedar Inter con @font-face + font-display: swap. */}
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
 			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
 			rel="stylesheet"
 		/>
-		<!-- Íconos: Phosphor (el set que fija Nocturne). -->
+		{/* Íconos: Phosphor (el set que fija Nocturne). */}
 		<link
 			rel="stylesheet"
 			href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
