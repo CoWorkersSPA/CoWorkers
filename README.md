@@ -10,8 +10,8 @@ Este proyecto contiene el código fuente de la landing pública de Coworkers.cl:
 
 ### Stack
 
-* **Astro**
-* **Docker**
+- **Astro**
+- **Docker**
 
 ```text
 CoWorkers/
@@ -62,9 +62,9 @@ CoWorkers/
 
 Los componentes se dividen en tres carpetas según su responsabilidad:
 
-* **`layout/`** — piezas que envuelven toda la página (header y footer), se usan una sola vez.
-* **`sections/`** — un componente por cada bloque de contenido de la landing, ensamblados en orden dentro de `index.astro`. Cada uno arma sus propios datos y no recibe props.
-* **`ui/`** — piezas reutilizables y genéricas (botones, cards, tags) que distintas secciones instancian con datos propios vía props.
+- **`layout/`** — piezas que envuelven toda la página (header y footer), se usan una sola vez.
+- **`sections/`** — un componente por cada bloque de contenido de la landing, ensamblados en orden dentro de `index.astro`. Cada uno arma sus propios datos y no recibe props.
+- **`ui/`** — piezas reutilizables y genéricas (botones, cards, tags) que distintas secciones instancian con datos propios vía props.
 
 ## Cómo levantar el proyecto
 

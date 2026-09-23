@@ -7,89 +7,192 @@ import Wordmark from "@components/ui/Wordmark.astro";
 ---
 
 <div class="intro" id="intro" aria-hidden="true">
-    <span class="intro-aurora intro-aurora-a"></span>
-    <span class="intro-aurora intro-aurora-b"></span>
-    <span class="intro-dots"></span>
-    <div class="intro-inner">
-        <Wordmark height={44} />
-        <p>Software que se entiende.</p>
-    </div>
+  <span class="intro-aurora intro-aurora-a"></span>
+  <span class="intro-aurora intro-aurora-b"></span>
+  <span class="intro-dots"></span>
+  <div class="intro-inner">
+    <Wordmark height={44} />
+    <p>Software que se entiende.</p>
+  </div>
 </div>
 
 <style>
-    :global(html:not([data-intro])) .intro { display: none; }
-    :global(html[data-intro]) { overflow: hidden; }
+  :global(html:not([data-intro])) .intro {
+    display: none;
+  }
+  :global(html[data-intro]) {
+    overflow: hidden;
+  }
 
-    .intro {
-        position: fixed; inset: 0; z-index: var(--z-intro);
-        display: grid; place-items: center;
-        background: var(--section);
-        overflow: hidden; isolation: isolate;
-        clip-path: inset(0 0 0 0);
-        animation: intro-lift 0.9s cubic-bezier(0.76, 0, 0.24, 1) 1.55s forwards;
-    }
-    .intro::after {
-        /* el mismo grano de la página, más presente: el telón es materia, no un plano */
-        content: ""; position: absolute; inset: 0; pointer-events: none;
-        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-        background-size: 160px 160px;
-        opacity: 0.12; mix-blend-mode: overlay;
-    }
-    /* En claro el grano del telón multiplica, como el de la página. */
-    :global(html[data-theme="light"]) .intro::after { opacity: 0.06; mix-blend-mode: multiply; }
-    .intro-aurora { position: absolute; border-radius: 50%; z-index: -1; }
-    .intro-aurora-a {
-        width: 70vw; height: 70vw; left: -20vw; top: -30vw;
-        background: radial-gradient(closest-side, var(--section-ghost) 0%, color-mix(in srgb, var(--section-ghost) 40%, transparent) 55%, transparent 100%);
-        animation: intro-aurora 2.6s ease-out both;
-    }
-    .intro-aurora-b {
-        width: 60vw; height: 60vw; right: -20vw; bottom: -30vw;
-        background: radial-gradient(closest-side, color-mix(in srgb, var(--coral) 40%, transparent) 0%, color-mix(in srgb, var(--coral) 16%, transparent) 55%, transparent 100%);
-        animation: intro-aurora 2.6s ease-out 0.15s both;
-    }
-    .intro-dots {
-        /* partículas: puntos de acento dispersos que suben lentamente */
-        position: absolute; inset: -10% 0 0 0; z-index: -1;
-        background-image:
-            radial-gradient(circle, color-mix(in srgb, var(--a-200) 90%, transparent) 1.2px, transparent 2px),
-            radial-gradient(circle, color-mix(in srgb, var(--a-300) 70%, transparent) 1px, transparent 1.8px);
-        background-size: 260px 260px, 180px 180px;
-        background-position: 40px 60px, 120px 20px;
-        opacity: 0.55;
-        animation: intro-dots 3s linear both;
-    }
-    .intro-inner {
-        display: grid; justify-items: center; gap: 14px;
-        opacity: 0; transform: translateY(14px); filter: blur(8px);
-        animation: intro-in 0.9s var(--ease) 0.25s forwards, intro-out 0.5s var(--ease) 1.45s forwards;
-    }
-    .intro-inner :global(svg) { height: 44px; width: auto; }
-    .intro-inner p { margin: 0; font-size: 15px; letter-spacing: 0.02em; color: var(--a-300); }
+  .intro {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-intro);
+    display: grid;
+    place-items: center;
+    background: var(--section);
+    overflow: hidden;
+    isolation: isolate;
+    clip-path: inset(0 0 0 0);
+    animation: intro-lift 0.9s cubic-bezier(0.76, 0, 0.24, 1) 1.55s forwards;
+  }
+  .intro::after {
+    /* el mismo grano de la página, más presente: el telón es materia, no un plano */
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    background-size: 160px 160px;
+    opacity: 0.12;
+    mix-blend-mode: overlay;
+  }
+  /* En claro el grano del telón multiplica, como el de la página. */
+  :global(html[data-theme="light"]) .intro::after {
+    opacity: 0.06;
+    mix-blend-mode: multiply;
+  }
+  .intro-aurora {
+    position: absolute;
+    border-radius: 50%;
+    z-index: -1;
+  }
+  .intro-aurora-a {
+    width: 70vw;
+    height: 70vw;
+    left: -20vw;
+    top: -30vw;
+    background: radial-gradient(
+      closest-side,
+      var(--section-ghost) 0%,
+      color-mix(in srgb, var(--section-ghost) 40%, transparent) 55%,
+      transparent 100%
+    );
+    animation: intro-aurora 2.6s ease-out both;
+  }
+  .intro-aurora-b {
+    width: 60vw;
+    height: 60vw;
+    right: -20vw;
+    bottom: -30vw;
+    background: radial-gradient(
+      closest-side,
+      color-mix(in srgb, var(--coral) 40%, transparent) 0%,
+      color-mix(in srgb, var(--coral) 16%, transparent) 55%,
+      transparent 100%
+    );
+    animation: intro-aurora 2.6s ease-out 0.15s both;
+  }
+  .intro-dots {
+    /* partículas: puntos de acento dispersos que suben lentamente */
+    position: absolute;
+    inset: -10% 0 0 0;
+    z-index: -1;
+    background-image:
+      radial-gradient(
+        circle,
+        color-mix(in srgb, var(--a-200) 90%, transparent) 1.2px,
+        transparent 2px
+      ),
+      radial-gradient(
+        circle,
+        color-mix(in srgb, var(--a-300) 70%, transparent) 1px,
+        transparent 1.8px
+      );
+    background-size:
+      260px 260px,
+      180px 180px;
+    background-position:
+      40px 60px,
+      120px 20px;
+    opacity: 0.55;
+    animation: intro-dots 3s linear both;
+  }
+  .intro-inner {
+    display: grid;
+    justify-items: center;
+    gap: 14px;
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(8px);
+    animation:
+      intro-in 0.9s var(--ease) 0.25s forwards,
+      intro-out 0.5s var(--ease) 1.45s forwards;
+  }
+  .intro-inner :global(svg) {
+    height: 44px;
+    width: auto;
+  }
+  .intro-inner p {
+    margin: 0;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    color: var(--a-300);
+  }
 
-    @keyframes intro-in   { to { opacity: 1; transform: none; filter: none; } }
-    @keyframes intro-out  { to { opacity: 0; transform: translateY(-16px); filter: blur(6px); } }
-    @keyframes intro-lift { to { clip-path: inset(0 0 100% 0); } }
-    @keyframes intro-aurora { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-    @keyframes intro-dots { from { transform: translateY(40px); } to { transform: translateY(-40px); } }
+  @keyframes intro-in {
+    to {
+      opacity: 1;
+      transform: none;
+      filter: none;
+    }
+  }
+  @keyframes intro-out {
+    to {
+      opacity: 0;
+      transform: translateY(-16px);
+      filter: blur(6px);
+    }
+  }
+  @keyframes intro-lift {
+    to {
+      clip-path: inset(0 0 100% 0);
+    }
+  }
+  @keyframes intro-aurora {
+    from {
+      transform: scale(0.7);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  @keyframes intro-dots {
+    from {
+      transform: translateY(40px);
+    }
+    to {
+      transform: translateY(-40px);
+    }
+  }
 
-    @media (max-width: 767px) { .intro-inner :global(svg) { height: 36px; } }
+  @media (max-width: 767px) {
+    .intro-inner :global(svg) {
+      height: 36px;
+    }
+  }
 </style>
 
 <script>
-    // Al terminar de levantarse el telón, se libera la página y el hero entra en cascada.
-    const root = document.documentElement;
-    const intro = document.getElementById("intro");
-    const done = () => {
-        if (!root.hasAttribute("data-intro")) return;
-        root.removeAttribute("data-intro");
-        try { sessionStorage.setItem("cw-intro", "1"); } catch {}
-        intro?.remove();
-    };
-    if (root.hasAttribute("data-intro") && intro) {
-        intro.addEventListener("animationend", (e) => { if (e.animationName === "intro-lift") done(); });
-        setTimeout(done, 3200); // respaldo por si el evento no llega
-    } else {
-        intro?.remove();
-    }
+  // Al terminar de levantarse el telón, se libera la página y el hero entra en cascada.
+  const root = document.documentElement;
+  const intro = document.getElementById("intro");
+  const done = () => {
+    if (!root.hasAttribute("data-intro")) return;
+    root.removeAttribute("data-intro");
+    try {
+      sessionStorage.setItem("cw-intro", "1");
+    } catch {}
+    intro?.remove();
+  };
+  if (root.hasAttribute("data-intro") && intro) {
+    intro.addEventListener("animationend", (e) => {
+      if (e.animationName === "intro-lift") done();
+    });
+    setTimeout(done, 3200); // respaldo por si el evento no llega
+  } else {
+    intro?.remove();
+  }
 </script>

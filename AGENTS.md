@@ -6,7 +6,7 @@ Landing corporativa de **Coworkers.cl**, una empresa de software para pymes con 
 
 Este repositorio contiene únicamente la landing pública: presenta las dos puertas, explica cómo trabajan e invita a agendar una reunión inicial sin costo. No es la plataforma del producto ni la página de Mesón.
 
-**Fuente de verdad del contenido**: `docs/MENSAJES.md` (marco de mensajes), derivado de *Estrategia de marca - Coworkers.cl y Mesón* e *Investigación de mercado - Módulos y servicios Mesón* (ambos del 19 de septiembre de 2026). El mockup antiguo (`UI_mockups_para_Coworkers_cl.pdf`) queda deprecado para el copy; solo sirve como referencia visual. Cualquier cambio de copy debe respetar `docs/MENSAJES.md`, en especial la sección "Lo que no se dice".
+**Fuente de verdad del contenido**: `docs/MENSAJES.md` (marco de mensajes), derivado de _Estrategia de marca - Coworkers.cl y Mesón_ e _Investigación de mercado - Módulos y servicios Mesón_ (ambos del 19 de septiembre de 2026). El mockup antiguo (`UI_mockups_para_Coworkers_cl.pdf`) queda deprecado para el copy; solo sirve como referencia visual. Cualquier cambio de copy debe respetar `docs/MENSAJES.md`, en especial la sección "Lo que no se dice".
 
 ## Stack
 

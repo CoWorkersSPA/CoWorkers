@@ -1,6 +1,6 @@
 # Coworkers.cl · Marco de mensajes para la landing corporativa
 
-Derivado de *Estrategia de marca - Coworkers.cl y Mesón* (v1.0, 19 sep 2026) y *Investigación de mercado - Módulos y servicios Mesón* (v1.0, 19 sep 2026). Todo lo que no salga de esos dos documentos se marca como propuesta.
+Derivado de _Estrategia de marca - Coworkers.cl y Mesón_ (v1.0, 19 sep 2026) y _Investigación de mercado - Módulos y servicios Mesón_ (v1.0, 19 sep 2026). Todo lo que no salga de esos dos documentos se marca como propuesta.
 
 ---
 
@@ -14,13 +14,13 @@ Resolvemos problemas de gestión en pymes que hoy funcionan con cuaderno, WhatsA
 
 ## 03 — Taglines (evaluación de las decididas)
 
-| Frase | Rol | Estilo | Evaluación |
-|---|---|---|---|
-| **Software que se entiende.** | Marca | Funcional | **Recomendada como tagline de marca.** Nombra el posicionamiento (simple y completo) sin adjetivos. Va en logo, pie, bio. |
-| Tu proyecto, su carrera. | Corporativa | Emocional | Funciona para reclutamiento y para el sistema rotativo del hero. Como tagline única es débil: habla del modelo, no del cliente. Mantener en el hero, no en el pie. |
-| Tu negocio, a la mano. | Mesón | Aspiracional | Correcta para la línea. No usarla en la corporativa salvo en la tarjeta de Mesón. |
-| Tuyo. Aunque nosotros no estemos. | Campaña | Atrevida | La más fuerte y la única bloqueada: la estrategia (sección 07) exige la cláusula de entrega de código antes de publicarla. **No va en la página hasta que exista el contrato.** |
-| Se entiende. Se usa. Es tuyo. | Reserva | Funcional | Buen cierre de página. Propuesta: usarla cuando se desbloquee "es tuyo". |
+| Frase                             | Rol         | Estilo       | Evaluación                                                                                                                                                                      |
+| --------------------------------- | ----------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Software que se entiende.**     | Marca       | Funcional    | **Recomendada como tagline de marca.** Nombra el posicionamiento (simple y completo) sin adjetivos. Va en logo, pie, bio.                                                       |
+| Tu proyecto, su carrera.          | Corporativa | Emocional    | Funciona para reclutamiento y para el sistema rotativo del hero. Como tagline única es débil: habla del modelo, no del cliente. Mantener en el hero, no en el pie.              |
+| Tu negocio, a la mano.            | Mesón       | Aspiracional | Correcta para la línea. No usarla en la corporativa salvo en la tarjeta de Mesón.                                                                                               |
+| Tuyo. Aunque nosotros no estemos. | Campaña     | Atrevida     | La más fuerte y la única bloqueada: la estrategia (sección 07) exige la cláusula de entrega de código antes de publicarla. **No va en la página hasta que exista el contrato.** |
+| Se entiende. Se usa. Es tuyo.     | Reserva     | Funcional    | Buen cierre de página. Propuesta: usarla cuando se desbloquee "es tuyo".                                                                                                        |
 
 ## 04 — Jerarquía para la landing corporativa
 
@@ -30,14 +30,15 @@ Resolvemos problemas de gestión en pymes que hoy funcionan con cuaderno, WhatsA
 
 **Nivel 3 · Pilares (los cuatro de la estrategia, sección 03):**
 
-| Pilar | Qué dice | Prueba |
-|---|---|---|
-| Lo tuyo es tuyo | Sistema, datos y código en tus manos. Si un día prefieres a otro, te vas con todo. | Núcleo de software libre; modo "en tu local" sin mensualidad. *La entrega de código con licencia está pendiente de contrato.* |
-| Se entiende a la primera | Sin manual, sin capacitación, sin implementador. Si necesita teclado, no es nuestro. | Instalación presencial en Gran Concepción; interfaz táctil por rubro. |
-| Empiezas por lo que necesitas | Compras la solución a un problema. Debajo trabaja un sistema completo, tuyo, para cuando crezcas. | Ventas, compras, inventario, proyectos y contabilidad presentes desde el día uno. |
-| Nadie entrega sin revisión | Ninguna tarea entra sin pasar por los socios. | Cinco socios de Ingeniería en Informática UTFSM; estudiantes pagados por entrega aceptada. |
+| Pilar                         | Qué dice                                                                                          | Prueba                                                                                                                        |
+| ----------------------------- | ------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| Lo tuyo es tuyo               | Sistema, datos y código en tus manos. Si un día prefieres a otro, te vas con todo.                | Núcleo de software libre; modo "en tu local" sin mensualidad. _La entrega de código con licencia está pendiente de contrato._ |
+| Se entiende a la primera      | Sin manual, sin capacitación, sin implementador. Si necesita teclado, no es nuestro.              | Instalación presencial en Gran Concepción; interfaz táctil por rubro.                                                         |
+| Empiezas por lo que necesitas | Compras la solución a un problema. Debajo trabaja un sistema completo, tuyo, para cuando crezcas. | Ventas, compras, inventario, proyectos y contabilidad presentes desde el día uno.                                             |
+| Nadie entrega sin revisión    | Ninguna tarea entra sin pasar por los socios.                                                     | Cinco socios de Ingeniería en Informática UTFSM; estudiantes pagados por entrega aceptada.                                    |
 
 **Nivel 4 · Banco de pruebas (verificables hoy):**
+
 - Cinco socios, Ingeniería en Informática, Universidad Técnica Federico Santa María.
 - Ninguna tarea se integra sin revisión de un socio.
 - Los estudiantes reciben pago por cada entrega aceptada.
@@ -48,8 +49,9 @@ Resolvemos problemas de gestión en pymes que hoy funcionan con cuaderno, WhatsA
 - Toda la infraestructura que se vende corre en la propia empresa.
 
 **Cifras citables (investigación, sección 02):**
-- 54,6% de las facturas de pymes pequeñas se paga después de 30 días; promedio 40 días. *Xepelin / La Tercera, julio 2026.*
-- Más del 70% de las empresas del Biobío está en los niveles más bajos de madurez digital. *Ministerio de Economía, Digitaliza tu Pyme 2026.*
+
+- 54,6% de las facturas de pymes pequeñas se paga después de 30 días; promedio 40 días. _Xepelin / La Tercera, julio 2026._
+- Más del 70% de las empresas del Biobío está en los niveles más bajos de madurez digital. _Ministerio de Economía, Digitaliza tu Pyme 2026._
 - 1 de diciembre de 2026: la Ley 21.719 aplica a toda empresa, sin importar el tamaño.
 
 Fuera del banco: morosidad de Duemint, inasistencia de proveedores de agendas, "67% manual" vía Rankaglia. Sirven para dimensionar, no para publicar.
@@ -64,15 +66,15 @@ Fuera del banco: morosidad de Duemint, inasistencia de proveedores de agendas, "
 
 ## 06 — Por canal
 
-| Canal | Titular | Tono | Extensión |
-|---|---|---|---|
-| Landing corporativa | Rotativo "Tu proyecto…" + apoyo con el problema | Directo, joven, sin humo | Corta |
-| Landing de Mesón | "Tuyo. Aunque nosotros no estemos." (cuando exista la cláusula) + una solución con fecha | Claro, cálido, cero jerga | Corta |
-| Bio de redes | "Software que se entiende. Concepción." | Sobrio | Muy corta |
-| Correo al contador | Asunto con la ley y la fecha; precio fijo y plazo | Profesional, concreto | Corta |
-| Propuesta / deck | Problema → solución → qué incluye → precio → quién revisa | Formal en proceso, cercano en trato | Media |
-| Anuncios | "1 de diciembre. ¿Tus datos están ordenados?" | Urgente sin alarmismo | Muy corta |
-| Reclutamiento | "Tareas reales, pagadas al aceptarse, compatibles con el semestre" | Compañero, honesto | Corta |
+| Canal               | Titular                                                                                  | Tono                                | Extensión |
+| ------------------- | ---------------------------------------------------------------------------------------- | ----------------------------------- | --------- |
+| Landing corporativa | Rotativo "Tu proyecto…" + apoyo con el problema                                          | Directo, joven, sin humo            | Corta     |
+| Landing de Mesón    | "Tuyo. Aunque nosotros no estemos." (cuando exista la cláusula) + una solución con fecha | Claro, cálido, cero jerga           | Corta     |
+| Bio de redes        | "Software que se entiende. Concepción."                                                  | Sobrio                              | Muy corta |
+| Correo al contador  | Asunto con la ley y la fecha; precio fijo y plazo                                        | Profesional, concreto               | Corta     |
+| Propuesta / deck    | Problema → solución → qué incluye → precio → quién revisa                                | Formal en proceso, cercano en trato | Media     |
+| Anuncios            | "1 de diciembre. ¿Tus datos están ordenados?"                                            | Urgente sin alarmismo               | Muy corta |
+| Reclutamiento       | "Tareas reales, pagadas al aceptarse, compatibles con el semestre"                       | Compañero, honesto                  | Corta     |
 
 ## 07 — Lo que no se dice
 
@@ -88,15 +90,15 @@ Fuera del banco: morosidad de Duemint, inasistencia de proveedores de agendas, "
 
 ## Cómo se aplica en este repo
 
-| Sección (`src/components/sections/`) | Mensaje que carga |
-|---|---|
-| `Hero` | Titular rotativo "Tu proyecto…" + apoyo con el problema (cobrar, cumplir, ordenar) |
-| `PainFacts` | Dos hechos con fecha: 1 de diciembre (Ley 21.719) y 40 días (Xepelin / La Tercera) |
-| `Services` | Las tres líneas de Coworkers.cl con el problema antes que la pieza |
-| `Meson` | La puerta para la pyme: Datos, Cobros y cotizaciones. Caja no se promete |
-| `HowWeWork` | Treinta minutos en tu local → tareas chicas → revisión → instalación y mantención |
-| `Guarantees` | Los cuatro pilares de la estrategia |
-| `Team` | Historia corta (versión "home o pitch") + puerta para estudiantes |
-| `FinalCta` | Alcance escrito en 30 minutos, contrates o no |
+| Sección (`src/components/sections/`) | Mensaje que carga                                                                  |
+| ------------------------------------ | ---------------------------------------------------------------------------------- |
+| `Hero`                               | Titular rotativo "Tu proyecto…" + apoyo con el problema (cobrar, cumplir, ordenar) |
+| `PainFacts`                          | Dos hechos con fecha: 1 de diciembre (Ley 21.719) y 40 días (Xepelin / La Tercera) |
+| `Services`                           | Las tres líneas de Coworkers.cl con el problema antes que la pieza                 |
+| `Meson`                              | La puerta para la pyme: Datos, Cobros y cotizaciones. Caja no se promete           |
+| `HowWeWork`                          | Treinta minutos en tu local → tareas chicas → revisión → instalación y mantención  |
+| `Guarantees`                         | Los cuatro pilares de la estrategia                                                |
+| `Team`                               | Historia corta (versión "home o pitch") + puerta para estudiantes                  |
+| `FinalCta`                           | Alcance escrito en 30 minutos, contrates o no                                      |
 
 Fuera del sitio por decisión del 19 de septiembre: "Lo que no somos", "Lo que te queda", el banco de pruebas y la cifra del 70% del Biobío (lenguaje interno, no de cliente).

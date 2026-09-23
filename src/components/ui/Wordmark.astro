@@ -3,27 +3,30 @@
 // Wordmark del manual v1: "coworkers" en texto, ".cl" en acento. Los rellenos van por token para
 // que funcione en los dos temas; nunca hex hardcodeado.
 interface Props {
-    height?: number;
-    class?: string;
+  height?: number;
+  class?: string;
 }
 const { height = 30, class: className = "" } = Astro.props;
 const width = Math.round((height * 161) / 30);
 ---
 
 <svg
-    viewBox="-3 4 161 30"
-    width={width}
-    height={height}
-    role="img"
-    aria-label="coworkers.cl"
-    class={className}
+  viewBox="-3 4 161 30"
+  width={width}
+  height={height}
+  role="img"
+  aria-label="coworkers.cl"
+  class={className}
 >
-    <text
-        x="0"
-        y="28"
-        font-family="Inter, system-ui, sans-serif"
-        font-size="26"
-        font-weight="600"
-        letter-spacing="-0.5"
-    ><tspan fill="var(--text)">coworkers</tspan><tspan fill="var(--accent)">.cl</tspan></text>
+  <text
+    x="0"
+    y="28"
+    font-family="Inter, system-ui, sans-serif"
+    font-size="26"
+    font-weight="600"
+    letter-spacing="-0.5"
+  >
+    <tspan fill="var(--text)">coworkers</tspan>
+    <tspan fill="var(--accent)">.cl</tspan>
+  </text>
 </svg>

@@ -7,20 +7,36 @@ import Button from "@components/ui/Button.astro";
 ---
 
 <Layout title="Página no encontrada · Coworkers.cl">
-    <Header />
-    <main class="nf">
-        <div class="container">
-            <h1>Página no encontrada.</h1>
-            <p>La página que buscas no existe o fue movida.</p>
-            <Button href="/" icon="ph-arrow-left">Volver al inicio</Button>
-        </div>
-    </main>
-    <Footer />
+  <Header />
+  <main class="nf">
+    <div class="container">
+      <h1>Página no encontrada.</h1>
+      <p>La página que buscas no existe o fue movida.</p>
+      <Button href="/" icon="ph-arrow-left">
+        Volver al inicio
+      </Button>
+    </div>
+  </main>
+  <Footer />
 </Layout>
 
 <style>
-    .nf { padding-block: 120px; min-height: 60vh; }
-    h1 { font-size: clamp(32px, 4vw, 50px); letter-spacing: -0.03em; max-width: 20ch; }
-    p { margin-top: 18px; max-width: 48ch; color: var(--n-400); font-size: 18px; }
-    .nf :global(.btn) { margin-top: 32px; }
+  .nf {
+    padding-block: 120px;
+    min-height: 60vh;
+  }
+  h1 {
+    font-size: clamp(32px, 4vw, 50px);
+    letter-spacing: -0.03em;
+    max-width: 20ch;
+  }
+  p {
+    margin-top: 18px;
+    max-width: 48ch;
+    color: var(--n-400);
+    font-size: 18px;
+  }
+  .nf :global(.btn) {
+    margin-top: 32px;
+  }
 </style>

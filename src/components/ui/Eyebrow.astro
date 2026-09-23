@@ -2,8 +2,8 @@
 // src/components/ui/Eyebrow.astro
 // Antetítulo en acento. Máximo dos en toda la página (hero y una sección).
 interface Props {
-    text: string;
-    class?: string;
+  text: string;
+  class?: string;
 }
 
 const { text, class: className = "" } = Astro.props;
@@ -12,13 +12,13 @@ const { text, class: className = "" } = Astro.props;
 <span class:list={["eyebrow", className]}>{text}</span>
 
 <style>
-    .eyebrow {
-        display: block;
-        font-size: 13px;
-        font-weight: 500;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: var(--a-400);
-        margin-bottom: 18px;
-    }
+  .eyebrow {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--a-400);
+    margin-bottom: 18px;
+  }
 </style>

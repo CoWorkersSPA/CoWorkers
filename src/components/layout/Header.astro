@@ -5,124 +5,239 @@ import ThemeToggle from "@components/ui/ThemeToggle.astro";
 import Wordmark from "@components/ui/Wordmark.astro";
 
 const navLinks = [
-    { label: "Fechas clave", href: "/#nos-llaman-cuando" },
-    { label: "Servicios", href: "/#servicios" },
-    { label: "Cómo trabajamos", href: "/#como-trabajamos" },
-    { label: "Equipo", href: "/#equipo" },
+  { label: "Fechas clave", href: "/#nos-llaman-cuando" },
+  { label: "Servicios", href: "/#servicios" },
+  { label: "Cómo trabajamos", href: "/#como-trabajamos" },
+  { label: "Equipo", href: "/#equipo" },
 ];
+
+interface Props {
+  hide?: boolean;
+}
+
+const { hide = false } = Astro.props;
 ---
 
 <header class="nav" id="site-nav">
-    <div class="container">
-        <a class="brand" href="/" aria-label="coworkers.cl, inicio">
-            <Wordmark height={30} />
-        </a>
+  <div class="container">
+    <a class="brand" href="/" aria-label="coworkers.cl, inicio">
+      <Wordmark height={30} />
+    </a>
 
-        <ul class="nav-links" id="site-nav-links">
-            {navLinks.map((l) => (
-                <li><a href={l.href}>{l.label}</a></li>
-            ))}
-            <li class="only-menu"><a href="/#agendar">Agendar 30 min</a></li>
-        </ul>
+    {!hide && (
+      <ul class="nav-links" id="site-nav-links">
+        {navLinks.map((l) => (
+          <li>
+            <a href={l.href}>{l.label}</a>
+          </li>
+        ))}
+        <li class="only-menu">
+          <a href="/#agendar">Agendar 30 min</a>
+        </li>
+      </ul>
+    )}
 
-        <div class="nav-cta">
-            <ThemeToggle />
-            <Button href="/#agendar" size="sm">Agendar 30 min</Button>
-            <button
-                class="nav-toggle"
-                type="button"
-                aria-expanded="false"
-                aria-controls="site-nav-links"
-                aria-label="Abrir menú"
-            >
-                <i class="ph ph-list" aria-hidden="true"></i>
-            </button>
-        </div>
+    <div class="nav-cta">
+      <ThemeToggle />
+      <Button href="/#agendar" size="sm">
+        Agendar 30 min
+      </Button>
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-nav-links"
+        aria-label="Abrir menú"
+      >
+        <i class="ph ph-list" aria-hidden="true"></i>
+      </button>
     </div>
+  </div>
 </header>
 
 <style>
-    .nav {
-        position: sticky; top: 0; z-index: var(--z-nav);
-        height: var(--nav-h);
-        background: color-mix(in srgb, var(--bg) 72%, transparent);
-        backdrop-filter: blur(16px) saturate(1.4); -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-nav);
+    height: var(--nav-h);
+    background: color-mix(in srgb, var(--bg) 72%, transparent);
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  }
+  .nav::after {
+    /* borde inferior que se desvanece en los extremos, con un toque de acento al centro */
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 1px;
+    pointer-events: none;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--divider) 20%,
+      color-mix(in srgb, var(--accent) 35%, var(--divider)) 50%,
+      var(--divider) 80%,
+      transparent
+    );
+  }
+  .nav .container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+  }
+  .brand :global(svg) {
+    height: 26px;
+    width: auto;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .nav-links a {
+    position: relative;
+    font-size: 15px;
+    color: var(--n-400);
+    padding-block: 6px;
+    transition: color 0.25s var(--ease);
+  }
+  .nav-links a::after {
+    /* subrayado que crece desde la izquierda; se queda fijo en la sección activa */
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--a-300), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s var(--ease);
+  }
+  .nav-links a:hover,
+  .nav-links a[aria-current="true"] {
+    color: var(--text);
+  }
+  .nav-links a:hover::after,
+  .nav-links a[aria-current="true"]::after {
+    transform: scaleX(1);
+  }
+  .only-menu {
+    display: none;
+  } /* el CTA vive en el botón del nav; en el menú móvil aparece como ítem */
+  .nav-cta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .nav-toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--n-700);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-size: 22px;
+    cursor: pointer;
+  }
+  @media (max-width: 1023px) {
+    .nav-links {
+      display: none;
     }
-    .nav::after {
-        /* borde inferior que se desvanece en los extremos, con un toque de acento al centro */
-        content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; pointer-events: none;
-        background: linear-gradient(90deg, transparent, var(--divider) 20%, color-mix(in srgb, var(--accent) 35%, var(--divider)) 50%, var(--divider) 80%, transparent);
-    }
-    .nav .container { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-    .brand { display: inline-flex; align-items: center; }
-    .brand :global(svg) { height: 26px; width: auto; }
-    .nav-links { display: flex; align-items: center; gap: 28px; margin: 0; padding: 0; list-style: none; }
-    .nav-links a { position: relative; font-size: 15px; color: var(--n-400); padding-block: 6px; transition: color 0.25s var(--ease); }
-    .nav-links a::after {
-        /* subrayado que crece desde la izquierda; se queda fijo en la sección activa */
-        content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
-        background: linear-gradient(90deg, var(--a-300), transparent);
-        transform: scaleX(0); transform-origin: left; transition: transform 0.35s var(--ease);
-    }
-    .nav-links a:hover, .nav-links a[aria-current="true"] { color: var(--text); }
-    .nav-links a:hover::after, .nav-links a[aria-current="true"]::after { transform: scaleX(1); }
-    .only-menu { display: none; } /* el CTA vive en el botón del nav; en el menú móvil aparece como ítem */
-    .nav-cta { display: flex; align-items: center; gap: 12px; }
     .nav-toggle {
-        display: none; width: 44px; height: 44px; align-items: center; justify-content: center;
-        background: transparent; border: 1px solid var(--n-700); border-radius: var(--radius); color: var(--text); font-size: 22px; cursor: pointer;
+      display: inline-flex;
     }
-    @media (max-width: 1023px) {
-        .nav-links { display: none; }
-        .nav-toggle { display: inline-flex; }
-        .nav.open .nav-links {
-            display: flex; flex-direction: column; align-items: stretch; gap: 0;
-            position: absolute; left: 0; right: 0; top: var(--nav-h);
-            background: var(--bg); border-bottom: 1px solid var(--divider); padding: 8px var(--gutter) 16px;
-        }
-        .nav.open .nav-links a { display: block; padding: 14px 0; border-bottom: 1px solid var(--divider); font-size: 17px; }
-        .nav.open .only-menu { display: block; }
-        .nav.open .only-menu a { color: var(--a-300); border-bottom: 0; }
-        .nav-cta :global(.btn) { display: none; }
+    .nav.open .nav-links {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: var(--nav-h);
+      background: var(--bg);
+      border-bottom: 1px solid var(--divider);
+      padding: 8px var(--gutter) 16px;
     }
+    .nav.open .nav-links a {
+      display: block;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--divider);
+      font-size: 17px;
+    }
+    .nav.open .only-menu {
+      display: block;
+    }
+    .nav.open .only-menu a {
+      color: var(--a-300);
+      border-bottom: 0;
+    }
+    .nav-cta :global(.btn) {
+      display: none;
+    }
+  }
 </style>
 
 <script>
-    const nav = document.getElementById("site-nav")!;
-    const toggle = nav.querySelector<HTMLButtonElement>(".nav-toggle")!;
-    const icon = toggle.querySelector("i")!;
+  const nav = document.getElementById("site-nav")!;
+  const toggle = nav.querySelector<HTMLButtonElement>(".nav-toggle")!;
+  const icon = toggle.querySelector("i")!;
 
-    const setOpen = (open: boolean) => {
-        nav.classList.toggle("open", open);
-        toggle.setAttribute("aria-expanded", String(open));
-        toggle.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
-        icon.className = open ? "ph ph-x" : "ph ph-list";
-    };
+  const setOpen = (open: boolean) => {
+    nav.classList.toggle("open", open);
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+    icon.className = open ? "ph ph-x" : "ph ph-list";
+  };
 
-    toggle.addEventListener("click", () => setOpen(!nav.classList.contains("open")));
-    const links = Array.from(nav.querySelectorAll<HTMLAnchorElement>(".nav-links a"));
-    links.forEach((a) => a.addEventListener("click", () => setOpen(false)));
+  toggle.addEventListener("click", () =>
+    setOpen(!nav.classList.contains("open")),
+  );
+  const links = Array.from(
+    nav.querySelectorAll<HTMLAnchorElement>(".nav-links a"),
+  );
+  links.forEach((a) => a.addEventListener("click", () => setOpen(false)));
 
-    // Sección activa en el menú: IntersectionObserver sobre los destinos de cada enlace.
-    const byId = new Map(links.filter((a) => a.hash).map((a) => [a.hash.slice(1), a]));
-    const targets = Array.from(byId.keys()).map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
-    // Se guarda el conjunto de destinos visibles y gana el último en orden de documento:
-    // así #meson (anidado dentro de #servicios) manda mientras está a la vista, y al subir
-    // vuelve a mandar #servicios aunque nunca haya dejado de intersectar.
-    if (targets.length && "IntersectionObserver" in window) {
-        const visible = new Set<HTMLElement>();
-        const io = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((e) => {
-                    if (e.isIntersecting) visible.add(e.target as HTMLElement);
-                    else visible.delete(e.target as HTMLElement);
-                });
-                const active = targets.filter((t) => visible.has(t)).at(-1);
-                links.forEach((a) => a.removeAttribute("aria-current"));
-                if (active) byId.get(active.id)?.setAttribute("aria-current", "true");
-            },
-            { rootMargin: "-40% 0px -55% 0px", threshold: 0 },
-        );
-        targets.forEach((t) => io.observe(t));
-    }
+  // Sección activa en el menú: IntersectionObserver sobre los destinos de cada enlace.
+  const byId = new Map(
+    links.filter((a) => a.hash).map((a) => [a.hash.slice(1), a]),
+  );
+  const targets = Array.from(byId.keys())
+    .map((id) => document.getElementById(id))
+    .filter(Boolean) as HTMLElement[];
+  // Se guarda el conjunto de destinos visibles y gana el último en orden de documento:
+  // así #meson (anidado dentro de #servicios) manda mientras está a la vista, y al subir
+  // vuelve a mandar #servicios aunque nunca haya dejado de intersectar.
+  if (targets.length && "IntersectionObserver" in window) {
+    const visible = new Set<HTMLElement>();
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) visible.add(e.target as HTMLElement);
+          else visible.delete(e.target as HTMLElement);
+        });
+        const active = targets.filter((t) => visible.has(t)).at(-1);
+        links.forEach((a) => a.removeAttribute("aria-current"));
+        if (active) byId.get(active.id)?.setAttribute("aria-current", "true");
+      },
+      { rootMargin: "-40% 0px -55% 0px", threshold: 0 },
+    );
+    targets.forEach((t) => io.observe(t));
+  }
 </script>

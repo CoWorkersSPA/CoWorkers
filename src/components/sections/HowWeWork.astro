@@ -3,102 +3,209 @@
 // Cuatro pasos sobre una sola línea (vertical en móvil). Sin numerales: el contenido es la etiqueta.
 // Cada paso se escribe desde lo que recibe el cliente, no desde el proceso interno (docs/MENSAJES.md, sección 05).
 const steps = [
-    {
-        title: "Te visitamos, sin costo",
-        description:
-            "Treinta minutos en tu local. Vemos cómo trabajas hoy y te decimos qué conviene resolver primero. Sales con el alcance y el plazo por escrito, contrates o no.",
-    },
-    {
-        title: "Sabes qué recibes y cuándo",
-        description:
-            "Dividimos el proyecto en entregas cortas, cada una con fecha y con una forma clara de comprobar que quedó bien. Ves avance real, no promesas.",
-    },
-    {
-        title: "Lo instalamos en tu local, en persona",
-        description:
-            "No te mandamos un enlace ni un manual. Vamos, lo dejamos funcionando en tu mostrador y nos quedamos hasta que tu equipo lo use solo.",
-    },
-    {
-        title: "Y lo mantenemos encendido",
-        description:
-            "Una sola mensualidad cubre servidor, respaldos, mejoras y una persona con nombre a quien llamar cuando algo pase.",
-    },
+  {
+    title: "Te visitamos, sin costo",
+    description:
+      "Treinta minutos en tu local. Vemos cómo trabajas hoy y te decimos qué conviene resolver primero. Sales con el alcance y el plazo por escrito, contrates o no.",
+  },
+  {
+    title: "Sabes qué recibes y cuándo",
+    description:
+      "Dividimos el proyecto en entregas cortas, cada una con fecha y con una forma clara de comprobar que quedó bien. Ves avance real, no promesas.",
+  },
+  {
+    title: "Lo instalamos en tu local, en persona",
+    description:
+      "No te mandamos un enlace ni un manual. Vamos, lo dejamos funcionando en tu mostrador y nos quedamos hasta que tu equipo lo use solo.",
+  },
+  {
+    title: "Y lo mantenemos encendido",
+    description:
+      "Una sola mensualidad cubre servidor, respaldos, mejoras y una persona con nombre a quien llamar cuando algo pase.",
+  },
 ];
 ---
 
 <section class="section how" id="como-trabajamos">
-    <span class="glow" aria-hidden="true"></span>
-    <div class="container">
-        <hr class="rule rule-glow" />
-        <h2 class="section-title reveal">De la primera visita a tenerlo funcionando.</h2>
-        <div class="steps reveal" data-delay="1">
-            {steps.map((s, i) => (
-                <div class="step" style={`--i: ${i}`}>
-                    <h3>{s.title}</h3>
-                    <p>{s.description}</p>
-                </div>
-            ))}
+  <span class="glow" aria-hidden="true"></span>
+  <div class="container">
+    <hr class="rule rule-glow" />
+    <h2 class="section-title reveal">
+      De la primera visita a tenerlo funcionando.
+    </h2>
+    <div class="steps reveal" data-delay="1">
+      {steps.map((s, i) => (
+        <div class="step" style={`--i: ${i}`}>
+          <h3>{s.title}</h3>
+          <p>{s.description}</p>
         </div>
+      ))}
     </div>
+  </div>
 </section>
 
 <style>
-    .how { padding-top: 0; overflow: hidden; }
-    .glow {
-        /* Centrado y con la altura limitada a la sección: así el degradado llega a alfa 0 dentro
-           del recorte y overflow: hidden nunca corta nada con color. */
-        position: absolute; right: -10%; top: 50%; translate: 0 -50%;
-        width: 46vw; height: min(46vw, 100%); max-width: 720px; max-height: 720px;
-        border-radius: 50%; pointer-events: none; z-index: -1;
-        background: radial-gradient(closest-side,
-            color-mix(in srgb, var(--coral) 16%, transparent) 0%,
-            color-mix(in srgb, var(--coral) 9%, transparent) 40%,
-            color-mix(in srgb, var(--coral) 3%, transparent) 68%,
-            transparent 100%);
+  .how {
+    padding-top: 0;
+    overflow: hidden;
+  }
+  .glow {
+    /* Centrado y con la altura limitada a la sección: así el degradado llega a alfa 0 dentro
+             del recorte y overflow: hidden nunca corta nada con color. */
+    position: absolute;
+    right: -10%;
+    top: 50%;
+    translate: 0 -50%;
+    width: 46vw;
+    height: min(46vw, 100%);
+    max-width: 720px;
+    max-height: 720px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -1;
+    background: radial-gradient(
+      closest-side,
+      color-mix(in srgb, var(--coral) 16%, transparent) 0%,
+      color-mix(in srgb, var(--coral) 9%, transparent) 40%,
+      color-mix(in srgb, var(--coral) 3%, transparent) 68%,
+      transparent 100%
+    );
+  }
+  h2 {
+    margin-top: 96px;
+    max-width: 30ch;
+  }
+  .steps {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    position: relative;
+  }
+  .steps::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 7px;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--divider) 48px,
+      var(--divider) calc(100% - 48px),
+      transparent
+    );
+  }
+  .steps::after {
+    /* la línea "se dibuja" en acento cuando la sección aparece */
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 7px;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--coral) 12%,
+      var(--coral-300) 50%,
+      var(--coral) 88%,
+      transparent
+    );
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 1.6s var(--ease) 0.2s;
+  }
+  .steps.in::after {
+    transform: scaleX(1);
+  }
+  .step {
+    position: relative;
+    padding-top: 30px;
+  }
+  .step::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1px solid var(--n-700);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--coral) 0%, transparent);
+    transition:
+      border-color 0.5s var(--ease),
+      background-color 0.5s var(--ease),
+      box-shadow 0.6s var(--ease);
+    transition-delay: calc(0.35s + var(--i) * 0.28s);
+  }
+  .steps.in .step::before {
+    border-color: var(--coral-300);
+    background: radial-gradient(circle, var(--coral-200) 0 3px, var(--bg) 4px);
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--coral) 14%, transparent);
+  }
+  .step h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    transition: color 0.3s var(--ease);
+  }
+  .step p {
+    color: var(--n-400);
+    font-size: 16px;
+  }
+  .step:hover h3 {
+    color: var(--coral-200);
+  }
+  @media (max-width: 1023px) {
+    h2 {
+      margin-top: 64px;
     }
-    h2 { margin-top: 96px; max-width: 30ch; }
-    .steps { margin-top: 56px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; position: relative; }
+    .steps {
+      grid-template-columns: 1fr;
+      gap: 0;
+      padding-left: 28px;
+    }
+    .steps::before,
+    .steps::after {
+      left: 7px;
+      right: auto;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      height: auto;
+    }
     .steps::before {
-        content: ""; position: absolute; left: 0; right: 0; top: 7px; height: 1px;
-        background: linear-gradient(90deg, transparent, var(--divider) 48px, var(--divider) calc(100% - 48px), transparent);
+      background: linear-gradient(
+        180deg,
+        transparent,
+        var(--divider) 24px,
+        var(--divider) calc(100% - 24px),
+        transparent
+      );
     }
     .steps::after {
-        /* la línea "se dibuja" en acento cuando la sección aparece */
-        content: ""; position: absolute; left: 0; right: 0; top: 7px; height: 1px;
-        background: linear-gradient(90deg, transparent, var(--coral) 12%, var(--coral-300) 50%, var(--coral) 88%, transparent);
-        transform-origin: left; transform: scaleX(0);
-        transition: transform 1.6s var(--ease) 0.2s;
+      background: linear-gradient(
+        180deg,
+        transparent,
+        var(--coral) 12%,
+        var(--coral-300) 50%,
+        var(--coral) 88%,
+        transparent
+      );
+      transform-origin: top;
+      transform: scaleY(0);
     }
-    .steps.in::after { transform: scaleX(1); }
-    .step { position: relative; padding-top: 30px; }
+    .steps.in::after {
+      transform: scaleY(1);
+    }
+    .step {
+      padding: 0 0 36px 0;
+    }
     .step::before {
-        content: ""; position: absolute; top: 0; left: 0; width: 15px; height: 15px; border-radius: 50%;
-        background: var(--bg); border: 1px solid var(--n-700);
-        box-shadow: 0 0 0 0 color-mix(in srgb, var(--coral) 0%, transparent);
-        transition: border-color 0.5s var(--ease), background-color 0.5s var(--ease), box-shadow 0.6s var(--ease);
-        transition-delay: calc(0.35s + var(--i) * 0.28s);
+      left: -28px;
+      top: 6px;
     }
-    .steps.in .step::before {
-        border-color: var(--coral-300);
-        background: radial-gradient(circle, var(--coral-200) 0 3px, var(--bg) 4px);
-        box-shadow: 0 0 0 5px color-mix(in srgb, var(--coral) 14%, transparent);
-    }
-    .step h3 { font-size: 20px; margin-bottom: 10px; transition: color 0.3s var(--ease); }
-    .step p { color: var(--n-400); font-size: 16px; }
-    .step:hover h3 { color: var(--coral-200); }
-    @media (max-width: 1023px) {
-        h2 { margin-top: 64px; }
-        .steps { grid-template-columns: 1fr; gap: 0; padding-left: 28px; }
-        .steps::before, .steps::after {
-            left: 7px; right: auto; top: 0; bottom: 0; width: 1px; height: auto;
-        }
-        .steps::before { background: linear-gradient(180deg, transparent, var(--divider) 24px, var(--divider) calc(100% - 24px), transparent); }
-        .steps::after {
-            background: linear-gradient(180deg, transparent, var(--coral) 12%, var(--coral-300) 50%, var(--coral) 88%, transparent);
-            transform-origin: top; transform: scaleY(0);
-        }
-        .steps.in::after { transform: scaleY(1); }
-        .step { padding: 0 0 36px 0; }
-        .step::before { left: -28px; top: 6px; }
-    }
+  }
 </style>

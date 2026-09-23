@@ -5,172 +5,342 @@
 // se desplazan con el scroll, el 40 que cuenta desde cero y los días que faltan para el 1 de diciembre.
 const DEADLINE = "2026-12-01";
 const facts = [
-    {
-        ghost: "01.12",
-        figure: "1 de diciembre",
-        text: "Día en que la nueva ley de datos personales aplica a toda empresa en Chile, sin importar el tamaño. Tu lista de clientes, tus trabajadores y tus proveedores son datos personales.",
-        source: "Ley 21.719, vigente desde el 1 de diciembre de 2026",
-    },
-    {
-        ghost: "40",
-        count: 40,
-        figure: "40 días",
-        text: "Es lo que tarda en pagarse una factura en el comercio. El 54,6% de las facturas de pymes pequeñas se paga después de los 30 días.",
-        source: "Estudio Xepelin, La Tercera, julio de 2026",
-    },
+  {
+    ghost: "01.12",
+    figure: "1 de diciembre",
+    text: "Día en que la nueva ley de datos personales aplica a toda empresa en Chile, sin importar el tamaño. Tu lista de clientes, tus trabajadores y tus proveedores son datos personales.",
+    source: "Ley 21.719, vigente desde el 1 de diciembre de 2026",
+  },
+  {
+    ghost: "40",
+    count: 40,
+    figure: "40 días",
+    text: "Es lo que tarda en pagarse una factura en el comercio. El 54,6% de las facturas de pymes pequeñas se paga después de los 30 días.",
+    source: "Estudio Xepelin, La Tercera, julio de 2026",
+  },
 ];
 ---
 
 <section class="band" id="nos-llaman-cuando">
-    <div class="band-bg" aria-hidden="true">
-        <span class="aurora aurora-a"></span>
-        <span class="aurora aurora-b"></span>
-    </div>
-    <div class="container">
-        <h2 class="reveal">Nos llaman cuando el cuaderno, el WhatsApp y la memoria ya no dan más.</h2>
-        <div class="facts">
-            {facts.map((f, i) => (
-                <div class="fact reveal" data-delay={i}>
-                    <span class="ghost" aria-hidden="true">{f.ghost}</span>
-                    <p class="fact-n">
-                        {f.count ? <><span data-count={f.count}>{f.count}</span> días</> : f.figure}
-                    </p>
-                    <p class="fact-t">{f.text}</p>
-                    <p class="fact-s">{f.source}</p>
-                    {i === 0 && <p class="fact-live" data-deadline={DEADLINE} hidden></p>}
-                </div>
-            ))}
+  <div class="band-bg" aria-hidden="true">
+    <span class="aurora aurora-a"></span>
+    <span class="aurora aurora-b"></span>
+  </div>
+  <div class="container">
+    <h2 class="reveal">
+      Nos llaman cuando el cuaderno, el WhatsApp y la memoria ya no dan más.
+    </h2>
+    <div class="facts">
+      {facts.map((f, i) => (
+        <div class="fact reveal" data-delay={i}>
+          <span class="ghost" aria-hidden="true">
+            {f.ghost}
+          </span>
+          <p class="fact-n">
+            {f.count ? (
+              <>
+                <span data-count={f.count}>{f.count}</span> días
+              </>
+            ) : (
+              f.figure
+            )}
+          </p>
+          <p class="fact-t">{f.text}</p>
+          <p class="fact-s">{f.source}</p>
+          {i === 0 && <p class="fact-live" data-deadline={DEADLINE} hidden></p>}
         </div>
+      ))}
     </div>
+  </div>
 </section>
 
 <style>
-    /* La única banda saturada de la página. Los bordes se funden con el fondo (nada de cortes duros)
-       y dos auroras lentas le dan movimiento al índigo. */
+  /* La única banda saturada de la página. Los bordes se funden con el fondo (nada de cortes duros)
+     y dos auroras lentas le dan movimiento al índigo. */
+  .band {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: var(--section);
+    color: var(--a-100);
+    padding-block: 112px 120px;
+    /* Los bordes se desvanecen con máscara, no pintando --bg opaco encima. Así el fondo de la
+             página y su aurora se ven a través de la unión y no hay salto de color con las secciones
+             vecinas. 80px cabe dentro del padding también en móvil (88px), así que el texto nunca se
+             desvanece. La máscara alcanza además a las auroras y a la retícula de dentro. */
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      transparent 0,
+      #000 80px,
+      #000 calc(100% - 80px),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      180deg,
+      transparent 0,
+      #000 80px,
+      #000 calc(100% - 80px),
+      transparent 100%
+    );
+  }
+  .band-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+  .aurora {
+    position: absolute;
+    border-radius: 50%;
+    will-change: transform;
+  }
+  .aurora-a {
+    width: 70vw;
+    height: 50vw;
+    max-width: 1000px;
+    max-height: 700px;
+    left: -18vw;
+    top: -30%;
+    background: radial-gradient(
+      closest-side,
+      var(--section-ghost) 0%,
+      color-mix(in srgb, var(--section-glow) 60%, transparent) 46%,
+      color-mix(in srgb, var(--section-glow) 22%, transparent) 72%,
+      transparent 100%
+    );
+  }
+  .aurora-b {
+    width: 50vw;
+    height: 46vw;
+    max-width: 760px;
+    max-height: 700px;
+    right: -12vw;
+    bottom: -40%;
+    background: radial-gradient(
+      closest-side,
+      color-mix(in srgb, var(--coral) 30%, transparent) 0%,
+      color-mix(in srgb, var(--coral) 14%, transparent) 46%,
+      color-mix(in srgb, var(--coral) 5%, transparent) 72%,
+      transparent 100%
+    );
+  }
+  .band-bg::after {
+    /* malla fina que se desvanece hacia la derecha */
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(
+        color-mix(in srgb, var(--a-100) 7%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--a-100) 7%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: 64px 64px;
+    -webkit-mask-image: radial-gradient(60% 90% at 90% 50%, #000, transparent);
+    mask-image: radial-gradient(60% 90% at 90% 50%, #000, transparent);
+  }
+
+  h2 {
+    color: var(--a-100);
+    font-size: clamp(26px, 3vw, 36px);
+    max-width: 20ch;
+  }
+  .facts {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 48px;
+    max-width: 900px;
+  }
+  .fact {
+    position: relative;
+    padding-top: 24px;
+    border-top: 1px solid color-mix(in srgb, var(--a-100) 22%, transparent);
+  }
+  /* Cifra fantasma: tipografía gigante en contorno como textura, detrás del dato. Se desplaza
+     con el scroll (scroll-driven animation); donde no hay soporte queda quieta. */
+  .ghost {
+    position: absolute;
+    right: -4%;
+    top: -0.78em;
+    z-index: -1;
+    pointer-events: none;
+    font-size: clamp(120px, 15vw, 220px);
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: -0.05em;
+    color: transparent;
+    -webkit-text-stroke: 1px color-mix(in srgb, var(--a-100) 13%, transparent);
+    font-variant-numeric: tabular-nums;
+    user-select: none;
+  }
+  .fact:nth-child(2) .ghost {
+    right: -8%;
+  }
+  .fact-live {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--coral-200);
+  }
+  .fact-live::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-right: 8px;
+    background: var(--coral-300);
+    vertical-align: 2px;
+  }
+  .fact::before {
+    /* el primer tramo de la línea se enciende con el acento */
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 0;
+    height: 1px;
+    width: 72px;
+    background: linear-gradient(90deg, var(--coral-300), transparent);
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.9s var(--ease) 0.3s;
+  }
+  .fact.in::before {
+    transform: scaleX(1);
+  }
+  .fact-n {
+    font-size: clamp(42px, 4.6vw, 64px);
+    line-height: 1;
+    letter-spacing: -0.035em;
+    font-weight: 500;
+    background: linear-gradient(
+      120deg,
+      var(--a-100) 0%,
+      var(--a-200) 50%,
+      var(--a-400) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-variant-numeric: tabular-nums;
+  }
+  .fact-t {
+    margin-top: 18px;
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--a-200);
+    max-width: 34ch;
+  }
+  .fact-s {
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--a-300);
+    opacity: 0.85;
+  }
+  @media (max-width: 1023px) {
     .band {
-        position: relative; isolation: isolate; overflow: hidden;
-        background: var(--section);
-        color: var(--a-100);
-        padding-block: 112px 120px;
-        /* Los bordes se desvanecen con máscara, no pintando --bg opaco encima. Así el fondo de la
-           página y su aurora se ven a través de la unión y no hay salto de color con las secciones
-           vecinas. 80px cabe dentro del padding también en móvil (88px), así que el texto nunca se
-           desvanece. La máscara alcanza además a las auroras y a la retícula de dentro. */
-        -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%);
-        mask-image: linear-gradient(180deg, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%);
+      padding-block: 88px 96px;
     }
-    .band-bg { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
-    .aurora { position: absolute; border-radius: 50%; will-change: transform; }
+    .ghost,
+    .fact:nth-child(2) .ghost {
+      right: -2%;
+      top: -0.7em;
+      font-size: clamp(96px, 26vw, 160px);
+    }
+    .facts {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .ghost {
+        animation: ghost-drift linear both;
+        animation-timeline: view();
+        animation-range: entry 0% exit 100%;
+      }
+      @keyframes ghost-drift {
+        from {
+          transform: translateY(70px);
+        }
+        to {
+          transform: translateY(-70px);
+        }
+      }
+    }
     .aurora-a {
-        width: 70vw; height: 50vw; max-width: 1000px; max-height: 700px;
-        left: -18vw; top: -30%;
-        background: radial-gradient(closest-side,
-            var(--section-ghost) 0%,
-            color-mix(in srgb, var(--section-glow) 60%, transparent) 46%,
-            color-mix(in srgb, var(--section-glow) 22%, transparent) 72%,
-            transparent 100%);
+      animation: aurora-a 20s ease-in-out infinite alternate;
     }
     .aurora-b {
-        width: 50vw; height: 46vw; max-width: 760px; max-height: 700px;
-        right: -12vw; bottom: -40%;
-        background: radial-gradient(closest-side,
-            color-mix(in srgb, var(--coral) 30%, transparent) 0%,
-            color-mix(in srgb, var(--coral) 14%, transparent) 46%,
-            color-mix(in srgb, var(--coral) 5%, transparent) 72%,
-            transparent 100%);
+      animation: aurora-b 26s ease-in-out infinite alternate;
     }
-    .band-bg::after {
-        /* malla fina que se desvanece hacia la derecha */
-        content: ""; position: absolute; inset: 0;
-        background-image: linear-gradient(color-mix(in srgb, var(--a-100) 7%, transparent) 1px, transparent 1px),
-                          linear-gradient(90deg, color-mix(in srgb, var(--a-100) 7%, transparent) 1px, transparent 1px);
-        background-size: 64px 64px;
-        -webkit-mask-image: radial-gradient(60% 90% at 90% 50%, #000, transparent);
-        mask-image: radial-gradient(60% 90% at 90% 50%, #000, transparent);
+    @keyframes aurora-a {
+      from {
+        transform: translate3d(0, 0, 0);
+      }
+      to {
+        transform: translate3d(10%, 12%, 0) scale(1.08);
+      }
     }
-
-    h2 { color: var(--a-100); font-size: clamp(26px, 3vw, 36px); max-width: 20ch; }
-    .facts { margin-top: 56px; display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; max-width: 900px; }
-    .fact {
-        position: relative; padding-top: 24px;
-        border-top: 1px solid color-mix(in srgb, var(--a-100) 22%, transparent);
+    @keyframes aurora-b {
+      from {
+        transform: translate3d(0, 0, 0);
+      }
+      to {
+        transform: translate3d(-8%, -10%, 0) scale(1.12);
+      }
     }
-    /* Cifra fantasma: tipografía gigante en contorno como textura, detrás del dato. Se desplaza
-       con el scroll (scroll-driven animation); donde no hay soporte queda quieta. */
-    .ghost {
-        position: absolute; right: -4%; top: -0.78em; z-index: -1; pointer-events: none;
-        font-size: clamp(120px, 15vw, 220px); line-height: 1; font-weight: 600; letter-spacing: -0.05em;
-        color: transparent;
-        -webkit-text-stroke: 1px color-mix(in srgb, var(--a-100) 13%, transparent);
-        font-variant-numeric: tabular-nums;
-        user-select: none;
-    }
-    .fact:nth-child(2) .ghost { right: -8%; }
-    .fact-live { margin-top: 10px; font-size: 14px; color: var(--coral-200); }
-    .fact-live::before {
-        content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 8px;
-        background: var(--coral-300); vertical-align: 2px;
-    }
-    .fact::before {
-        /* el primer tramo de la línea se enciende con el acento */
-        content: ""; position: absolute; top: -1px; left: 0; height: 1px; width: 72px;
-        background: linear-gradient(90deg, var(--coral-300), transparent);
-        transform-origin: left; transform: scaleX(0); transition: transform 0.9s var(--ease) 0.3s;
-    }
-    .fact.in::before { transform: scaleX(1); }
-    .fact-n {
-        font-size: clamp(42px, 4.6vw, 64px); line-height: 1; letter-spacing: -0.035em; font-weight: 500;
-        background: linear-gradient(120deg, var(--a-100) 0%, var(--a-200) 50%, var(--a-400) 100%);
-        -webkit-background-clip: text; background-clip: text; color: transparent;
-        font-variant-numeric: tabular-nums;
-    }
-    .fact-t { margin-top: 18px; font-size: 17px; line-height: 1.5; color: var(--a-200); max-width: 34ch; }
-    .fact-s { margin-top: 14px; font-size: 13px; color: var(--a-300); opacity: 0.85; }
-    @media (max-width: 1023px) {
-        .band { padding-block: 88px 96px; }
-        .ghost, .fact:nth-child(2) .ghost { right: -2%; top: -0.7em; font-size: clamp(96px, 26vw, 160px); }
-        .facts { grid-template-columns: 1fr; gap: 28px; }
-    }
-    @media (prefers-reduced-motion: no-preference) {
-        @supports (animation-timeline: view()) {
-            .ghost { animation: ghost-drift linear both; animation-timeline: view(); animation-range: entry 0% exit 100%; }
-            @keyframes ghost-drift { from { transform: translateY(70px); } to { transform: translateY(-70px); } }
-        }
-        .aurora-a { animation: aurora-a 20s ease-in-out infinite alternate; }
-        .aurora-b { animation: aurora-b 26s ease-in-out infinite alternate; }
-        @keyframes aurora-a { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(10%, 12%, 0) scale(1.08); } }
-        @keyframes aurora-b { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-8%, -10%, 0) scale(1.12); } }
-    }
+  }
 </style>
 
 <script>
-    // Conteo del 40 al entrar y días que faltan para la fecha límite (cálculo real, no una cifra fija).
-    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Conteo del 40 al entrar y días que faltan para la fecha límite (cálculo real, no una cifra fija).
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const live = document.querySelector<HTMLElement>("[data-deadline]");
-    if (live) {
-        const deadline = new Date(`${live.dataset.deadline}T00:00:00-03:00`);
-        const days = Math.ceil((deadline.getTime() - Date.now()) / 86400000);
-        if (days > 1) { live.textContent = `Faltan ${days} días.`; live.hidden = false; }
-        else if (days === 1) { live.textContent = "Es mañana."; live.hidden = false; }
+  const live = document.querySelector<HTMLElement>("[data-deadline]");
+  if (live) {
+    const deadline = new Date(`${live.dataset.deadline}T00:00:00-03:00`);
+    const days = Math.ceil((deadline.getTime() - Date.now()) / 86400000);
+    if (days > 1) {
+      live.textContent = `Faltan ${days} días.`;
+      live.hidden = false;
+    } else if (days === 1) {
+      live.textContent = "Es mañana.";
+      live.hidden = false;
     }
+  }
 
-    const counters = document.querySelectorAll<HTMLElement>("[data-count]");
-    if (counters.length && !reduce && "IntersectionObserver" in window) {
-        const ease = (t: number) => 1 - Math.pow(1 - t, 3);
-        const run = (el: HTMLElement) => {
-            const target = Number(el.dataset.count);
-            const t0 = performance.now();
-            const tick = (now: number) => {
-                const p = Math.min(1, (now - t0) / 1400);
-                el.textContent = String(Math.round(ease(p) * target));
-                if (p < 1) requestAnimationFrame(tick);
-            };
-            requestAnimationFrame(tick);
-        };
-        const io = new IntersectionObserver((entries) => {
-            entries.forEach((e) => { if (e.isIntersecting) { run(e.target as HTMLElement); io.unobserve(e.target); } });
-        }, { threshold: 0.5 });
-        counters.forEach((c) => { c.textContent = "0"; io.observe(c); });
-    }
+  const counters = document.querySelectorAll<HTMLElement>("[data-count]");
+  if (counters.length && !reduce && "IntersectionObserver" in window) {
+    const ease = (t: number) => 1 - Math.pow(1 - t, 3);
+    const run = (el: HTMLElement) => {
+      const target = Number(el.dataset.count);
+      const t0 = performance.now();
+      const tick = (now: number) => {
+        const p = Math.min(1, (now - t0) / 1400);
+        el.textContent = String(Math.round(ease(p) * target));
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            run(e.target as HTMLElement);
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.5 },
+    );
+    counters.forEach((c) => {
+      c.textContent = "0";
+      io.observe(c);
+    });
+  }
 </script>
