@@ -56,10 +56,9 @@
     --shadow-lg: 0 24px 60px -24px var(--shadow-tint), 0 0 0 1px color-mix(in srgb, var(--a-400) 14%, transparent);
     --shadow-glow: 0 0 0 1px color-mix(in srgb, var(--accent) 45%, transparent), 0 12px 40px -14px color-mix(in srgb, var(--accent) 55%, transparent);
 
-    /* Capas: fondo ambiental, contenido, navbar, barrido de tema, telón de apertura. */
+    /* Capas: fondo ambiental, contenido, navbar, telón de apertura. */
     --z-ambient: -1;
     --z-nav: 10;
-    --z-wash: 50;
     --z-intro: 100;
 
     /* Posición del puntero para la luz que lo sigue (Layout.astro). Parte fuera de pantalla. */
@@ -191,17 +190,16 @@ body::after {
     background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 45%, transparent) 30%, color-mix(in srgb, var(--accent) 70%, transparent) 50%, color-mix(in srgb, var(--accent) 45%, transparent) 70%, transparent);
 }
 
-/* ---------- Cambio de tema: barrido circular ----------
-   No se usa View Transitions: capturar el snapshot de esta página (nav con backdrop-filter, orbes
-   con blur y grano fijo) tarda alrededor de un segundo y el botón se siente roto. En su lugar,
-   ThemeToggle.astro crea este círculo con el color de fondo del tema entrante, lo escala desde el
-   botón, cambia el tema por detrás y lo desvanece. Se anima con transform, no con clip-path: sobre
-   esta página clip-path obliga a rasterizar cada frame y la animación ni siquiera arranca. */
-.theme-wash {
-    position: fixed; z-index: var(--z-wash); pointer-events: none;
-    border-radius: 50%;
-    will-change: transform, opacity;
-}
+/* ---------- Cambio de tema: revelado circular ----------
+   Se usa View Transitions porque es lo único que deja ver la página real de los dos temas a la vez:
+   el navegador toma una instantánea del estado anterior y el nuevo se descubre por encima. Así el
+   contenido nunca desaparece, que es justo lo que pasaba al taparlo con un círculo de color plano.
+   Los pseudo-elementos viven en el documento, por eso la regla va aquí y no en el componente.
+   La clase la pone ThemeToggle.astro solo cuando el cambio nace de un clic. */
+html.theme-wipe::view-transition-old(root),
+html.theme-wipe::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+html.theme-wipe::view-transition-old(root) { z-index: 1; }
+html.theme-wipe::view-transition-new(root) { z-index: 2; }
 
 /* Las fotos pasan por .lighten: sobre fondo oscuro desaparece lo más oscuro que el fondo; sobre
    claro, el equivalente es multiply (desaparece lo más claro). El nombre se queda por compatibilidad. */

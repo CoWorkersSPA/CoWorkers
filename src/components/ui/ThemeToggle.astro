@@ -47,42 +47,35 @@
         });
     };
 
-    // El cambio nace del botón: un círculo del color entrante se abre desde ahí, el tema cambia por
-    // detrás y el círculo se desvanece. Es feedback, no decoración. Con reduced-motion es instantáneo.
-    const GROW_MS = 430;
-    const FADE_MS = 260;
-    let wash: HTMLElement | null = null;
+    // El cambio nace del botón: el tema nuevo se descubre en un círculo que crece desde ahí, sobre
+    // una instantánea del anterior. El contenido sigue a la vista todo el rato. Es feedback, no
+    // decoración. Sin soporte (Firefox), con reduced-motion o sin origen de clic, es instantáneo.
+    const WIPE_MS = 560;
 
     const swap = (theme: "dark" | "light", origin?: { x: number; y: number }) => {
         const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-        if (reduce || !origin || !document.body) { apply(theme); return; }
+        if (reduce || !origin || !document.startViewTransition) { apply(theme); return; }
 
-        wash?.remove(); // un clic rápido cancela el barrido anterior
-        const el = document.createElement("span");
-        wash = el;
-        el.className = "theme-wash";
-        el.setAttribute("aria-hidden", "true");
-        el.style.background = COLORS[theme];
-
+        root.classList.add("theme-wipe");
+        const vt = document.startViewTransition(() => apply(theme));
         const { x, y } = origin;
         const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
-        const SIZE = 120; // diámetro base; el crecimiento va por escala, que es lo que sabe hacer la GPU
-        el.style.left = `${x - SIZE / 2}px`;
-        el.style.top = `${y - SIZE / 2}px`;
-        el.style.width = el.style.height = `${SIZE}px`;
 
-        document.body.appendChild(el);
-
-        el.animate(
-            { transform: ["scale(0)", `scale(${(radius / (SIZE / 2)).toFixed(3)})`] },
-            { duration: GROW_MS, easing: "cubic-bezier(0.16, 1, 0.3, 1)", fill: "forwards" },
-        ).finished
-            .then(() => {
-                apply(theme); // el cambio ocurre tapado: nunca se ve un estado a medias
-                return el.animate({ opacity: [1, 0] }, { duration: FADE_MS, easing: "ease-out", fill: "forwards" }).finished;
-            })
-            .catch(() => apply(theme))
-            .finally(() => { el.remove(); if (wash === el) wash = null; });
+        vt.ready
+            .then(() =>
+                root.animate(
+                    { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
+                    {
+                        duration: WIPE_MS,
+                        easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+                        pseudoElement: "::view-transition-new(root)",
+                    },
+                ).finished,
+            )
+            // La transición se salta sola si el documento está oculto o si llega otra encima: el tema
+            // igual queda aplicado, así que no hay nada que rescatar ni que reportar.
+            .catch(() => {})
+            .finally(() => root.classList.remove("theme-wipe"));
     };
 
     apply(root.getAttribute("data-theme") === "light" ? "light" : "dark");
