@@ -1,6 +1,10 @@
 ---
 // src/components/sections/FinalCta.astro
 import Button from "@components/ui/Button.astro";
+
+const email = "hola@coworkers.cl";
+const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
+
 ---
 
 <section class="close" id="agendar">
@@ -17,7 +21,8 @@ import Button from "@components/ui/Button.astro";
       plazo, contrates o no.
     </p>
     <Button
-      href="mailto:hola@coworkers.cl?subject=Agendar%2030%20min"
+      href={gmailUrl}
+      target="_blank"
       class="reveal"
       icon="ph-arrow-right"
     >

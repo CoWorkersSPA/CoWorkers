@@ -9,6 +9,8 @@ const navLinks = [
   { label: "Equipo", href: "/#equipo" },
 ];
 
+const email = "hola@coworkers.cl";
+const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
 interface Props {
   hide?: boolean;
 }
@@ -38,7 +40,7 @@ const { hide = false } = Astro.props;
       <li>Coworkers SpA</li>
       <li>Concepción, Chile</li>
       <li>
-        <a href="mailto:hola@coworkers.cl">hola@coworkers.cl</a>
+        <a href={gmailUrl} target="_blank">hola@coworkers.cl</a>
       </li>
     </ul>
     <ul>
