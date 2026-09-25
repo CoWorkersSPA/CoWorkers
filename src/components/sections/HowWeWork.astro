@@ -2,6 +2,8 @@
 // src/components/sections/HowWeWork.astro
 // Cuatro pasos sobre una sola línea (vertical en móvil). Sin numerales: el contenido es la etiqueta.
 // Cada paso se escribe desde lo que recibe el cliente, no desde el proceso interno (docs/MENSAJES.md, sección 05).
+import Button from "@components/ui/Button.astro";
+
 const steps = [
   {
     title: "Te visitamos, sin costo",
@@ -41,17 +43,38 @@ const steps = [
         </div>
       ))}
     </div>
+    <div class="step-cta reveal" data-delay="2">
+      <p>El primer paso es media hora y no te cuesta nada.</p>
+      <Button href="#agendar" icon="ph-arrow-right">
+        Agendar los 30 minutos
+      </Button>
+    </div>
   </div>
 </section>
 
 <style>
+  /* Cierre accionable: sin esto, el lector convencido aquí tenía que bajar cuatro pantallas
+     más para poder hacer algo. */
+  .step-cta {
+    margin-top: 56px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 24px;
+  }
+  .step-cta p {
+    margin: 0;
+    color: var(--n-400);
+    font-size: 17px;
+  }
+
   .how {
     padding-top: 0;
     overflow: hidden;
   }
   .glow {
     /* Centrado y con la altura limitada a la sección: así el degradado llega a alfa 0 dentro
-             del recorte y overflow: hidden nunca corta nada con color. */
+               del recorte y overflow: hidden nunca corta nada con color. */
     position: absolute;
     right: -10%;
     top: 50%;
