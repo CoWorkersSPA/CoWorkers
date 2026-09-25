@@ -4,46 +4,70 @@
 // sin nombrar herramientas) y Mesón, la línea para la pyme que atiende en el mostrador.
 import Button from "@components/ui/Button.astro";
 import Eyebrow from "@components/ui/Eyebrow.astro";
+import { mailto } from "../../config";
 
 const services = [
   {
     icon: "ph-code",
-    title: "Desarrollo a medida",
+    title: "Lo que ningún sistema trae",
     description:
-      "Cuando tu operación necesita algo que ningún sistema trae: un portal donde tus clientes vean su pedido, un módulo sobre tu sistema de gestión, un sitio con lógica propia.",
-    tags: ["Plataformas internas", "Portales de cliente", "Sitios y landings"],
+      "Un lugar donde tus clientes vean en qué va su pedido, una pantalla hecha para cómo trabajas tú, un sitio que además hace algo. Lo que se compra hecho no siempre calza.",
+    tags: ["Pantallas internas", "Portal para tus clientes", "Sitios"],
   },
   {
     icon: "ph-arrows-clockwise",
-    title: "Automatizaciones",
+    title: "Lo que hoy alguien hace a mano",
     description:
       "Cobranza que recuerda sola, citas que se confirman, el reporte del lunes y documentos que se leen sin que nadie los transcriba. Corren en servidores propios: sin costo por ejecución.",
     tags: ["Cobranza", "Citas", "Reportes", "Lectura de documentos"],
   },
   {
     icon: "ph-hard-drives",
-    title: "Infraestructura",
+    title: "Correo, nube y una sola clave",
     description:
-      "Correo con tu dominio, nube para tus archivos y una sola clave para todo. Va incluida en cada proyecto, no se vende por pieza. Lo que te ofrecemos es lo que usamos.",
+      "Correo con el nombre de tu empresa, nube para tus archivos y una sola clave para todo. Va incluida en cada proyecto, no se vende por pieza. Lo que te ofrecemos es lo mismo que usamos nosotros.",
     tags: ["Correo", "Nube", "Acceso único", "Dominio"],
   },
 ];
 
 // TODO: cuando exista la página de Mesón (meson.coworkers.cl o /meson), volver a "Conocer Mesón" apuntando ahí.
 // Mientras tanto el botón no puede ser un enlace muerto: pregunta por correo, con asunto propio.
-const MESON_HREF =
-  "mailto:hola@coworkers.cl?subject=Quiero%20saber%20m%C3%A1s%20de%20Mes%C3%B3n";
+const MESON_HREF = mailto("Quiero saber más de Mesón");
 ---
 
 <section class="section" id="servicios">
   <div class="container">
     <Eyebrow text="Dos puertas, una empresa" class="reveal" />
     <h2 class="section-title reveal">
-      Servicios para quien ya sabe qué necesita. Mesón para quien atiende en el
-      mostrador.
+      Si atiendes en un mostrador, empieza por Mesón. Si ya sabes qué necesitas,
+      hablemos del proyecto.
     </h2>
 
     <div class="doors">
+      <aside class="meson reveal" id="meson" data-spotlight>
+        {/* PROVISIONAL — foto de archivo (Unsplash vía Picsum) hasta la sesión propia: una tablet
+            en un mostrador de Concepción. Reemplazar el archivo y borrar este comentario. */}
+        <img
+          src="/img/meson-mostrador.jpg"
+          width="1000"
+          height="1200"
+          alt=""
+          loading="lazy"
+        />
+        <p class="kicker">Mesón, de Coworkers.cl</p>
+        <h3>
+          Tu negocio, <em>a la mano.</em>
+        </h3>
+        <p>
+          Una tablet en tu mostrador. Cobra sola las facturas atrasadas, te deja
+          en regla para el 1 de diciembre y arma una cotización sin llamar al
+          proveedor. Se usa con el dedo. La instalamos nosotros.
+        </p>
+        <Button href={MESON_HREF} icon="ph-arrow-right">
+          Preguntar por Mesón
+        </Button>
+      </aside>
+
       <div class="services">
         {services.map((s, i) => (
           <article class="service reveal" data-delay={i}>
@@ -62,29 +86,6 @@ const MESON_HREF =
           </article>
         ))}
       </div>
-
-      <aside class="meson reveal" id="meson" data-delay="1" data-spotlight>
-        {/* TODO: reemplazar por foto propia de la tablet en un mostrador de Concepción. Hoy es una foto de archivo (Unsplash vía Picsum). */}
-        <img
-          src="/img/meson-mostrador.jpg"
-          width="1000"
-          height="1200"
-          alt=""
-          loading="lazy"
-        />
-        <p class="kicker">Mesón, de Coworkers.cl</p>
-        <h3>
-          Tu negocio, <em>a la mano.</em>
-        </h3>
-        <p>
-          Una tablet en tu mostrador que te deja ordenado para la ley de datos,
-          cobra a tiempo y cotiza sin llamar al proveedor. Se usa con el dedo.
-          Sin manual.
-        </p>
-        <Button href={MESON_HREF} icon="ph-arrow-right">
-          Preguntar por Mesón
-        </Button>
-      </aside>
     </div>
   </div>
 </section>
@@ -95,7 +96,7 @@ const MESON_HREF =
   }
   .doors {
     display: grid;
-    grid-template-columns: 7fr 5fr;
+    grid-template-columns: 6fr 6fr;
     gap: 48px;
     margin-top: 48px;
     align-items: stretch;
@@ -205,12 +206,6 @@ const MESON_HREF =
       transform 0.6s var(--ease),
       box-shadow 0.6s var(--ease);
   }
-  .meson:hover {
-    transform: translateY(-4px);
-    box-shadow:
-      0 30px 70px -28px var(--shadow-tint),
-      0 0 0 1px color-mix(in srgb, var(--coral) 32%, transparent);
-  }
   .meson img {
     position: absolute;
     inset: 0;
@@ -225,6 +220,12 @@ const MESON_HREF =
   .meson:hover img {
     transform: scale(1.04);
     opacity: 0.7;
+  }
+  .meson:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 30px 70px -28px var(--shadow-tint),
+      0 0 0 1px color-mix(in srgb, var(--coral) 32%, transparent);
   }
   .meson::before {
     /* foco de luz bajo el cursor */

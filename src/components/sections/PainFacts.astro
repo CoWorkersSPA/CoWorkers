@@ -8,14 +8,14 @@ const facts = [
   {
     ghost: "01.12",
     figure: "1 de diciembre",
-    text: "Día en que la nueva ley de datos personales aplica a toda empresa en Chile, sin importar el tamaño. Tu lista de clientes, tus trabajadores y tus proveedores son datos personales.",
+    text: "Día en que la nueva ley de datos personales aplica a toda empresa en Chile, sin importar el tamaño. Tu lista de clientes, tus trabajadores y tus proveedores son datos personales. Si hoy los tienes en un cuaderno, en un Excel o en el WhatsApp del negocio, no estás en regla.",
     source: "Ley 21.719, vigente desde el 1 de diciembre de 2026",
   },
   {
     ghost: "40",
     count: 40,
     figure: "40 días",
-    text: "Es lo que tarda en pagarse una factura en el comercio. El 54,6% de las facturas de pymes pequeñas se paga después de los 30 días.",
+    text: "Es lo que tarda en pagarse una factura en el comercio. El 54,6% de las facturas de pymes pequeñas se paga después de los 30 días. Casi siempre no es que no quieran pagar: es que nadie alcanzó a recordarles.",
     source: "Estudio Xepelin, La Tercera, julio de 2026",
   },
 ];
@@ -51,6 +51,10 @@ const facts = [
         </div>
       ))}
     </div>
+    <p class="band-cta reveal" data-delay="2">
+      Las dos se arreglan con lo mismo: que el sistema se acuerde por ti.{" "}
+      <a href="#agendar">Conversemos 30 minutos en tu local</a>, sin costo.
+    </p>
   </div>
 </section>
 
@@ -65,9 +69,9 @@ const facts = [
     color: var(--a-100);
     padding-block: 112px 120px;
     /* Los bordes se desvanecen con máscara, no pintando --bg opaco encima. Así el fondo de la
-             página y su aurora se ven a través de la unión y no hay salto de color con las secciones
-             vecinas. 80px cabe dentro del padding también en móvil (88px), así que el texto nunca se
-             desvanece. La máscara alcanza además a las auroras y a la retícula de dentro. */
+               página y su aurora se ven a través de la unión y no hay salto de color con las secciones
+               vecinas. 80px cabe dentro del padding también en móvil (88px), así que el texto nunca se
+               desvanece. La máscara alcanza además a las auroras y a la retícula de dentro. */
     -webkit-mask-image: linear-gradient(
       180deg,
       transparent 0,
@@ -234,6 +238,27 @@ const facts = [
     line-height: 1.5;
     color: var(--a-200);
     max-width: 34ch;
+  }
+  .band-cta {
+    margin-top: 56px;
+    font-size: 17px;
+    color: var(--a-200);
+    max-width: 56ch;
+  }
+  .band-cta a {
+    color: var(--a-100);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: color-mix(
+      in srgb,
+      var(--coral-300) 60%,
+      transparent
+    );
+    text-decoration-thickness: 1px;
+    transition: text-decoration-color 0.3s var(--ease);
+  }
+  .band-cta a:hover {
+    text-decoration-color: var(--coral-300);
   }
   .fact-s {
     margin-top: 14px;

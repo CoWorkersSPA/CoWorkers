@@ -1,0 +1,314 @@
+---
+// src/components/ui/ContactForm.astro
+// Formulario de la reunión inicial. Reemplaza el mailto del cierre: un correo en blanco pide
+// redactar, y en móvil a veces no abre nada. Cuatro campos, dos obligatorios.
+//
+// Funciona sin JavaScript: postea nativo a /api/contacto y Vercel responde JSON. Con JavaScript
+// se envía por fetch y la respuesta se pinta en la misma página, sin salir.
+//
+// Antispam sin captcha (un captcha de terceros trae otro encargado del tratamiento, ver
+// /privacidad): campo trampa oculto + tiempo mínimo desde que se pintó el formulario.
+import { EMAIL } from "../../config";
+---
+
+<form class="cf" method="POST" action="/api/contacto" novalidate>
+  <div class="cf-row">
+    <label class="cf-field">
+      <span>Tu nombre</span>
+      <input
+        type="text"
+        name="nombre"
+        required
+        autocomplete="name"
+        maxlength="120"
+        placeholder="Luis Fuentes"
+      />
+    </label>
+
+    <label class="cf-field">
+      <span>Teléfono</span>
+      <input
+        type="tel"
+        name="telefono"
+        required
+        autocomplete="tel"
+        maxlength="40"
+        inputmode="tel"
+        placeholder="+56 9 1234 5678"
+      />
+    </label>
+  </div>
+
+  <label class="cf-field">
+    <span>
+      Correo <em>(opcional)</em>
+    </span>
+    <input
+      type="email"
+      name="correo"
+      autocomplete="email"
+      maxlength="200"
+      placeholder="luis@ferreterialuis.cl"
+    />
+  </label>
+
+  <label class="cf-field">
+    <span>
+      ¿Qué te está costando hoy? <em>(opcional)</em>
+    </span>
+    <textarea
+      name="mensaje"
+      rows="3"
+      maxlength="2000"
+      placeholder="Cobrar las facturas, ordenar el inventario, la ley de datos…"
+    ></textarea>
+  </label>
+
+  {/* Trampa: invisible y fuera del recorrido de teclado. Si viene llena, es un bot. */}
+  <div class="cf-trampa" aria-hidden="true">
+    <label>
+      No llenes esto
+      <input type="text" name="empresa_web" tabindex="-1" autocomplete="off" />
+    </label>
+  </div>
+  <input type="hidden" name="ts" value="" />
+
+  <div class="cf-pie">
+    <button type="submit" class="btn btn-primary btn-md">
+      <span data-cf-etiqueta>Agendar 30 min</span>
+      <svg
+        class="btn-arrow"
+        viewBox="0 0 256 256"
+        width="18"
+        height="18"
+        aria-hidden="true"
+        fill="currentColor"
+      >
+        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path>
+      </svg>
+    </button>
+    <p class="cf-nota">
+      Te llamamos para coordinar la visita. No te escribimos para otra cosa:{" "}
+      <a href="/privacidad">así tratamos tus datos</a>.
+    </p>
+  </div>
+
+  <p
+    class="cf-estado"
+    data-cf-estado
+    role="status"
+    aria-live="polite"
+    hidden
+  ></p>
+</form>
+
+<style>
+  .cf {
+    margin-top: 36px;
+    max-width: 560px;
+    display: grid;
+    gap: 18px;
+  }
+  .cf-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .cf-field {
+    display: grid;
+    gap: 8px;
+  }
+  .cf-field > span {
+    font-size: 14px;
+    color: var(--n-400);
+  }
+  .cf-field em {
+    font-style: normal;
+    color: var(--n-600);
+  }
+  .cf input,
+  .cf textarea {
+    width: 100%;
+    min-height: 48px;
+    padding: 13px 14px;
+    border-radius: var(--radius);
+    border: 1px solid var(--divider);
+    background: color-mix(in srgb, var(--surface) 55%, transparent);
+    color: var(--text);
+    font: 400 15px/1.45 var(--font);
+    transition:
+      border-color 0.3s var(--ease),
+      box-shadow 0.3s var(--ease),
+      background-color 0.3s var(--ease);
+  }
+  .cf textarea {
+    resize: vertical;
+    min-height: 92px;
+  }
+  .cf input::placeholder,
+  .cf textarea::placeholder {
+    color: var(--n-600);
+  }
+  .cf input:hover,
+  .cf textarea:hover {
+    border-color: color-mix(in srgb, var(--n-500) 45%, transparent);
+  }
+  .cf input:focus-visible,
+  .cf textarea:focus-visible {
+    outline: none;
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--surface) 80%, transparent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent);
+  }
+  /* Solo se marca en rojo lo que el servidor o el envío ya rechazaron, nunca mientras se escribe. */
+  .cf input[data-mal],
+  .cf textarea[data-mal] {
+    border-color: var(--coral);
+  }
+
+  .cf-trampa {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .cf-pie {
+    margin-top: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px 22px;
+  }
+  .cf-nota {
+    flex: 1 1 220px;
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--n-600);
+  }
+  .cf-nota a {
+    color: var(--n-400);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .cf-nota a:hover {
+    color: var(--a-300);
+  }
+
+  .cf-estado {
+    margin: 0;
+    padding: 14px 16px;
+    border-radius: var(--radius);
+    font-size: 15px;
+    line-height: 1.5;
+    border: 1px solid var(--divider);
+  }
+  .cf-estado[data-tono="ok"] {
+    color: var(--a-200);
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+  .cf-estado[data-tono="error"] {
+    color: var(--coral-200);
+    border-color: color-mix(in srgb, var(--coral) 45%, transparent);
+    background: color-mix(in srgb, var(--coral) 12%, transparent);
+  }
+  .cf-estado a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .cf button[disabled] {
+    opacity: 0.6;
+    cursor: progress;
+  }
+
+  @media (max-width: 599px) {
+    .cf-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script define:vars={{ EMAIL }}>
+  (function () {
+    const form = document.currentScript?.previousElementSibling;
+    const f =
+      form instanceof HTMLFormElement
+        ? form
+        : document.querySelector("form.cf");
+    if (!f) return;
+
+    // Marca de tiempo: el servidor descarta lo que llega en menos de tres segundos.
+    const ts = f.querySelector('input[name="ts"]');
+    if (ts) ts.value = String(Date.now());
+
+    const estado = f.querySelector("[data-cf-estado]");
+    const boton = f.querySelector('button[type="submit"]');
+    const etiqueta = f.querySelector("[data-cf-etiqueta]");
+    const original = etiqueta?.textContent ?? "Agendar 30 min";
+
+    const pintar = (tono, html) => {
+      if (!estado) return;
+      estado.hidden = false;
+      estado.dataset.tono = tono;
+      estado.innerHTML = html;
+    };
+
+    let enviado = false;
+
+    f.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (enviado) return; // ya se envió: el formulario queda cerrado
+      f.querySelectorAll("[data-mal]").forEach((el) =>
+        el.removeAttribute("data-mal"),
+      );
+
+      const datos = Object.fromEntries(new FormData(f));
+      if (boton) boton.disabled = true;
+      if (etiqueta) etiqueta.textContent = "Enviando…";
+
+      try {
+        const r = await fetch(f.action, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(datos),
+        });
+        const cuerpo = await r.json().catch(() => ({}));
+
+        if (r.ok) {
+          enviado = true;
+          f.querySelectorAll("input, textarea, button").forEach((el) => {
+            if (el.type !== "hidden") el.disabled = true;
+          });
+          if (etiqueta) etiqueta.textContent = "Enviado";
+          pintar(
+            "ok",
+            "Listo. Te llamamos dentro de las próximas 24 horas hábiles para coordinar la visita.",
+          );
+          return;
+        }
+
+        // El servidor dice qué campo revisar; se marca ese y no todos.
+        const msg = cuerpo.error || "No pudimos enviarlo.";
+        if (/nombre/i.test(msg)) f.nombre?.setAttribute("data-mal", "");
+        if (/tel[eé]fono/i.test(msg)) f.telefono?.setAttribute("data-mal", "");
+        if (/correo/i.test(msg)) f.correo?.setAttribute("data-mal", "");
+        pintar("error", msg);
+      } catch {
+        pintar(
+          "error",
+          `No pudimos enviarlo. Escríbenos a <a href="mailto:${EMAIL}">${EMAIL}</a>.`,
+        );
+      } finally {
+        if (!enviado) {
+          if (boton) boton.disabled = false;
+          if (etiqueta) etiqueta.textContent = original;
+        }
+      }
+    });
+  })();
+</script>

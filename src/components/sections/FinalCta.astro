@@ -1,10 +1,15 @@
 ---
 // src/components/sections/FinalCta.astro
-import Button from "@components/ui/Button.astro";
+// El cierre es el único lugar donde el lector busca precio y canal. No hay tarifa publicada
+// todavía, así que va la prueba de precio que sí es verificable hoy (sin licencia por usuario,
+// banco de pruebas nivel 4). El correo es el canal que existe; WhatsApp aparece solo si hay
+// número en src/config.ts.
+import ContactForm from "@components/ui/ContactForm.astro";
+import { EMAIL, waLink } from "../../config";
 
-const email = "hola@coworkers.cl";
-const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
-
+const AGENDA_WA = waLink(
+  "Hola, quiero agendar los 30 minutos para ver cómo trabajamos hoy.",
+);
 ---
 
 <section class="close" id="agendar">
@@ -14,20 +19,29 @@ const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
   </div>
   <div class="container">
     <h2 class="reveal">
-      Cuéntanos cómo funciona hoy <span class="text-glow">tu operación.</span>
+      Cuéntanos cómo <span class="text-glow">trabajas hoy.</span>
     </h2>
     <p class="reveal" data-delay="1">
-      Treinta minutos en tu local, sin costo. Sales con el alcance escrito y un
-      plazo, contrates o no.
+      Treinta minutos en tu local, sin costo. Te decimos qué conviene resolver
+      primero y sales con el alcance y el plazo por escrito, contrates o no.
     </p>
-    <Button
-      href={gmailUrl}
-      target="_blank"
-      class="reveal"
-      icon="ph-arrow-right"
-    >
-      Agendar 30 min
-    </Button>
+    <div class="reveal" data-delay="2">
+      <ContactForm />
+    </div>
+    <p class="alt reveal" data-delay="3">
+      {AGENDA_WA && (
+        <>
+          <a href={AGENDA_WA}>WhatsApp</a>
+          {" · "}
+        </>
+      )}
+      <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+      {" · Concepción y el Gran Concepción"}
+    </p>
+    <p class="proof reveal" data-delay="4">
+      Una sola mensualidad por cliente, sin licencia por usuario: cuesta lo
+      mismo con cinco personas que con cincuenta.
+    </p>
   </div>
 </section>
 
@@ -78,7 +92,7 @@ const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
   .ring {
     /* anillo fino, descentrado a la derecha: profundidad sin ser un relleno */
     /* La altura se limita a la sección: si el anillo se saliera, overflow lo cortaría y el trazo
-             quedaría partido en seco justo en la unión. */
+               quedaría partido en seco justo en la unión. */
     position: absolute;
     right: -14vw;
     top: 0;
@@ -110,8 +124,25 @@ const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
     color: var(--n-400);
     font-size: 18px;
   }
-  .close :global(.btn) {
-    margin-top: 36px;
+  p.alt {
+    margin-top: 26px;
+    font-size: 15px;
+    color: var(--n-400);
+  }
+  p.alt a {
+    color: var(--a-300);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  p.alt a:hover {
+    color: var(--a-200);
+  }
+  p.proof {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--divider);
+    max-width: 44ch;
+    font-size: 15px;
   }
   @media (max-width: 767px) {
     .close {

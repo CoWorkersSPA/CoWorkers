@@ -1,0 +1,96 @@
+---
+// src/pages/gracias.astro
+// Destino del formulario cuando el navegador no tiene JavaScript: con JS la respuesta se pinta
+// en la misma portada y aquí no se llega nunca.
+// Los dos desenlaces conviven en HTML estático y se alternan con :target, sin una línea de script:
+// /gracias muestra el acuse, /gracias#problema muestra el fallo.
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/layout/Header.astro";
+import Footer from "@components/layout/Footer.astro";
+import Button from "@components/ui/Button.astro";
+import { EMAIL } from "../config";
+---
+
+<Layout
+  title="Gracias · Coworkers.cl"
+  description="Recibimos tus datos para agendar la reunión inicial de 30 minutos."
+  noindex
+>
+  <Header hide />
+  <main class="gracias">
+    <div class="container">
+      <section id="problema" class="fallo">
+        <h1>No pudimos enviarlo.</h1>
+        <p>
+          Algo falló de nuestro lado, no tuyo. Escríbenos a{" "}
+          <a href={`mailto:${EMAIL}`}>{EMAIL}</a> con tu nombre y tu teléfono y
+          te llamamos igual.
+        </p>
+        <Button href="/#agendar" icon="ph-arrow-left">
+          Volver a intentarlo
+        </Button>
+      </section>
+
+      <section class="acuse">
+        <h1>Listo. Te llamamos.</h1>
+        <p>
+          Recibimos tus datos. Te llamamos dentro de las próximas 24 horas
+          hábiles para coordinar la visita: treinta minutos en tu local, sin
+          costo, y sales con el alcance y el plazo por escrito, contrates o no.
+        </p>
+        <p class="fina">
+          Si prefieres adelantarnos algo, escríbenos a{" "}
+          <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+        </p>
+        <Button href="/" icon="ph-arrow-left">
+          Volver al inicio
+        </Button>
+      </section>
+    </div>
+  </main>
+  <Footer hide />
+</Layout>
+
+<style>
+  .gracias {
+    padding-block: 140px;
+    min-height: 60vh;
+  }
+  .container {
+    max-width: 60ch;
+  }
+  h1 {
+    font-size: clamp(32px, 4vw, 50px);
+    letter-spacing: -0.03em;
+    max-width: 18ch;
+  }
+  p {
+    margin-top: 18px;
+    color: var(--n-400);
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  .fina {
+    font-size: 15px;
+    color: var(--n-500);
+  }
+  a {
+    color: var(--a-300);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .gracias :global(.btn) {
+    margin-top: 36px;
+  }
+
+  /* Sin :target manda el acuse. Con /gracias#problema manda el fallo y el acuse se esconde. */
+  .fallo {
+    display: none;
+  }
+  .fallo:target {
+    display: block;
+  }
+  .fallo:target ~ .acuse {
+    display: none;
+  }
+</style>
