@@ -3,6 +3,8 @@
 // Los cuatro pilares del marco de mensajes (docs/MENSAJES.md, nivel 3), escritos desde lo que
 // recibe el cliente. El cuarto pilar ("Nadie entrega sin revisión" en la estrategia) se presenta
 // por su consecuencia para el cliente: hay alguien con nombre que responde.
+import Button from "@components/ui/Button.astro";
+
 const guarantees = [
   {
     icon: "ph-key",
@@ -26,7 +28,7 @@ const guarantees = [
     icon: "ph-identification-badge",
     title: "Respondemos con nombre y apellido",
     description:
-      "Ninguna tarea entra al sistema sin que la revise uno de los cinco socios, y los estudiantes cobran recién cuando la entrega queda aceptada. Si algo falla, te contesta un ingeniero de Concepción con nombre, no una mesa de ayuda.",
+      "Ninguna tarea entra al sistema sin que la revise uno de los cinco socios, todos ingenieros en informática de la Universidad Técnica Federico Santa María. Los estudiantes cobran recién cuando la entrega queda aceptada. Si algo falla, te contesta una persona con nombre, no una mesa de ayuda.",
   },
 ];
 ---
@@ -52,10 +54,32 @@ const guarantees = [
         </div>
       ))}
     </div>
+    <div class="g-cta reveal" data-delay="4">
+      <p>
+        ¿Te sirve cómo trabajamos? Empecemos por el problema, no por el sistema.
+      </p>
+      <Button href="#agendar" variant="ghost" icon="ph-arrow-right">
+        Ver qué conviene resolver primero
+      </Button>
+    </div>
   </div>
 </section>
 
 <style>
+  .g-cta {
+    margin-top: 56px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 24px;
+  }
+  .g-cta p {
+    margin: 0;
+    color: var(--n-400);
+    font-size: 17px;
+    max-width: 44ch;
+  }
+
   .guarantees-section {
     overflow: hidden;
   }
