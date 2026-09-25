@@ -1,16 +1,22 @@
 ---
 // src/components/sections/Team.astro
 // Historia de marca, versión "home o pitch" (estrategia, sección 02), sobre foto a sangre.
-import Button from "@components/ui/Button.astro";
+import { mailto } from "../../config";
+
+const STUDENT_HREF = mailto("Quiero trabajar con Coworkers.cl");
 
 const paragraphs = [
-  "Empezó en una mesa de coworking de la Santa María. Cinco compañeros de Ingeniería en Informática, cada uno obsesionado con una cosa distinta: gestión, la máquina, el sistema, la seguridad, los datos. Cuando uno presentaba algo, los otros cuatro siempre encontraban algo. Eso era el equipo.",
+  "Empezó en una mesa de la Santa María. Cinco compañeros de Ingeniería en Informática, cada uno obsesionado con una cosa distinta: gestión, la máquina, el sistema, la seguridad, los datos. Cuando uno presentaba algo, los otros cuatro siempre encontraban algo. Eso era el equipo.",
   "También vimos quién faltaba: compañeros buenos que dejaban de venir porque tenían que trabajar. Fuera de Santiago, estudiar y pagar la carrera son cosas excluyentes. Nos pareció una regla estúpida. Así que no subcontratamos: formamos. Tareas acotadas, compatibles con el semestre, pagadas al aceptarse y revisadas entre los cinco.",
+  "Estamos partiendo, y preferimos decirlo a inventar una lista de clientes. Lo que sí puedes pedirnos está más arriba, por escrito, en cada proyecto.",
 ];
 ---
 
 <section class="team" id="equipo">
-  {/* TODO: reemplazar por foto propia de los cinco socios (fondo oscuro). Hoy es una foto de archivo (Unsplash vía Picsum). */}
+  {/* PROVISIONAL — foto de archivo (Unsplash vía Picsum): un paisaje que no dice nada de nosotros.
+      No afirma nada falso, pero tampoco prueba nada, y va bajo un titular sobre decir las cosas de
+      frente. Sostiene la composición hasta la sesión propia: los cinco socios sobre fondo oscuro.
+      El día que exista, se reemplaza el archivo y se borra este comentario. */}
   <img
     class="lighten"
     src="/img/socios.jpg"
@@ -30,14 +36,10 @@ const paragraphs = [
         </p>
       ))}
     </div>
-    {/* <div class="student reveal">
-            <span>¿Estudias en Concepción? Tareas reales, pagadas al aceptarse, compatibles con el semestre.</span>
-            <Button
-                href="mailto:hola@coworkers.cl?subject=Quiero%20trabajar%20con%20Coworkers.cl"
-                variant="ghost"
-                icon="ph-arrow-right">Escríbenos</Button
-            >
-        </div> */}
+    <p class="student reveal" data-delay="3">
+      ¿Estudias en Concepción? Tareas reales, pagadas al aceptarse y compatibles
+      con el semestre: <a href={STUDENT_HREF}>escríbenos</a>.
+    </p>
   </div>
 </section>
 
@@ -48,9 +50,9 @@ const paragraphs = [
     isolation: isolate;
     padding-block: 140px;
     /* Igual que la banda: los bordes se desvanecen con máscara en vez de pintar --bg encima, así
-             el fondo de la página y su aurora se ven a través y la unión no tiene canto. Alcanza a la
-             foto y al velo de legibilidad. 80px cabe en el padding también en móvil (96px).
-             Abajo NO se desvanece: el cierre empieza con un corte duro a propósito. */
+               el fondo de la página y su aurora se ven a través y la unión no tiene canto. Alcanza a la
+               foto y al velo de legibilidad. 80px cabe en el padding también en móvil (96px).
+               Abajo NO se desvanece: el cierre empieza con un corte duro a propósito. */
     -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 80px);
     mask-image: linear-gradient(180deg, transparent 0, #000 80px);
   }
@@ -91,7 +93,7 @@ const paragraphs = [
     inset: 0;
     pointer-events: none;
     /* Solo el velo horizontal, para que el texto se lea sobre la foto. El desvanecido vertical
-             lo hace ahora la máscara de .team. */
+               lo hace ahora la máscara de .team. */
     background: linear-gradient(
       90deg,
       var(--bg) 0%,
@@ -129,11 +131,17 @@ const paragraphs = [
   }
   .student {
     margin-top: 44px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 16px 24px;
+    max-width: 60ch;
+    font-size: 15px;
     color: var(--n-400);
+  }
+  .student a {
+    color: var(--a-300);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .student a:hover {
+    color: var(--a-200);
   }
   @media (max-width: 767px) {
     .team {
