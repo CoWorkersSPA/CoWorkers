@@ -1,5 +1,6 @@
 # build output
 dist/
+.vercel/
 
 # generated types
 .astro/
@@ -13,9 +14,10 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# environment variables
+# environment variables (.env.schema sí se versiona: documenta las variables, no sus valores)
 .env
-.env.production
+.env.*
+!.env.schema
 
 # macOS-specific files
 .DS_Store
