@@ -2,6 +2,8 @@
 
 Derivado de _Estrategia de marca - Coworkers.cl y Mesón_ (v1.0, 19 sep 2026) y _Investigación de mercado - Módulos y servicios Mesón_ (v1.0, 19 sep 2026). Todo lo que no salga de esos dos documentos se marca como propuesta.
 
+Revisado el 24 de septiembre de 2026 tras una auditoría de marketing de la landing. El cambio de fondo está en la sección 04: el sistema rotativo del hero se mantiene como mecanismo, pero cambia de sujeto. Los cambios de esa revisión van marcados **[rev. 24 sep]**.
+
 ---
 
 ## 01 — Mensaje central
@@ -14,19 +16,27 @@ Resolvemos problemas de gestión en pymes que hoy funcionan con cuaderno, WhatsA
 
 ## 03 — Taglines (evaluación de las decididas)
 
-| Frase                             | Rol         | Estilo       | Evaluación                                                                                                                                                                      |
-| --------------------------------- | ----------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Software que se entiende.**     | Marca       | Funcional    | **Recomendada como tagline de marca.** Nombra el posicionamiento (simple y completo) sin adjetivos. Va en logo, pie, bio.                                                       |
-| Tu proyecto, su carrera.          | Corporativa | Emocional    | Funciona para reclutamiento y para el sistema rotativo del hero. Como tagline única es débil: habla del modelo, no del cliente. Mantener en el hero, no en el pie.              |
-| Tu negocio, a la mano.            | Mesón       | Aspiracional | Correcta para la línea. No usarla en la corporativa salvo en la tarjeta de Mesón.                                                                                               |
-| Tuyo. Aunque nosotros no estemos. | Campaña     | Atrevida     | La más fuerte y la única bloqueada: la estrategia (sección 07) exige la cláusula de entrega de código antes de publicarla. **No va en la página hasta que exista el contrato.** |
-| Se entiende. Se usa. Es tuyo.     | Reserva     | Funcional    | Buen cierre de página. Propuesta: usarla cuando se desbloquee "es tuyo".                                                                                                        |
+| Frase                             | Rol         | Estilo       | Evaluación                                                                                                                                                                              |
+| --------------------------------- | ----------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Software que se entiende.**     | Marca       | Funcional    | **Recomendada como tagline de marca.** Nombra el posicionamiento (simple y completo) sin adjetivos. Va en logo, pie, bio.                                                               |
+| Tu proyecto, su carrera.          | Corporativa | Emocional    | **[rev. 24 sep]** Sale del hero: hablaba del modelo, no del cliente. Sigue sirviendo para reclutamiento y para hablar con la universidad. Como tagline única es débil. No va en el pie. |
+| Tu negocio, a la mano.            | Mesón       | Aspiracional | Correcta para la línea. No usarla en la corporativa salvo en la tarjeta de Mesón.                                                                                                       |
+| Tuyo. Aunque nosotros no estemos. | Campaña     | Atrevida     | La más fuerte y la única bloqueada: la estrategia (sección 07) exige la cláusula de entrega de código antes de publicarla. **No va en la página hasta que exista el contrato.**         |
+| Se entiende. Se usa. Es tuyo.     | Reserva     | Funcional    | Buen cierre de página. Propuesta: usarla cuando se desbloquee "es tuyo".                                                                                                                |
 
 ## 04 — Jerarquía para la landing corporativa
 
-**Nivel 1 · Titular:** sistema rotativo "Tu proyecto…" (la estrategia dice mantenerlo). Frases: paga la carrera de alguien · le da experiencia real a un estudiante · mantiene a alguien en la universidad · contrata talento de regiones · cuesta menos de lo que te dijeron. Se retira "financia a las mentes de Chile": contradice la voz "segura, no grandilocuente".
+**Nivel 1 · Titular: [rev. 24 sep]** se mantiene el sistema rotativo, cambia el sujeto. Ahora es **"Tu pyme, …"** y rota sobre resultados del cliente: cobrando a tiempo · en regla con la ley de datos · con el inventario al día · sin depender del cuaderno · atendida sin hacer esperar.
 
-**Nivel 2 · Apoyo:** Resolvemos un problema concreto de tu pyme, cobrar, cumplir, ordenar, con software que se entiende y es tuyo. Lo construye en Concepción un equipo universitario que formamos, revisamos y pagamos por entrega.
+El mecanismo rotativo se conserva porque la estrategia lo pide y porque es la firma visual de la página. Lo que cambia es de quién habla. Las frases anteriores —_paga la carrera de alguien_, _le da experiencia real a un estudiante_, _mantiene a alguien en la universidad_, _contrata talento de regiones_— describían lo que el dinero del cliente hace por un tercero: son razones para **preferirnos**, no para **querer comprar**, y abrir con ellas pedía un favor antes de ofrecer un servicio. Agravado porque la frase rota cada 3,2 segundos: el visitante lee una, no las cinco, y la que le toque tiene que funcionar sola. Con el sujeto invertido, cualquiera de las cinco es una promesa.
+
+Se retira también _"cuesta menos de lo que te dijeron"_: era la única orientada al cliente, pero es una promesa de precio sin cifra y roza "mano de obra barata", que la sección 07 prohíbe. El argumento de precio baja al cierre, donde va con prueba (mensualidad única, sin licencia por usuario).
+
+Sigue retirada _"financia a las mentes de Chile"_: contradice la voz "segura, no grandilocuente".
+
+**Nivel 2 · Apoyo: [rev. 24 sep]** Software que se entiende el primer día, instalado en tu local por gente de Concepción. Lo construye un equipo universitario al que formamos, revisamos y pagamos por cada entrega.
+
+El modelo estudiantil no desaparece del hero: baja un nivel. Aquí ya no pide nada, explica por qué el precio se sostiene. El problema concreto (cobrar, cumplir, ordenar) pasa al titular rotativo, que es donde el lector lo busca.
 
 **Nivel 3 · Pilares (los cuatro de la estrategia, sección 03):**
 
@@ -68,7 +78,7 @@ Fuera del banco: morosidad de Duemint, inasistencia de proveedores de agendas, "
 
 | Canal               | Titular                                                                                  | Tono                                | Extensión |
 | ------------------- | ---------------------------------------------------------------------------------------- | ----------------------------------- | --------- |
-| Landing corporativa | Rotativo "Tu proyecto…" + apoyo con el problema                                          | Directo, joven, sin humo            | Corta     |
+| Landing corporativa | Rotativo "Tu pyme, …" con el resultado + apoyo con el cómo y el equipo                   | Directo, joven, sin humo            | Corta     |
 | Landing de Mesón    | "Tuyo. Aunque nosotros no estemos." (cuando exista la cláusula) + una solución con fecha | Claro, cálido, cero jerga           | Corta     |
 | Bio de redes        | "Software que se entiende. Concepción."                                                  | Sobrio                              | Muy corta |
 | Correo al contador  | Asunto con la ley y la fecha; precio fijo y plazo                                        | Profesional, concreto               | Corta     |
@@ -90,15 +100,14 @@ Fuera del banco: morosidad de Duemint, inasistencia de proveedores de agendas, "
 
 ## Cómo se aplica en este repo
 
-| Sección (`src/components/sections/`) | Mensaje que carga                                                                  |
-| ------------------------------------ | ---------------------------------------------------------------------------------- |
-| `Hero`                               | Titular rotativo "Tu proyecto…" + apoyo con el problema (cobrar, cumplir, ordenar) |
-| `PainFacts`                          | Dos hechos con fecha: 1 de diciembre (Ley 21.719) y 40 días (Xepelin / La Tercera) |
-| `Services`                           | Las tres líneas de Coworkers.cl con el problema antes que la pieza                 |
-| `Meson`                              | La puerta para la pyme: Datos, Cobros y cotizaciones. Caja no se promete           |
-| `HowWeWork`                          | Treinta minutos en tu local → tareas chicas → revisión → instalación y mantención  |
-| `Guarantees`                         | Los cuatro pilares de la estrategia                                                |
-| `Team`                               | Historia corta (versión "home o pitch") + puerta para estudiantes                  |
-| `FinalCta`                           | Alcance escrito en 30 minutos, contrates o no                                      |
+| Sección (`src/components/sections/`) | Mensaje que carga                                                                    |
+| ------------------------------------ | ------------------------------------------------------------------------------------ |
+| `Hero`                               | Titular rotativo "Tu pyme, …" con el resultado + apoyo con el cómo y el equipo       |
+| `PainFacts`                          | Dos hechos con fecha (Ley 21.719 y 40 días) + puente al cierre                       |
+| `TwoDoors`                           | Mesón primero, con Datos y Cobros (Caja no se promete), y las tres líneas después    |
+| `HowWeWork`                          | Treinta minutos en tu local → tareas chicas → revisión → instalación y mantención    |
+| `Guarantees`                         | Los cuatro pilares de la estrategia                                                  |
+| `Team`                               | Historia corta (versión "home o pitch") + "estamos partiendo" + puerta a estudiantes |
+| `FinalCta`                           | Formulario, alcance escrito en 30 minutos y la prueba de precio                      |
 
 Fuera del sitio por decisión del 19 de septiembre: "Lo que no somos", "Lo que te queda", el banco de pruebas y la cifra del 70% del Biobío (lenguaje interno, no de cliente).
