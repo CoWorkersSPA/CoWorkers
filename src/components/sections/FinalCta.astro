@@ -36,7 +36,7 @@ const AGENDA_WA = waLink(
         </>
       )}
       <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
-      {" · Concepción y el Gran Concepción"}
+      {" · Concepción y alrededores"}
     </p>
     <p class="proof reveal" data-delay="4">
       Una sola mensualidad por cliente, sin licencia por usuario: cuesta lo
@@ -53,6 +53,17 @@ const AGENDA_WA = waLink(
     overflow: hidden;
     isolation: isolate;
     padding-block: 120px 128px;
+  }
+  .close .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .cf {
+    width: 100%;
+    max-width: 560px;
+    margin: 0 auto;
   }
   .close::before {
     content: "";
