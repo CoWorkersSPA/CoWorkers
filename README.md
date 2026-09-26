@@ -15,47 +15,51 @@ Este proyecto contiene el código fuente de la landing pública de Coworkers.cl:
 
 ```text
 CoWorkers/
-├── docker/
-│   ├── Dockerfile
-│   └── Dockerfile.dev
-├── docs/
-│   └── MENSAJES.md                     # marco de mensajes (fuente de verdad del copy)
-├── public/
-│   ├── robots.txt                      # permite buscadores y rastreadores de IA
-│   ├── llms.txt                        # resumen en texto plano para asistentes de IA
-│   ├── favicon.ico
-│   ├── favicon-32.png
-│   └── favicon-512.png
-├── src/
-│   ├── components/
-│   │   ├── layout/
-│   │   │   ├── Header.astro
-│   │   │   └── Footer.astro
-│   │   ├── sections/
-│   │   │   ├── Hero.astro
-│   │   │   ├── PainFacts.astro         # "Nos llaman cuando"
-│   │   │   ├── TwoDoors.astro          # Servicios + Mesón
-│   │   │   ├── HowWeWork.astro         # "Cuatro pasos. Ningún manual."
-│   │   │   ├── Guarantees.astro        # "Lo que puedes exigirnos"
-│   │   │   ├── Team.astro              # "Nuestro equipo son estudiantes"
-│   │   │   └── FinalCta.astro
-│   │   └── ui/
-│   │       ├── Button.astro            # contorno: primary (acento) / ghost (neutro)
-│   │       ├── Eyebrow.astro           # antetítulo en acento
-│   │       └── Wordmark.astro          # coworkers.cl con ".cl" en acento
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-├── .dockerignore
-├── .env
-├── .gitignore
-├── AGENTS.md
-├── astro.config.mjs
-├── docker-compose.yml
-├── package.json
-├── tsconfig.json
-└── README.md
+ ├── .astro/
+ ├── .dockerignore
+ ├── .env
+ ├── .env.schema
+ ├── .gitignore
+ ├── .prettierrc
+ ├── .vscode/
+ ├── AGENTS.md
+ ├── README.md
+ ├── astro.config.mjs
+ ├── docker/
+ │   ├── Dockerfile
+ │   └── Dockerfile.dev
+ ├── docker-compose.yml
+ ├── docs/
+ │   └── MENSAJES.md
+ ├── package.json
+ ├── public/
+ │   ├── favicon-32.png
+ │   ├── favicon-512.png
+ │   ├── favicon.ico
+ │   ├── llms.txt
+ │   └── robots.txt
+ ├── src/
+ │   ├── components/
+ │   │   ├── layout/
+ │   │   │   ├── Footer.astro
+ │   │   │   └── Header.astro
+ │   │   ├── sections/
+ │   │   │   ├── FinalCta.astro
+ │   │   │   ├── Guarantees.astro
+ │   │   │   ├── Hero.astro
+ │   │   │   ├── HowWeWork.astro
+ │   │   │   ├── PainFacts.astro
+ │   │   │   ├── Team.astro
+ │   │   │   └── TwoDoors.astro
+ │   │   └── ui/
+ │   │       ├── Button.astro
+ │   │       ├── Eyebrow.astro
+ │   │       └── Wordmark.astro
+ │   ├── layouts/
+ │   │   └── Layout.astro
+ │   └── pages/
+ │       └── index.astro
+ └── tsconfig.json
 ```
 
 ### Arquitectura de componentes
