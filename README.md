@@ -22,6 +22,8 @@ CoWorkers/
  ├── .gitignore
  ├── .prettierrc
  ├── .vscode/
+ │   ├── extensions.json
+ │   └── launch.json
  ├── AGENTS.md
  ├── README.md
  ├── astro.config.mjs
@@ -31,11 +33,16 @@ CoWorkers/
  ├── docker-compose.yml
  ├── docs/
  │   └── MENSAJES.md
+ ├── package-lock.json
  ├── package.json
  ├── public/
+ │   ├── img/
+ │   │   ├── meson-mostrador.jpg
+ │   │   └── socios.jpg
  │   ├── favicon-32.png
  │   ├── favicon-512.png
  │   ├── favicon.ico
+ │   ├── google1e45388488b659c4.html
  │   ├── llms.txt
  │   └── robots.txt
  ├── src/
@@ -53,13 +60,26 @@ CoWorkers/
  │   │   │   └── TwoDoors.astro
  │   │   └── ui/
  │   │       ├── Button.astro
+ │   │       ├── ContactForm.astro
  │   │       ├── Eyebrow.astro
+ │   │       ├── Intro.astro
+ │   │       ├── ThemeToggle.astro
  │   │       └── Wordmark.astro
  │   ├── layouts/
  │   │   └── Layout.astro
- │   └── pages/
- │       └── index.astro
- └── tsconfig.json
+ │   ├── pages/
+ │   │   ├── api/
+ │   │   │   └── contacto.ts
+ │   │   ├── 404.astro
+ │   │   ├── gracias.astro
+ │   │   ├── index.astro
+ │   │   ├── privacidad.astro
+ │   │   └── terminos.astro
+ │   ├── styles/
+ │   │   └── global.css
+ │   └── config.ts
+ ├── tsconfig.json
+ └── vercel.json
 ```
 
 ### Arquitectura de componentes
