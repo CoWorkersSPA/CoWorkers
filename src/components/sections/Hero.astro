@@ -12,13 +12,15 @@ import Eyebrow from "@components/ui/Eyebrow.astro";
 // quiere, así cualquiera de las cinco que alcance a leer es una promesa y no una petición.
 // El modelo estudiantil baja al apoyo, donde explica por qué cuesta menos en vez de pedir un favor.
 const phrases = [
-  "cobrando a tiempo.",
-  "en regla con la ley de datos.",
-  "con el inventario al día.",
-  "sin depender del cuaderno.",
-  "atendida sin hacer esperar.",
+  "Tu software cuesta menos de lo que te dijeron.",
+  "No cobramos por hora. Cobramos por resolver.",
+  "No somos los más caros. Somos los que sí contestan.",
+  "Trabajamos de noche para que tú duermas tranquilo.",
+  "Moderniza tu empresa al alcance de tu mano y bolsillo.",
+  "¿Estás listo para dar el siguiente paso?"
+
 ];
-const ROTATION_MS = 3200;
+const ROTATION_MS = 4000;
 ---
 
 <section class="hero">
@@ -33,7 +35,6 @@ const ROTATION_MS = 3200;
     {/* Sin aria-live: la rotación es decorativa y anunciarla cada 3,2 s deja la página
         inusable con lector de pantalla. El apoyo de abajo lleva el mensaje completo. */}
     <h1 class="reveal in">
-      Tu pyme,{" "}
       <span class="rot text-glow" data-hero-phrase>
         {phrases[0]}
       </span>
@@ -41,8 +42,7 @@ const ROTATION_MS = 3200;
     <div class="hero-foot reveal in" data-delay="1">
       <p class="lead">
         Software que se entiende el primer día, instalado en tu local por gente
-        de Concepción. Lo construye un equipo universitario al que formamos,
-        revisamos y pagamos por cada entrega.
+        de Concepción.
       </p>
       <div class="ctas">
         <Button href="#agendar" icon="ph-arrow-right">
