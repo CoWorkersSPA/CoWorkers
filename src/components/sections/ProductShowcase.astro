@@ -1,0 +1,558 @@
+---
+// src/components/sections/ProductShowcase.astro
+// "Así se ve": carrusel de capturas de lo que se instala. Cada lámina nombra el problema resuelto,
+// nunca la herramienta (ni en el texto ni en la captura: logos y nombres del motor se recortan).
+//
+// Las capturas viven en public/img/productos/<archivo>. Una lámina sin su archivo no se publica:
+// en desarrollo se ve un marcador para saber qué falta; en el build se omite, y si no queda
+// ninguna, la sección completa desaparece. Una captura inventada sería una prueba falsa.
+// La lámina del dominio no es captura: se dibuja con los tokens de la página (`panel`), y muestra
+// nuestras propias direcciones como prueba de que usamos lo mismo que vendemos.
+import { existsSync } from "node:fs";
+import { join } from "node:path";
+
+// Solo direcciones que existen hoy: si una se apaga, sale de aquí.
+const domains = [
+  { sub: "", label: "Tu sitio", icon: "ph-globe-simple" },
+  { sub: "correo.", label: "Correo", icon: "ph-envelope-simple" },
+  { sub: "nube.", label: "Archivos", icon: "ph-cloud" },
+  { sub: "contabilidad.", label: "Ventas y contabilidad", icon: "ph-squares-four" },
+  { sub: "acceso.", label: "Una sola clave", icon: "ph-key" },
+];
+
+type Slide = {
+  icon: string;
+  title: string;
+  description: string;
+} & ({ file: string; panel?: never } | { panel: "domains"; file?: never });
+
+const slides: Slide[] = [
+  {
+    file: "correo.webp",
+    icon: "ph-envelope-simple",
+    title: "Correo con el nombre de tu empresa",
+    description:
+      "contacto@tuempresa.cl en vez de una cuenta gratuita, con tus contactos y en tu propio servidor.",
+  },
+  {
+    panel: "domains",
+    icon: "ph-globe-simple",
+    title: "Todo con el nombre de tu empresa",
+    description:
+      "Tu sitio, tu correo, tu nube y tu sistema bajo tu propio dominio, configurado para que tus correos no caigan en spam. Así funciona el nuestro.",
+  },
+  {
+    file: "nube.webp",
+    icon: "ph-cloud",
+    title: "Tus archivos, en una nube que es tuya",
+    description:
+      "Carpetas por área y permisos por persona. Compartes un enlace en vez de mandar el archivo por WhatsApp.",
+  },
+  {
+    file: "acceso.webp",
+    icon: "ph-key",
+    title: "Una sola clave para todo",
+    description:
+      "Correo, nube y sistema con el mismo acceso. Si alguien deja la empresa, se le cierra todo de una vez.",
+  },
+  {
+    file: "gestion.webp",
+    icon: "ph-squares-four",
+    title: "Ventas, bodega y contabilidad en un sistema",
+    description:
+      "Cada área tiene su espacio y todo se conecta: lo que vendes descuenta de la bodega y queda en la contabilidad. Sin planillas que no cuadran.",
+  },
+  {
+    file: "cobranza.webp",
+    icon: "ph-bell-ringing",
+    title: "La cobranza que recuerda sola",
+    description:
+      "Tu cliente recibe el aviso antes de que venza la factura, con el monto y cómo pagar. Si se atrasa, el recordatorio sigue solo.",
+  },
+  {
+    file: "cotizacion.webp",
+    icon: "ph-file-text",
+    title: "Cotizaciones con tu logo, listas para enviar",
+    description:
+      "Productos, precios, despacho e IVA en un documento claro, con fecha de validez. Tu cliente sabe qué paga y hasta cuándo.",
+  },
+];
+
+const dir = join(process.cwd(), "public/img/productos");
+const visible = slides
+  .map((s) => ({ ...s, ready: s.panel ? true : existsSync(join(dir, s.file)) }))
+  .filter((s) => s.ready || import.meta.env.DEV);
+
+// Carrusel infinito: la pista lleva tres copias (antes, real, después). Las copias son solo
+// imagen (aria-hidden + inert); al terminar cada transición el script salta sin animación a la
+// lámina real equivalente, así nunca se llega a un borde.
+const copies = [-1, 0, 1].flatMap((copy) =>
+  visible.map((s, i) => ({ ...s, i, clone: copy !== 0 })),
+);
+---
+
+{
+  visible.length > 0 && (
+    <section class="section showcase" id="asi-se-ve" aria-roledescription="carrusel">
+      <span class="glow" aria-hidden="true" />
+      <div class="container">
+        <div class="head">
+          <h2 class="section-title reveal">
+            Así se ve lo que <span class="text-glow">instalamos</span>.
+          </h2>
+          <div class="controls reveal" data-delay="1">
+            <button type="button" class="nav" data-dir="-1" aria-label="Anterior">
+              <i class="ph ph-arrow-left" aria-hidden="true" />
+            </button>
+            <button type="button" class="nav" data-dir="1" aria-label="Siguiente">
+              <i class="ph ph-arrow-right" aria-hidden="true" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="viewport reveal" data-delay="1">
+      <ol class="track" tabindex="0" aria-label="Capturas de pantalla" aria-live="off">
+        {copies.map((s) => (
+          <li
+            class="slide"
+            data-real={s.i}
+            aria-hidden={s.clone ? "true" : undefined}
+            inert={s.clone}
+            aria-roledescription={s.clone ? undefined : "lámina"}
+            aria-label={s.clone ? undefined : `${s.i + 1} de ${visible.length}: ${s.title}`}
+          >
+            <figure>
+              {s.panel === "domains" ? (
+                <div class="domains">
+                  <ul>
+                    {domains.map((d, j) => (
+                      <li style={`--j: ${j}`}>
+                        <i class="ph ph-lock-simple lock" aria-hidden="true" />
+                        <span class="host">
+                          <span class="sub">{d.sub}</span>coworkers.cl
+                        </span>
+                        <span class="what">
+                          <i class={`ph ${d.icon}`} aria-hidden="true" />
+                          {d.label}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : s.ready ? (
+                <img
+                  src={`/img/productos/${s.file}`}
+                  width="2000"
+                  height="1066"
+                  alt={s.title}
+                  loading="lazy"
+                  decoding="async"
+                  draggable="false"
+                />
+              ) : (
+                <div class="pending">
+                  <span class="icon-tile" aria-hidden="true">
+                    <i class={`ph ${s.icon}`} />
+                  </span>
+                  <code>public/img/productos/{s.file}</code>
+                </div>
+              )}
+              <figcaption>
+                <h3>{s.title}</h3>
+                <p>{s.description}</p>
+              </figcaption>
+            </figure>
+          </li>
+        ))}
+      </ol>
+      </div>
+
+      <div class="container">
+        <div class="dots" role="tablist" aria-label="Elegir captura">
+          {visible.map((s, i) => (
+            <button
+              type="button"
+              role="tab"
+              aria-label={s.title}
+              aria-selected={i === 0 ? "true" : "false"}
+              data-index={i}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .showcase {
+    overflow: hidden;
+  }
+  .glow {
+    position: absolute;
+    left: -10%;
+    top: 30%;
+    width: 60%;
+    height: 60%;
+    pointer-events: none;
+    background: radial-gradient(closest-side, var(--glow-i), transparent);
+    filter: blur(40px);
+  }
+  .head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .controls {
+    display: flex;
+    gap: 10px;
+    flex: none;
+  }
+  .nav {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius);
+    border: 1px solid var(--n-700);
+    background: transparent;
+    color: var(--n-300);
+    font-size: 18px;
+    cursor: pointer;
+    transition:
+      border-color 0.3s var(--ease),
+      color 0.3s var(--ease),
+      background-color 0.3s var(--ease);
+  }
+  .nav:hover:not(:disabled) {
+    border-color: var(--accent);
+    color: var(--a-200);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+  .nav:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+
+  /* La pista arranca alineada con el contenedor y deja asomar la lámina siguiente. Se mueve con
+     transform (no con scroll): así flechas, puntos y arrastre comparten un solo estado. */
+  .viewport {
+    margin-top: 40px;
+  }
+  .track {
+    --inset: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter)));
+    --w: min(72vw, 760px);
+    --gap: 28px;
+    list-style: none;
+    margin: 0;
+    padding: 8px var(--inset) 24px;
+    display: flex;
+    gap: var(--gap);
+    transform: translate3d(var(--x, 0px), 0, 0);
+    transition: transform 0.7s var(--ease);
+    touch-action: pan-y;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .track.dragging {
+    cursor: grabbing;
+    transition: none;
+  }
+  /* Salto invisible de una copia a la lámina real: sin ninguna transición. */
+  .track.jump,
+  .track.jump .slide,
+  .track.jump .domains li {
+    transition: none !important;
+  }
+  .track:focus-visible {
+    outline-offset: -2px;
+  }
+  /* Las láminas fuera de foco se achican y se apagan; la activa queda a tamaño completo. */
+  .slide {
+    flex: 0 0 var(--w);
+    opacity: 0.4;
+    transform: scale(0.86);
+    transform-origin: center 40%;
+    transition:
+      opacity 0.6s var(--ease),
+      transform 0.7s var(--ease);
+  }
+  .slide.is-active {
+    opacity: 1;
+    transform: none;
+  }
+  figure {
+    margin: 0;
+  }
+  figure img,
+  .pending {
+    width: 100%;
+    aspect-ratio: 15 / 8;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: var(--shadow-lg);
+  }
+  /* Lámina del dominio: una dirección por servicio, el subdominio en acento. */
+  .domains {
+    width: 100%;
+    aspect-ratio: 15 / 8;
+    display: grid;
+    align-content: center;
+    padding: clamp(20px, 5%, 56px);
+    border-radius: var(--radius-lg);
+    background:
+      radial-gradient(60% 80% at 100% 0%, var(--glow-a), transparent 70%),
+      var(--surface);
+    box-shadow: var(--shadow-lg);
+  }
+  .domains ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .domains li {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 14px;
+    padding: clamp(8px, 1.6vw, 15px) 0;
+    border-bottom: 1px solid var(--divider);
+    font-size: clamp(14px, 1.9vw, 22px);
+  }
+  .domains li:last-child {
+    border-bottom: 0;
+  }
+  .lock {
+    color: var(--n-500);
+    font-size: 0.85em;
+  }
+  .host {
+    color: var(--n-300);
+    letter-spacing: -0.01em;
+    overflow-wrap: anywhere;
+  }
+  .sub {
+    color: var(--a-300);
+  }
+  .domains .what {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--n-500);
+    font-size: 0.68em;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    /* Fuera de foco las direcciones siguen a la vista, solo más tenues; al entrar se encienden en cascada. */
+    .domains li {
+      opacity: 0.55;
+      transform: translateX(-8px);
+      transition:
+        opacity 0.6s var(--ease),
+        transform 0.6s var(--ease);
+      transition-delay: calc(var(--j) * 90ms);
+    }
+    .slide.is-active .domains li {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @media (max-width: 767px) {
+    .domains .what {
+      display: none;
+    }
+  }
+
+  .pending {
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 16px;
+    color: var(--n-500);
+    border: 1px dashed var(--n-700);
+    font-size: 13px;
+  }
+  figcaption {
+    margin-top: 22px;
+    max-width: 56ch;
+  }
+  figcaption h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+  figcaption p {
+    color: var(--n-400);
+  }
+
+  .dots {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .dots button {
+    width: 28px;
+    height: 4px;
+    padding: 0;
+    border: 0;
+    border-radius: 2px;
+    background: var(--n-800);
+    cursor: pointer;
+    transition:
+      background-color 0.4s var(--ease),
+      width 0.4s var(--ease);
+  }
+  .dots button[aria-selected="true"] {
+    width: 48px;
+    background: var(--accent);
+  }
+
+  @media (max-width: 767px) {
+    .nav[data-dir] {
+      display: none;
+    }
+    .track {
+      --w: 86vw;
+      --gap: 16px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .track,
+    .slide,
+    .dots button {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  // Carrusel infinito. Estado único: `pos`, el índice dentro de la pista con tres copias.
+  // Flechas, puntos, teclado y arrastre solo cambian `pos`; al terminar la transición, si quedó
+  // sobre una copia, se salta sin animación a la lámina real equivalente.
+  const root = document.querySelector<HTMLElement>("#asi-se-ve");
+  if (root) {
+    const track = root.querySelector<HTMLElement>(".track")!;
+    const slides = [...track.querySelectorAll<HTMLElement>(".slide")];
+    const dots = [...root.querySelectorAll<HTMLButtonElement>(".dots button")];
+    const n = dots.length;
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let pos = n; // primera lámina real
+    let step = 0; // ancho de lámina + separación, en px
+
+    const measure = () => {
+      step = slides[1].offsetLeft - slides[0].offsetLeft; // offsetLeft ignora el scale
+    };
+    const offset = (extra = 0) => track.style.setProperty("--x", `${-pos * step + extra}px`);
+
+    const paint = () => {
+      const real = ((pos % n) + n) % n;
+      slides.forEach((s, j) => s.classList.toggle("is-active", j === pos));
+      dots.forEach((d, j) => d.setAttribute("aria-selected", String(j === real)));
+    };
+
+    // Vuelve a la copia real sin que se note.
+    const normalize = () => {
+      if (pos >= n && pos < 2 * n) return;
+      pos = ((pos % n) + n) % n + n;
+      track.classList.add("jump");
+      offset();
+      paint();
+      void track.offsetWidth; // aplica el salto antes de reactivar las transiciones
+      track.classList.remove("jump");
+    };
+
+    const go = (target: number) => {
+      normalize();
+      pos = target;
+      offset();
+      paint();
+      if (reduce) normalize();
+      schedule();
+    };
+
+    // Avance automático cada 5 s, siempre activo (decisión del equipo). Solo espera mientras se
+    // arrastra, y no corre fuera de pantalla ni con la pestaña oculta, donde nadie lo ve. Con
+    // prefers-reduced-motion sigue avanzando, pero sin animación (las transiciones están en none).
+    const DELAY = 5000;
+    let startX = 0;
+    let dx = 0;
+    let dragging = false;
+    let visible = false;
+    let timer = 0;
+    const schedule = () => {
+      clearTimeout(timer);
+      if (!dragging && visible && !document.hidden) timer = window.setTimeout(() => go(pos + 1), DELAY);
+    };
+    document.addEventListener("visibilitychange", schedule);
+    new IntersectionObserver(
+      ([e]) => {
+        visible = e.isIntersecting;
+        schedule();
+      },
+      { threshold: 0.4 },
+    ).observe(root);
+
+    track.addEventListener("transitionend", (e) => {
+      if (e.target === track && e.propertyName === "transform") normalize();
+    });
+
+    root.querySelectorAll<HTMLButtonElement>(".nav[data-dir]").forEach((b) =>
+      b.addEventListener("click", () => go(pos + Number(b.dataset.dir))),
+    );
+    dots.forEach((d, i) => d.addEventListener("click", () => go(n + i)));
+    track.addEventListener("keydown", (e) => {
+      if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+      e.preventDefault();
+      go(pos + (e.key === "ArrowRight" ? 1 : -1));
+    });
+
+    // Arrastre con puntero (mouse y dedo). El scroll vertical sigue libre (touch-action: pan-y).
+    track.addEventListener("pointerdown", (e) => {
+      if (e.button !== 0) return;
+      normalize();
+      dragging = true;
+      startX = e.clientX;
+      dx = 0;
+      track.setPointerCapture(e.pointerId);
+      track.classList.add("dragging");
+      schedule();
+    });
+    track.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      dx = e.clientX - startX;
+      offset(dx);
+    });
+    const release = () => {
+      if (!dragging) return;
+      dragging = false;
+      track.classList.remove("dragging");
+      const moved = Math.abs(dx) > Math.min(80, step * 0.15);
+      go(moved ? pos - Math.sign(dx) * Math.max(1, Math.round(Math.abs(dx) / step)) : pos);
+    };
+    track.addEventListener("pointerup", release);
+    track.addEventListener("pointercancel", release);
+
+    // Una lámina a medio arrastrar tampoco se abre como enlace o imagen.
+    track.addEventListener("click", (e) => {
+      if (Math.abs(dx) > 5) e.preventDefault();
+    }, true);
+
+    new ResizeObserver(() => {
+      measure();
+      track.classList.add("jump");
+      offset();
+      void track.offsetWidth;
+      track.classList.remove("jump");
+    }).observe(track);
+
+    measure();
+    track.classList.add("jump");
+    offset();
+    paint();
+    void track.offsetWidth;
+    track.classList.remove("jump");
+  }
+</script>
