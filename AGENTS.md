@@ -30,10 +30,11 @@ Orden de secciones en `index.astro`, de arriba a abajo:
 1. `Hero` — titular rotativo "Tu proyecto…" a gran escala + el problema (cobrar, cumplir, ordenar). Sin foto hasta que exista una propia (tablet en un mostrador); una de archivo aquí es una prueba falsa
 2. `PainFacts` — "Nos llaman cuando": 1 de diciembre y 40 días, con fuente, sobre la banda índigo
 3. `TwoDoors` — servicios de Coworkers.cl (lista con reglas) + tarjeta de Mesón con foto
-4. `HowWeWork` — "Cuatro pasos. Ningún manual.", cuatro pasos sobre una línea
-5. `Guarantees` — "Lo que puedes exigirnos": los cuatro pilares en 2×2
-6. `Team` — historia corta sobre foto a sangre (la puerta para estudiantes está comentada hasta que se abra el reclutamiento)
-7. `FinalCta` — "Cuéntanos cómo funciona hoy tu operación"
+4. `ProductShowcase` — "Así se ve lo que instalamos": carrusel de capturas reales (`public/img/productos/`). Una lámina sin su archivo no sale en el build; sin ninguna, la sección desaparece. Las capturas no muestran nombres ni logos del motor
+5. `HowWeWork` — "Cuatro pasos. Ningún manual.", cuatro pasos sobre una línea
+6. `Guarantees` — "Lo que puedes exigirnos": los cuatro pilares en 2×2
+7. `Team` — historia corta sobre foto a sangre (la puerta para estudiantes está comentada hasta que se abra el reclutamiento)
+8. `FinalCta` — "Cuéntanos cómo funciona hoy tu operación"
 
 ## Dirección de diseño
 
