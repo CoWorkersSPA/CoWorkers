@@ -17,6 +17,10 @@ const {
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
+// Imagen al compartir el enlace (WhatsApp, LinkedIn, Slack...). Sin ella, cada app usa el favicon.
+// Se genera fuera del repo a partir de los tokens de marca; 1200×630 es la proporción que todas
+// muestran como vista grande.
+const ogImage = new URL("/og-image.png", Astro.site);
 
 // Datos estructurados: quién es la empresa, para buscadores y asistentes de IA.
 const jsonLd = {
@@ -102,9 +106,11 @@ const jsonLd = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#161826" />
-    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="/favicon-512.png" sizes="512x512" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -122,6 +128,16 @@ const jsonLd = {
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content="es_CL" />
     <meta property="og:site_name" content="Coworkers.cl" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="coworkers.cl: Software que se entiende. Para pymes de Concepción."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link
       rel="alternate"
