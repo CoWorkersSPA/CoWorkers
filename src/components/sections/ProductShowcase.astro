@@ -101,6 +101,9 @@ const copies = [-1, 0, 1].flatMap((copy) =>
             Así se ve lo que <span class="text-glow">instalamos</span>.
           </h2>
           <div class="controls reveal" data-delay="1">
+            <button type="button" class="nav play" aria-label="Pausar avance automático" aria-pressed="false">
+              <i class="ph ph-pause" aria-hidden="true" />
+            </button>
             <button type="button" class="nav" data-dir="-1" aria-label="Anterior">
               <i class="ph ph-arrow-left" aria-hidden="true" />
             </button>
@@ -473,19 +476,34 @@ const copies = [-1, 0, 1].flatMap((copy) =>
       schedule();
     };
 
-    // Avance automático cada 5 s, siempre activo (decisión del equipo). Solo espera mientras se
-    // arrastra, y no corre fuera de pantalla ni con la pestaña oculta, donde nadie lo ve. Con
-    // prefers-reduced-motion sigue avanzando, pero sin animación (las transiciones están en none).
+    // Avance automático cada 5 s, encendido por defecto (decisión del equipo). Se detiene solo con
+    // el botón de pausa (WCAG 2.2.2); además espera mientras se arrastra, y no corre fuera de
+    // pantalla ni con la pestaña oculta. Con prefers-reduced-motion avanza sin animación.
     const DELAY = 5000;
     let startX = 0;
     let dx = 0;
     let dragging = false;
     let visible = false;
     let timer = 0;
+    let paused = false;
     const schedule = () => {
       clearTimeout(timer);
-      if (!dragging && visible && !document.hidden) timer = window.setTimeout(() => go(pos + 1), DELAY);
+      if (!paused && !dragging && visible && !document.hidden)
+        timer = window.setTimeout(() => go(pos + 1), DELAY);
     };
+    const playBtn = root.querySelector<HTMLButtonElement>(".play")!;
+    playBtn.addEventListener("click", () => {
+      paused = !paused;
+      playBtn.setAttribute("aria-pressed", String(paused));
+      playBtn.setAttribute(
+        "aria-label",
+        paused ? "Reanudar avance automático" : "Pausar avance automático",
+      );
+      playBtn.querySelector("i")!.className = `ph ${paused ? "ph-play" : "ph-pause"}`;
+      // En pausa el lector de pantalla vuelve a anunciar cada cambio de lámina.
+      track.setAttribute("aria-live", paused ? "polite" : "off");
+      schedule();
+    });
     document.addEventListener("visibilitychange", schedule);
     new IntersectionObserver(
       ([e]) => {
